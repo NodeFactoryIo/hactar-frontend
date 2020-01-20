@@ -23,7 +23,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "lint": "eslint --color --ext .ts --ext .tsx src/",
+    "lint:fix": "yarn run lint --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,6 +48,10 @@
     "@storybook/addons": "^5.3.7",
     "@storybook/preset-create-react-app": "^1.5.2",
     "@storybook/react": "^5.3.7",
-    "@types/react-redux": "^7.1.6"
+    "@types/react-redux": "^7.1.6",
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.18.0"
   }
 }
