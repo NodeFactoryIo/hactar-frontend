@@ -1,0 +1,14 @@
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Barlow Regular'), local('Barlow-Regular'), url(./style/fonts/Barlow/Barlow-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Barlow Bold'), local('Barlow-Bold'), url(./style/fonts/Barlow/Barlow-Bold.ttf) format('truetype');
+}
