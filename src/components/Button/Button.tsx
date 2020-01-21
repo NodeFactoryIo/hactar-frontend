@@ -5,9 +5,8 @@ enum TYPES {
     SECONDARY = "secondary",
 }
 
-interface IBaseButtonProps {
+interface IBaseButtonProps extends React.HTMLProps<HTMLButtonElement> {
     type: string;
-    props: React.HTMLProps<HTMLButtonElement>;
 }
 
 const BaseButton = ({type, ...props}: IBaseButtonProps) => (
@@ -15,9 +14,9 @@ const BaseButton = ({type, ...props}: IBaseButtonProps) => (
 );
 
 export const ButtonPrimary = (props: React.HTMLProps<HTMLButtonElement>) => (
-    <BaseButton type={TYPES.PRIMARY} props={props} />
+    <BaseButton type={TYPES.PRIMARY} {...props} />
 );
 
 export const ButtonSecondary = (props: React.HTMLProps<HTMLButtonElement>) => (
-    <BaseButton type={TYPES.SECONDARY} props={props} />
+    <BaseButton type={TYPES.SECONDARY} {...props} />
 );

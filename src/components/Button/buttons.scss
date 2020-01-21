@@ -1,0 +1,25 @@
+.button {
+  border-radius: 4px;
+  width: 384px;
+  height: 48px;
+  text-transform: uppercase;
+  border: none;
+  color: $text-dark;
+}
+
+.btn-primary {
+  background: $primary;
+
+  &:hover{
+    background: $primary-hovered;
+  }
+  &:active{
+    background: $primary-pressed;
+  }
+  &:focus {
+    background: $primary-focused;
+  }
+  &:disabled {
+    background: $primary-disabled;
+  }
+}
