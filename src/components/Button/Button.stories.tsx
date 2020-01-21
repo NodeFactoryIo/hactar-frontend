@@ -4,5 +4,5 @@ import { ButtonPrimary, ButtonSecondary } from './Button';
 import '../../style/index.scss'
 
 storiesOf('Button', module).add('Primary', () => {
-    return <ButtonPrimary >login</ButtonPrimary>;
+    return <ButtonPrimary>login</ButtonPrimary>;
 });

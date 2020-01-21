@@ -1,0 +1,16 @@
+input {
+  width: 348px;
+  height: 48px;
+  line-height: 48px;
+  font-size: 18px;
+  background: #313849;
+  border-radius: 4px;
+  color: $accented;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: $hint;
+  font-size: 18px;
+}
