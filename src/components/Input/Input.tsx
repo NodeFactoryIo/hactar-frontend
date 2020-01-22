@@ -30,4 +30,4 @@ export const Input = (props: IInputContainerProps) => {
             <input {...props} />
         </div>
     );
-}
+};
