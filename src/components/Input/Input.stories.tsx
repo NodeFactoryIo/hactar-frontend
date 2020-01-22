@@ -6,3 +6,7 @@ import '../../style/index.scss'
 storiesOf('Input', module).add('Input', () => {
     return <Input placeholder="placeholder" />;
 });
+
+storiesOf('Input', module).add('Input with icon', () => {
+    return <Input placeholder="placeholder" icon="email" />;
+});

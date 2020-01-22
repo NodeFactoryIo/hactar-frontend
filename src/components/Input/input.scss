@@ -8,9 +8,34 @@ input {
   color: $accented;
   padding: 16px;
   box-sizing: border-box;
+  border: none;
+
+  &:focus {
+    background: $input-active;
+  }
 }
 
 input::placeholder {
   color: $hint;
   font-size: 18px;
+}
+
+.input-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+
+  .material-icons {
+    position: absolute;
+    padding: 12px;
+    color: $hint;
+    width: 14px;
+    text-align: center;
+  }
+
+  &.has-icon {
+    input {
+      padding-left: 46px;
+    }
+  }
 }
