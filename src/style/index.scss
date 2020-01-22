@@ -1,4 +1,8 @@
-@import './reset.scss';
+@import-normalize; /* bring in normalize.css styles */
+
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+
 @import './variables.scss';
 @import './common.scss';
 
