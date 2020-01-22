@@ -12,5 +12,5 @@ storiesOf('Input', module).add('Input with icon', () => {
 });
 
 storiesOf('Input', module).add('Input with error', () => {
-    return <Input placeholder="placeholder" icon="email" error={true} value="fake@email.com" />;
+    return <Input placeholder="placeholder" icon="email" error="Invalid email" value="fake@email.com" />;
 });
