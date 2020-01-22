@@ -10,3 +10,7 @@ storiesOf('Input', module).add('Input', () => {
 storiesOf('Input', module).add('Input with icon', () => {
     return <Input placeholder="placeholder" icon="email" />;
 });
+
+storiesOf('Input', module).add('Input with error', () => {
+    return <Input placeholder="placeholder" icon="email" error={true} value="fake@email.com" />;
+});

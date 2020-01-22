@@ -33,9 +33,13 @@ input::placeholder {
     text-align: center;
   }
 
-  &.has-icon {
-    input {
-      padding-left: 46px;
+  &.has-icon input {
+    padding-left: 46px;
+  }
+
+  &.error {
+    input, .material-icons {
+      color: $error;
     }
   }
 }

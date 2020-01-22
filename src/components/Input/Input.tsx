@@ -3,17 +3,20 @@ import classNames from "classnames";
 
 interface IInputContainerProps extends React.HTMLProps<HTMLInputElement> {
     icon?: string;
+    error?: boolean;
 }
 
 export const Input = (props: IInputContainerProps) => {
-    let icon = null;
-    if (props.icon) {
-        icon = <i className="material-icons">{props.icon}</i>;
+    const {icon, error} = props;
+
+    let iconElement = null;
+    if (icon) {
+        iconElement = <i className="material-icons">{icon}</i>;
     }
 
     return (
-        <div className={classNames("input-container", {"has-icon": !!icon})}>
-            {icon}
+        <div className={classNames("input-container", {"has-icon": !!icon, error})}>
+            {iconElement}
             <input {...props} />
         </div>
     );
