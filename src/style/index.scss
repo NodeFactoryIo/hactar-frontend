@@ -4,7 +4,9 @@ $material-icons-font-path: '~material-icons/iconfont/';
 @import '~material-icons/iconfont/material-icons.scss';
 
 @import './variables.scss';
+@import './typography';
 @import './common.scss';
 
 @import '../components/Button/buttons.scss';
 @import '../components/Input/input.scss';
+

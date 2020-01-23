@@ -1,5 +1,5 @@
 input {
-  width: 348px;
+  width: 384px;
   height: 48px;
   line-height: 48px;
   font-size: 18px;
@@ -23,7 +23,7 @@ input::placeholder {
 .input-container {
   display: flex;
   width: 100%;
-  margin-bottom: 15px;
+  margin: 16px 0;
 
   .material-icons {
     position: absolute;

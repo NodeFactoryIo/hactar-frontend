@@ -3,12 +3,67 @@
   font-family: 'Barlow';
   font-style: normal;
   font-weight: 400;
-  src: local('Barlow Regular'), local('Barlow-Regular'), url(./style/fonts/Barlow/Barlow-Regular.ttf) format('truetype');
+  src: local('Barlow Regular'), local('Barlow-Regular'), url(./fonts/Barlow/Barlow-Regular.ttf) format('truetype');
 }
 
 @font-face {
   font-family: 'Barlow';
   font-style: normal;
   font-weight: 700;
-  src: local('Barlow Bold'), local('Barlow-Bold'), url(./style/fonts/Barlow/Barlow-Bold.ttf) format('truetype');
+  src: local('Barlow Bold'), local('Barlow-Bold'), url(./fonts/Barlow/Barlow-Bold.ttf) format('truetype');
+}
+
+// Breakpoints
+$bp-small: 42.67em; // 768px
+$bp-medium: 56.89em; // 1024px
+$bp-large: 75.89em; // 1366px
+$bp-xlarge: 106.67em; // 1920px
+$bp-xxlarge: 142.22em; // 2560px
+
+// Media Queries
+$mq-small: "(min-width: #{$bp-small})";
+$mq-medium: "(min-width: #{$bp-medium})";
+$mq-large: "(min-width: #{$bp-large})";
+$mq-xlarge: "(min-width: #{$bp-xlarge})";
+$mq-xxlarge: "(min-width: #{$bp-xxlarge})";
+$mq-retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
+
+$base-font-size: 1em;
+$base-line-height: 1.5;
+$header-line-height: 1.25;
+
+body {
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  font-family: 'Barlow';
+  //font-size: 18px;
+
+  @media #{$mq-medium} {
+    font-size: $base-font-size*1.2;
+    line-height: $base-line-height*1.2;
+  }
+
+  @media #{$mq-large} {
+    font-size: $base-font-size*1.3;
+  }
+
+  @media #{$mq-xlarge} {
+    font-size: $base-font-size*1.4;
+  }
+
+  @media #{$mq-xxlarge} {
+    font-size: $base-font-size*1.6;
+  }
+}
+
+h1 {
+  font-size: 2.67rem;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+  font-weight: bold;
+  color: $accented;
+}
+
+a {
+  color: $primary;
 }

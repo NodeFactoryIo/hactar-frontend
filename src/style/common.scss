@@ -1,4 +1,25 @@
-body {
-  font-family: 'Barlow';
-  font-size: 18px;
+.logo-horizontal {
+  background: url(../assets/images/logo-horizontal.svg) no-repeat;
+  width: 310px;
+  height: 50px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.self-centered {
+  display: flex;
+  align-self: center;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

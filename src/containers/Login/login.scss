@@ -1,0 +1,47 @@
+@import "../../style/variables.scss";
+@import "../../style/typography";
+
+body {
+  background: url(../../assets/images/background.svg) no-repeat center center fixed;
+  background-size: cover;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;;
+  justify-content: space-around;
+
+  @media #{$mq-small} {
+    flex-direction: row;
+    padding: 8rem;
+  }
+
+  h1 {
+    max-width: 560px;
+  }
+
+  .login-form-container {
+    background: $container;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.24);
+    border-radius: 8px 8px 0 0;
+    padding: 32px;
+
+    .logo-horizontal {
+      margin: 3rem 0;
+    }
+  }
+
+  .signup-suggestion {
+    color: $secondary;
+    background: $elevation;
+    border-radius: 0 0 8px 8px;
+    padding: 2rem 3rem;
+    text-align: center;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
