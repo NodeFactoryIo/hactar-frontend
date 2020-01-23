@@ -1,10 +1,10 @@
 import React, {ReactElement} from "react";
 
 import "../../style/onboarding.scss";
-import {LoginForm} from "./LoginForm";
 import {Routes} from "../../constants/routes";
+import {RegisterForm} from "./RegisterForm";
 
-export const LoginContainer = (): ReactElement => {
+export const RegisterContainer = (): ReactElement => {
     return (
         <div className="onboarding-container">
             <h1>
@@ -16,11 +16,11 @@ export const LoginContainer = (): ReactElement => {
                 <div className="form-container flex-column">
                     <div className="logo-horizontal self-centered" />
 
-                    <LoginForm />
+                    <RegisterForm />
                 </div>
 
                 <div className="signup-suggestion">
-                    Don't have an account? <b><a href={Routes.REGISTER_ROUTE}>Sign Up</a></b>
+                    Already have an account? <b><a href={Routes.LOGIN_ROUTE}>Login</a></b>
                 </div>
             </div>
         </div>

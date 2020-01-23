@@ -1,12 +1,12 @@
-@import "../../style/variables.scss";
-@import "../../style/typography";
+@import "./variables.scss";
+@import "./typography.scss";
 
 body {
-  background: url(../../assets/images/background.svg) no-repeat center center fixed;
+  background: url(../assets/images/background.svg) no-repeat center center fixed;
   background-size: cover;
 }
 
-.login-container {
+.onboarding-container {
   display: flex;
   flex-direction: column;;
   justify-content: space-around;
@@ -20,7 +20,7 @@ body {
     max-width: 560px;
   }
 
-  .login-form-container {
+  .form-container {
     background: $container;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.24);
     border-radius: 8px 8px 0 0;
@@ -40,7 +40,7 @@ body {
   }
 }
 
-.login-form {
+form {
   display: flex;
   flex-direction: column;
   justify-content: center;
