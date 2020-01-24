@@ -1,0 +1,15 @@
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  color: $regular;
+  background: $container;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 0px 0px 8px 8px;
+
+  .bar-element {
+    display: flex;
+    margin: 1rem 1.94rem;
+    max-height: 1.33rem;
+    align-items: center;
+  }
+}

@@ -1,0 +1,11 @@
+@import "../../style/variables.scss";
+@import "../../style/typography.scss";
+
+body {
+  background: $background;
+  margin: 0;
+}
+
+.dashboard-container {
+  padding: 0 1.33rem;
+}

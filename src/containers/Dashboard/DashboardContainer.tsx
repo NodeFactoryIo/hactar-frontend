@@ -5,7 +5,7 @@ import {TopBar} from "../../components/TopBar/TopBar";
 
 export const DashboardContainer = (): ReactElement => {
     return (
-        <div>
+        <div className="dashboard-container">
             <TopBar />
         </div>
     );
