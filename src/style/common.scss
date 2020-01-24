@@ -4,13 +4,18 @@
   height: 50px;
 }
 
-.flex {
+.row {
   display: flex;
 }
 
 .flex-column {
   display: flex;
   flex-direction: column;
+}
+
+.row-spaced {
+  display: flex;
+  justify-content: space-between;
 }
 
 .self-centered {

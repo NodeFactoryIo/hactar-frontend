@@ -1,7 +1,7 @@
 import React from "react";
 
 export const TopBar = () => (
-    <div className="top-bar">
+    <div className="container top-bar">
         <div className="logo-horizontal bar-element" />
 
         <div className="bar-element">

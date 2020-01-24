@@ -1,0 +1,31 @@
+.general-info {
+  color: $accented !important;
+
+  .node-options i {
+    color: $secondary;
+  }
+
+  .general-info-stats {
+    background: $elevation;
+    display: flex;
+    justify-content: space-between;
+
+    .stat {
+      margin: 0 1.5rem 0 0;
+
+      label {
+        text-transform: uppercase;
+        color: $secondary;
+        font-size: 0.78rem;
+        line-height: 1.33rem;
+      }
+
+      p {
+        font-size: 1.33rem;
+        line-height: 1.33rem;
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+  }
+}

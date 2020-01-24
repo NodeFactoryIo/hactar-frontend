@@ -2,9 +2,8 @@
   display: flex;
   justify-content: space-between;
   color: $regular;
-  background: $container;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.08);
-  border-radius: 0px 0px 8px 8px;
+  border-radius: 0 0 8px 8px !important;
+  padding: 0 !important;
 
   .bar-element {
     display: flex;

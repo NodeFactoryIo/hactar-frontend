@@ -8,4 +8,29 @@ body {
 
 .dashboard-container {
   padding: 0 1.33rem;
+
+  .container {
+    background: #242B3D;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+    color: $regular;
+    border-radius: 8px;
+
+    .upper {
+      border-radius: 8px 8px 0 0;
+      padding: 1.78rem;
+    }
+
+    .lower {
+      background: $elevation;
+      padding: 1.78rem;
+      border-radius: 0 0 8px 8px;
+      flex-wrap: wrap;
+    }
+  }
 }
+
+.vertical-margin {
+  margin: 2.67rem 0;
+}
+
+@import "../GeneralInfo/general-info.scss";
