@@ -1,0 +1,12 @@
+.balance.lower {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+
+  .yellow {
+    margin-left: 1rem;
+    line-height: 3.3rem;
+  }
+}

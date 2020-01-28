@@ -1,3 +1,9 @@
+label {
+  text-transform: uppercase;
+  color: $secondary;
+  letter-spacing: 0.6px;
+}
+
 .logo-horizontal {
   background: url(../assets/images/logo-horizontal.svg) no-repeat;
   width: 310px;
@@ -27,4 +33,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.splitted-row {
+  display: flex;
+  flex-wrap: wrap;
+
+  .column {
+    width: 100%;
+
+    @media #{$mq-medium} {
+      width: 50%;
+    }
+  }
+}
+
+.no-line-height {
+  line-height: 0;
 }
