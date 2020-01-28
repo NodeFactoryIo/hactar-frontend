@@ -8,8 +8,11 @@ export const LoginContainer = (): ReactElement => {
     return (
         <div className="onboarding-container">
             <h1>
-                An analysis tool for your <a href="http://filecoin.io" target="_blank" rel="noopener noreferrer">
-                Filecoin</a> mining nodes.
+                An analysis tool for your{" "}
+                <a href="http://filecoin.io" target="_blank" rel="noopener noreferrer">
+                    Filecoin
+                </a>{" "}
+                mining nodes.
             </h1>
 
             <div className="flex-column">
@@ -20,9 +23,12 @@ export const LoginContainer = (): ReactElement => {
                 </div>
 
                 <div className="signup-suggestion">
-                    Don't have an account? <b><a href={Routes.REGISTER_ROUTE}>Sign Up</a></b>
+                    Don't have an account?{" "}
+                    <b>
+                        <a href={Routes.REGISTER_ROUTE}>Sign Up</a>
+                    </b>
                 </div>
             </div>
         </div>
     );
-}
+};

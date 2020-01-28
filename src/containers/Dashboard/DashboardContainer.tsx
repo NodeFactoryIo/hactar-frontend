@@ -18,9 +18,7 @@ export const DashboardContainer = (): ReactElement => {
                     <CurrentBalanceContainer />
                     <BalanceHistoryContainer />
                 </div>
-                <div className="column">
-
-                </div>
+                <div className="column"></div>
             </div>
         </div>
     );
