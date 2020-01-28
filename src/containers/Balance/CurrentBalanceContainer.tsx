@@ -1,7 +1,7 @@
 import React, {ReactElement} from "react";
 import "./balance.scss";
 
-export const BalanceContainer = (): ReactElement => {
+export const CurrentBalanceContainer = (): ReactElement => {
     return (
         <div className="container flex-column">
             <div className="upper">

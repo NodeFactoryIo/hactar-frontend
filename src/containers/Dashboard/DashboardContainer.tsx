@@ -3,7 +3,8 @@ import React, {ReactElement} from "react";
 import "./dashboard.scss";
 import {TopBar} from "../../components/TopBar/TopBar";
 import {GeneralInfo} from "../GeneralInfo/GeneralInfo";
-import {BalanceContainer} from "../Balance/BalanceContainer";
+import {CurrentBalanceContainer} from "../Balance/CurrentBalanceContainer";
+import {BalanceHistoryContainer} from "../Balance/BalanceHistoryContainer";
 
 export const DashboardContainer = (): ReactElement => {
     return (
@@ -14,7 +15,8 @@ export const DashboardContainer = (): ReactElement => {
 
             <div className="splitted-row">
                 <div className="column">
-                    <BalanceContainer />
+                    <CurrentBalanceContainer />
+                    <BalanceHistoryContainer />
                 </div>
                 <div className="column">
 
