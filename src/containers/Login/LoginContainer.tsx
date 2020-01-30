@@ -1,6 +1,5 @@
 import React, {ReactElement} from "react";
 
-import "../../style/onboarding.scss";
 import {LoginForm} from "./LoginForm";
 import {Routes} from "../../constants/routes";
 

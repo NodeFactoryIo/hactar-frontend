@@ -1,6 +1,5 @@
 import React, {ReactElement} from "react";
 
-import "../../style/onboarding.scss";
 import {Routes} from "../../constants/routes";
 import {RegisterForm} from "./RegisterForm";
 

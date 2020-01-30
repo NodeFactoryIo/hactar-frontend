@@ -1,12 +1,12 @@
 @import "./variables.scss";
 @import "./typography.scss";
 
-body {
+.onboarding-container {
   background: url(../assets/images/background.svg) no-repeat center center fixed;
   background-size: cover;
-}
+  height: 100%;
+  overflow: hidden;
 
-.onboarding-container {
   display: flex;
   flex-direction: column;;
   justify-content: space-around;
