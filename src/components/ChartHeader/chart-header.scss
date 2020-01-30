@@ -1,0 +1,40 @@
+.chart-header {
+  display: flex;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 1rem;
+
+  .row {
+    align-items: center;
+    padding-right: 2rem;
+    color: $accented;
+    font-size: 0.89rem;
+
+    .material-icons {
+      color: $primary;
+    }
+
+    .material-icons, img {
+      margin-right: 0.4rem;
+    }
+  }
+
+  .time {
+    padding-right: 0;
+
+    span {
+      color: $secondary;
+      cursor: pointer;
+      padding-right: 1rem;
+
+      &:last-child {
+        padding-right: 0;
+      }
+
+      &.selected {
+        color: $accented;
+        font-weight: bold;
+      }
+    }
+  }
+}

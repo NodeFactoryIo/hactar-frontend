@@ -5,6 +5,7 @@ import {TopBar} from "../../components/TopBar/TopBar";
 import {GeneralInfo} from "../GeneralInfo/GeneralInfo";
 import {CurrentBalanceContainer} from "../Balance/CurrentBalanceContainer";
 import {BalanceHistoryContainer} from "../Balance/BalanceHistoryContainer";
+import {Uptime} from "../Uptime/UptimeContainer";
 
 export const DashboardContainer = (): ReactElement => {
     return (
@@ -18,7 +19,9 @@ export const DashboardContainer = (): ReactElement => {
                     <CurrentBalanceContainer />
                     <BalanceHistoryContainer />
                 </div>
-                <div className="column"></div>
+                <div className="column">
+                    <Uptime />
+                </div>
             </div>
         </div>
     );

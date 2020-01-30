@@ -3,6 +3,7 @@ import Moment from "react-moment";
 
 import "./balance.scss";
 import {BalanceChart} from "./BalanceChart";
+import {ChartHeader} from "../../components/ChartHeader/ChartHeader";
 
 export type BalanceProps = {
     date: string;
@@ -33,28 +34,7 @@ export const BalanceHistoryContainer = (): ReactElement => {
                 <label>balance history</label>
             </div>
 
-            <div className="lower row-spaced balance-history">
-                <div className="row">
-                    <div className="row">
-                        <img src={require("../../assets/icons/time.svg")} />
-                        <p>
-                            <Moment format="DD MMM, YYYY">{toolTip.date}</Moment>
-                        </p>
-                    </div>
-
-                    <div className="row">
-                        <i className="material-icons">account_balance_wallet</i>
-                        <p>{toolTip.balance}</p>
-                    </div>
-                </div>
-
-                <div className="row time">
-                    <span>Day</span>
-                    <span className="selected">Week</span>
-                    <span>Month</span>
-                    <span>Year</span>
-                </div>
-            </div>
+            <ChartHeader date={toolTip.date} value={toolTip.balance} />
 
             <BalanceChart data={data} onMouseMove={updateTooltip} />
         </div>
