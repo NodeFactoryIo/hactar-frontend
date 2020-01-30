@@ -1,5 +1,4 @@
 import React, {ReactElement, useState} from "react";
-import Moment from "react-moment";
 
 import "./balance.scss";
 import {BalanceChart} from "./BalanceChart";
