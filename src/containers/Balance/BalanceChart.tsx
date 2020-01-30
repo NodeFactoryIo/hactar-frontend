@@ -1,18 +1,17 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import React, {Component} from "react";
-import _ from "lodash";
-import moment from "moment";
+import React from "react";
 
 import {BalanceProps} from "./BalanceHistoryContainer";
+import {ChartWrapper} from "../../components/ChartWrapper";
 
 type BalanceChartProps = {
     data: BalanceProps[];
     onMouseMove: (e: any) => void;
 };
 
-export class BalanceChart extends Component<BalanceChartProps> {
-    public shouldComponentUpdate(nextProps: Readonly<BalanceChartProps>): boolean {
-        return !_.isEqual(this.props.data, nextProps.data);
+export class BalanceChart extends ChartWrapper<BalanceChartProps> {
+    constructor(props: BalanceChartProps) {
+        super(props);
     }
 
     public render() {
@@ -28,7 +27,7 @@ export class BalanceChart extends Component<BalanceChartProps> {
                             <stop offset="95%" stopColor="rgba(238, 202, 28)" stopOpacity={0} />
                         </linearGradient>
                     </defs>
-                    <XAxis dataKey="date" tickFormatter={v => this.formatXAxis(v)} />
+                    <XAxis dataKey="date" tickFormatter={v => super.formatXAxis(v)} />
                     <YAxis orientation="right" />
                     <CartesianGrid strokeDasharray="6 6" stroke="#363C4D" />
                     <Tooltip content={() => null} />
@@ -36,9 +35,5 @@ export class BalanceChart extends Component<BalanceChartProps> {
                 </AreaChart>
             </ResponsiveContainer>
         );
-    }
-
-    private formatXAxis(value: string) {
-        return moment(value).format("DD MMM");
     }
 }
