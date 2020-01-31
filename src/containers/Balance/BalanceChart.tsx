@@ -10,10 +10,6 @@ type BalanceChartProps = {
 };
 
 export class BalanceChart extends ChartWrapper<BalanceChartProps> {
-    constructor(props: BalanceChartProps) {
-        super(props);
-    }
-
     public render() {
         const {data, onMouseMove} = this.props;
         const formattedData = data.map(v => ({date: v.date, balance: parseInt(v.balance)}));

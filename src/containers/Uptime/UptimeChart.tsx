@@ -1,4 +1,4 @@
-import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {Bar, BarChart, ResponsiveContainer, Tooltip, XAxis} from "recharts";
 import React from "react";
 
 import {UptimeProps} from "./UptimeContainer";
@@ -10,10 +10,6 @@ type UptimeChartProps = {
 };
 
 export class UptimeChart extends ChartWrapper<UptimeChartProps> {
-    constructor(props: UptimeChartProps) {
-        super(props);
-    }
-
     public render() {
         const {data, onMouseMove} = this.props;
         const formattedData = data.map(v => ({date: v.date, online: v.value ? 1 : 0, offline: v.value ? 0 : 1}));

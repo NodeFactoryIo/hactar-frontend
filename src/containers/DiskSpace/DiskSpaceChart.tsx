@@ -10,10 +10,6 @@ type DiskSpaceChartProps = {
 };
 
 export class DiskSpaceChart extends ChartWrapper<DiskSpaceChartProps> {
-    constructor(props: DiskSpaceChartProps) {
-        super(props);
-    }
-
     public render() {
         const {data, onMouseMove} = this.props;
 

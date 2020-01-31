@@ -20,8 +20,8 @@ export const ChartHeader = ({date, values}: IChartHeaderProps): ReactElement => 
                 {values.length > 1 ? <div className="break-row" /> : null}
 
                 <div className="row">
-                    {values.map(v => (
-                        <div className="tooltip-values">
+                    {values.map((v, index) => (
+                        <div className="tooltip-values" key={index}>
                             {v.icon}
                             <p>{v.value}</p>
                         </div>
