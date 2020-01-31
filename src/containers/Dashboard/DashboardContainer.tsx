@@ -15,11 +15,11 @@ export const DashboardContainer = (): ReactElement => {
             <GeneralInfo />
 
             <div className="splitted-row">
-                <div className="column">
+                <div className="column left">
                     <CurrentBalanceContainer />
                     <BalanceHistoryContainer />
                 </div>
-                <div className="column">
+                <div className="column right">
                     <Uptime />
                 </div>
             </div>

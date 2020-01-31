@@ -26,7 +26,7 @@ export const Uptime = (): ReactElement => {
     };
 
     return (
-        <div className="container flex-column vertical-margin">
+        <div className="container flex-column">
             <div className="upper">
                 <label>uptime</label>
             </div>
