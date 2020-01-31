@@ -6,7 +6,6 @@
 
   .row {
     align-items: center;
-    padding-right: 2rem;
     color: $accented;
     font-size: 0.89rem;
 
@@ -21,6 +20,8 @@
 
   .time {
     padding-right: 0;
+    padding-top: 1rem;
+    align-items: flex-start;
 
     span {
       color: $secondary;
@@ -36,5 +37,15 @@
         font-weight: bold;
       }
     }
+  }
+
+  .tooltip-values {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+  }
+
+  .row.icon-padding {
+    padding-right: 2rem;
   }
 }

@@ -14,7 +14,7 @@ export const DiskSpace = (): ReactElement => {
         {date: "2020-01-24T14:43:42.856Z", free: 102, taken: 68},
         {date: "2020-01-25T14:43:42.856Z", free: 1343, taken: 1001},
         {date: "2020-01-26T14:43:42.856Z", free: 200, taken: 20},
-        {date: "2020-01-27T14:43:42.856Z", free: 10234, taken: 1092},
+        {date: "2020-01-27T14:43:42.856Z", free: 1234, taken: 1092},
         {date: "2020-01-28T14:43:42.856Z", free: 926, taken: 925},
     ];
 
@@ -27,7 +27,7 @@ export const DiskSpace = (): ReactElement => {
     };
 
     return (
-        <div className="container flex-column">
+        <div className="container flex-column vertical-margin">
             <div className="upper">
                 <label>disk space</label>
             </div>
@@ -35,8 +35,8 @@ export const DiskSpace = (): ReactElement => {
             <ChartHeader
                 date={toolTip.date}
                 values={[
-                    {value: `Free - ${toolTip.free} GB`, icon: ""},
-                    {value: `Taken - ${toolTip.taken} GB`, icon: ""},
+                    {value: `Free - ${toolTip.free} GB`, icon: <img src={require("../../assets/icons/polygon.svg")} />},
+                    {value: `Taken - ${toolTip.taken} GB`, icon: <img src={require("../../assets/icons/polygon-dark.svg")} />},
                 ]}
             />
 

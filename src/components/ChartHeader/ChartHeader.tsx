@@ -3,26 +3,28 @@ import Moment from "react-moment";
 
 interface IChartHeaderProps {
     date: string;
-    values: {icon: string; value: string}[];
+    values: {icon: ReactElement; value: string}[];
 }
 
 export const ChartHeader = ({date, values}: IChartHeaderProps): ReactElement => {
     return (
         <div className="lower row-spaced chart-header">
-            <div className="row">
-                <div className="row">
+            <div className="row wrapped">
+                <div className="row icon-padding">
                     <img src={require("../../assets/icons/time.svg")} />
                     <p>
                         <Moment format="DD MMM, YYYY">{date}</Moment>
                     </p>
                 </div>
 
+                {values.length > 1 ? <div className="break-row" /> : null}
+
                 <div className="row">
                     {values.map(v => (
-                        <>
-                            <i className="material-icons">{v.icon}</i>
+                        <div className="tooltip-values">
+                            {v.icon}
                             <p>{v.value}</p>
-                        </>
+                        </div>
                     ))}
                 </div>
             </div>

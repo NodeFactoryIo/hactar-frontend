@@ -14,6 +14,10 @@ label {
   display: flex;
 }
 
+.wrapped {
+  flex-wrap: wrap;
+}
+
 .flex-column {
   display: flex;
   flex-direction: column;
@@ -33,6 +37,11 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.break-row {
+  flex-basis: 100%;
+  height: 0;
 }
 
 .splitted-row {
