@@ -33,7 +33,7 @@ export const BalanceHistoryContainer = (): ReactElement => {
                 <label>balance history</label>
             </div>
 
-            <ChartHeader date={toolTip.date} value={toolTip.balance} />
+            <ChartHeader date={toolTip.date} values={[{value: toolTip.balance, icon: "account_balance_wallet"}]} />
 
             <BalanceChart data={data} onMouseMove={updateTooltip} />
         </div>

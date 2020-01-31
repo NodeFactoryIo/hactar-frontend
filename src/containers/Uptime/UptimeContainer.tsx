@@ -31,7 +31,10 @@ export const Uptime = (): ReactElement => {
                 <label>uptime</label>
             </div>
 
-            <ChartHeader date={toolTip.date} value={toolTip.value ? "Online" : "Offline"} />
+            <ChartHeader
+                date={toolTip.date}
+                values={[{icon: "account_balance_wallet", value: toolTip.value ? "Online" : "Offline"}]}
+            />
 
             <UptimeChart data={data} onMouseMove={updateTooltip} />
         </div>

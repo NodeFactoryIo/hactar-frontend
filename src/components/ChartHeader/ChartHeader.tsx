@@ -3,10 +3,10 @@ import Moment from "react-moment";
 
 interface IChartHeaderProps {
     date: string;
-    value: string;
+    values: {icon: string; value: string}[];
 }
 
-export const ChartHeader = ({ date, value }: IChartHeaderProps): ReactElement => {
+export const ChartHeader = ({date, values}: IChartHeaderProps): ReactElement => {
     return (
         <div className="lower row-spaced chart-header">
             <div className="row">
@@ -18,8 +18,12 @@ export const ChartHeader = ({ date, value }: IChartHeaderProps): ReactElement =>
                 </div>
 
                 <div className="row">
-                    <i className="material-icons">account_balance_wallet</i>
-                    <p>{value}</p>
+                    {values.map(v => (
+                        <>
+                            <i className="material-icons">{v.icon}</i>
+                            <p>{v.value}</p>
+                        </>
+                    ))}
                 </div>
             </div>
 
@@ -31,4 +35,4 @@ export const ChartHeader = ({ date, value }: IChartHeaderProps): ReactElement =>
             </div>
         </div>
     );
-}
+};

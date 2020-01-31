@@ -4,13 +4,13 @@ import React from "react";
 import {UptimeProps} from "./UptimeContainer";
 import {ChartWrapper} from "../../components/ChartWrapper";
 
-type BalanceChartProps = {
+type UptimeChartProps = {
     data: UptimeProps[];
     onMouseMove: (e: any) => void;
 };
 
-export class UptimeChart extends ChartWrapper<BalanceChartProps> {
-    constructor(props: BalanceChartProps) {
+export class UptimeChart extends ChartWrapper<UptimeChartProps> {
+    constructor(props: UptimeChartProps) {
         super(props);
     }
 

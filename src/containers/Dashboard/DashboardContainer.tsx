@@ -6,6 +6,7 @@ import {GeneralInfo} from "../GeneralInfo/GeneralInfo";
 import {CurrentBalanceContainer} from "../Balance/CurrentBalanceContainer";
 import {BalanceHistoryContainer} from "../Balance/BalanceHistoryContainer";
 import {Uptime} from "../Uptime/UptimeContainer";
+import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 
 export const DashboardContainer = (): ReactElement => {
     return (
@@ -21,6 +22,7 @@ export const DashboardContainer = (): ReactElement => {
                 </div>
                 <div className="column right">
                     <Uptime />
+                    <DiskSpace />
                 </div>
             </div>
         </div>
