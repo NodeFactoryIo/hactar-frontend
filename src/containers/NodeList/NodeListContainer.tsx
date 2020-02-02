@@ -1,7 +1,12 @@
 import React, {ReactElement} from "react";
 import {TopBar} from "../../components/TopBar/TopBar";
+import {EmptyList} from "../../components/EmptyList/EmptyList";
 
 export const NodeListContainer = (): ReactElement => {
+    const data = [
+
+    ];
+
     return (
         <div className="dashboard-container">
             <TopBar />
@@ -17,10 +22,11 @@ export const NodeListContainer = (): ReactElement => {
                     <p>Status</p>
                 </div>
 
-                <div className="empty-list flex-column centered">
-                    <i className="material-icons">search</i>
-                    <h2>No nodes are added</h2>
-                </div>
+                {data.length === 0 ? <EmptyList message="No nodes are added" /> :
+                    <div>
+
+                    </div>
+                }
             </div>
         </div>
     );
