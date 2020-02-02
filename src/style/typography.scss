@@ -68,10 +68,19 @@ h2 {
   color: $accented;
 }
 
+h3 {
+  font-size: 1.33rem;
+  color: $accented;
+}
+
 a {
   color: $primary;
 }
 
 p.yellow {
  color: $primary;
+}
+
+p {
+  display: inline-flex;
 }
