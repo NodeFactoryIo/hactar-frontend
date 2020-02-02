@@ -1,0 +1,27 @@
+.node-list-container {
+  .node-name {
+    color: $accented;
+    align-items: center;
+  }
+
+  .header {
+    p {
+      margin: 0;
+    }
+    color: $technical;
+    font-size: 0.89rem;
+  }
+
+  .node-list {
+    background: $container !important;
+    color: $accented;
+
+    p {
+      font-size: 1.33rem;
+    }
+
+    p.status {
+      color: $primary-faded;
+    }
+  }
+}

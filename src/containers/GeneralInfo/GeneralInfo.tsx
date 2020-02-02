@@ -5,7 +5,7 @@ export const GeneralInfo = (): ReactElement => {
         <div className="container flex-column vertical-margin general-info">
             <div className="row-spaced upper">
                 <div className="centered">
-                    <b>Node name 1</b>
+                    <h3>Node name 1</h3>
                     <i className="material-icons">arrow_drop_down</i>
                 </div>
 
