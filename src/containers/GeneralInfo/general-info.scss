@@ -1,6 +1,10 @@
 .general-info {
   color: $accented !important;
 
+  a {
+    color: $accented;
+  }
+
   .node-options i {
     color: $secondary;
   }
@@ -12,6 +16,8 @@
 
     .stat {
       margin: 0 1.5rem 0 0;
+      display: flex;
+      flex-direction: column;
 
       label {
         font-size: 0.78rem;

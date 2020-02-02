@@ -18,7 +18,7 @@ export const NodeListContainer = ({ display, onNodeClick }: INodeListProps): Rea
             <div className="upper">
                 <div className="row node-name">
                     <h3>Nodes</h3>
-                    <a href="#" onClick={onNodeClick}>
+                    <a href="#" onClick={onNodeClick} className="accented">
                         <i className="material-icons">arrow_drop_up</i>
                     </a>
                 </div>
@@ -34,7 +34,7 @@ export const NodeListContainer = ({ display, onNodeClick }: INodeListProps): Rea
                 data.map((node) => (
                     <div className="node-list lower row-spaced">
                         <p>{node.name}</p>
-                        <p>{node.freeSpace} / ${node.takenSpace}</p>
+                        <p>{node.freeSpace} / {node.takenSpace}</p>
                         <p className={node.online ? 'yellow' : 'status'}>{node.online ? "Online" : "Offline"}</p>
                     </div>
                 ))

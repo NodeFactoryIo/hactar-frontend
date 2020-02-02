@@ -2,6 +2,10 @@
   display: flex;
   flex: 1;
 
+  a {
+    color: $accented;
+  }
+
   .node-name {
     color: $accented;
     align-items: center;
