@@ -1,4 +1,7 @@
 .node-list-container {
+  display: flex;
+  flex: 1;
+
   .node-name {
     color: $accented;
     align-items: center;

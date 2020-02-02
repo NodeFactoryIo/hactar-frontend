@@ -68,6 +68,10 @@ label {
   line-height: 0;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .recharts-layer text tspan {
   color: #545F7C;
   font-size: 0.78rem;

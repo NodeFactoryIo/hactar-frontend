@@ -5,7 +5,6 @@ import {Routes} from "../constants/routes";
 import {LoginContainer} from "../containers/Login/LoginContainer";
 import {RegisterContainer} from "../containers/Register/RegisterContainer";
 import {DashboardContainer} from "../containers/Dashboard/DashboardContainer";
-import {NodeListContainer} from "../containers/NodeList/NodeListContainer";
 
 const App: React.FC = () => {
     return (
@@ -14,7 +13,6 @@ const App: React.FC = () => {
                 <Route path={Routes.LOGIN_ROUTE} component={LoginContainer} />
                 <Route path={Routes.REGISTER_ROUTE} component={RegisterContainer} />
                 <Route path={Routes.DASHBOARD_ROUTE} component={DashboardContainer} />
-                <Route path={Routes.NODE_LIST} component={NodeListContainer} />
                 <Redirect from="/" to={Routes.LOGIN_ROUTE} />
             </Switch>
         </Router>
