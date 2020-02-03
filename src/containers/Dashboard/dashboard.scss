@@ -42,27 +42,28 @@ body {
   }
 
   .column.left .container {
-    margin-right: 0.67rem;
+    @media #{$mq-medium} {
+      margin-right: 0.67rem;
+    }
   }
   
   .column.right .container  {
-    margin-left: 0.67rem;
+    @media #{$mq-medium} {
+      margin-left: 0.67rem;
+    }
   }
 
   .tables {
     display: flex;
     flex-direction: column;
+    margin-bottom: 2rem;
 
     @media #{$mq-medium} {
       flex-direction: row;
     }
 
     .table-wrapper {
-      height: 20rem;
-
-      @media #{$mq-medium} {
-        height: auto;
-      }
+      height: auto;
     }
 
     .left {
@@ -76,6 +77,14 @@ body {
     .right, .right .container {
       display: flex;
       flex: 1;
+    }
+
+    .right {
+      margin-top: 2.67rem;
+
+      @media #{$mq-medium} {
+        margin-top: 0;
+      }
     }
   }
 }

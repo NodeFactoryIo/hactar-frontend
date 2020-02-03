@@ -18,14 +18,14 @@ export const Table = ({ data, columns }: ITableProps) => {
 
     return (
         <div className="table-wrapper">
-            <AutoSizer>
-                {({width, height}) => (
+            <AutoSizer disableHeight>
+                {({width}) => (
                     <RTable
                         headerClassName="table-custom-header"
                         rowClassName={getRowClassName}
                         gridClassName="table-custom-grid"
                         width={width}
-                        height={height || 400}
+                        height={400}
                         headerHeight={80}
                         rowHeight={56}
                         rowCount={data.length}

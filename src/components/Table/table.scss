@@ -17,10 +17,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .ReactVirtualized__Table__headerTruncatedText {
+    white-space: pre-wrap;
+    text-align: center;
+  }
 }
 
 .table-custom-grid {
   background-color: $container;
+  border-radius: 0 0 8px 8px;
 }
 
 .table-custom-row {
