@@ -5,12 +5,12 @@ import '../../style/index.scss'
 
 storiesOf('Table', module).add('Deals', () => {
     const data = [
-        {id: 'baf5relasidadasidadmv', status: 'Rejected', provider: "t01440", size: "254 bytes", price: "0.5", duration: 12},
-        {id: 'jf3ij56lasdakdja', status: 'Accepted', provider: "t01440", size: "254 bytes", price: "0.4", duration: 25},
+        {id: 'baf5relasida14dasidadmv129kadn', status: 'Rejected', provider: "t01440", size: "254 bytes", price: "0.5", duration: 12},
+        {id: 'jf3ij56lasdak42djapasurmdanddu728', status: 'Accepted', provider: "t01440", size: "254 bytes", price: "0.4", duration: 25},
     ];
 
     const columns = [
-        { key: "id" },
+        { key: "id", label: "ID" },
         { key: "status" },
         { key: "provider" },
         { key: "size" },

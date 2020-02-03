@@ -1,5 +1,5 @@
 import React from "react";
-import { Table as RTable, Column } from "react-virtualized";
+import { Table as RTable, Column, Index } from "react-virtualized";
 
 interface ITableProps {
     data: Object[];
@@ -7,12 +7,24 @@ interface ITableProps {
 }
 
 export const Table = ({ data, columns }: ITableProps) => {
+    const getRowClassName = ({index}: Index) => {
+        let className = "table-custom-row";
+        if (index < 0) {
+            return "";
+        } else {
+            return index % 2 === 0 ? className : `${className} odd`;
+        }
+    };
+
     return (
         <RTable
+            headerClassName="table-custom-header"
+            rowClassName={getRowClassName}
+            gridClassName="table-custom-grid"
             width={1000}
             height={400}
-            headerHeight={20}
-            rowHeight={30}
+            headerHeight={80}
+            rowHeight={56}
             rowCount={data.length}
             rowGetter={({index}) => data[index]}
         >
