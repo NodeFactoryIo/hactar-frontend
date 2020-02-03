@@ -8,6 +8,7 @@ import {BalanceHistoryContainer} from "../Balance/BalanceHistoryContainer";
 import {Uptime} from "../Uptime/UptimeContainer";
 import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 import classNames from "classnames";
+import {DealsContainer} from "../Deals/DealsContainer";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState(false);
@@ -29,6 +30,15 @@ export const DashboardContainer = (): ReactElement => {
                 <div className="column right">
                     <Uptime />
                     <DiskSpace />
+                </div>
+            </div>
+
+            <div className={classNames("", {"hidden": areElementsHidden})}>
+                <div className="column left">
+                    <DealsContainer />
+                </div>
+
+                <div className="column right">
                 </div>
             </div>
         </div>

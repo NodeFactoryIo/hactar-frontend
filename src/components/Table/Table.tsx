@@ -19,7 +19,7 @@ export const Table = ({ data, columns }: ITableProps) => {
     return (
         <div className="table-wrapper">
             <AutoSizer>
-                {({width, height}) => { console.log(height); return (
+                {({width, height}) => (
                     <RTable
                         headerClassName="table-custom-header"
                         rowClassName={getRowClassName}
@@ -41,7 +41,7 @@ export const Table = ({ data, columns }: ITableProps) => {
                         />
                     ))}
                 </RTable>
-                )}}
+                )}
             </AutoSizer>
         </div>
     );
