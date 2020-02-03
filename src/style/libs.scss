@@ -51,6 +51,10 @@
   .ReactVirtualized__Table__rowColumn:first-of-type {
     margin-left: 2rem;
   }
+
+  span.Rejected, span.Failed { color: $error; }
+  span.Accepted, span.Complete { color: $primary; }
+  span.Unknown, span.Sealing { color: $regular; }
 }
 
 

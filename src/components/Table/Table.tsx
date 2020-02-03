@@ -34,6 +34,7 @@ export const Table = ({ data, columns }: ITableProps) => {
                     label={column.label || column.key}
                     dataKey={column.key}
                     width={200}
+                    cellRenderer={column.renderer}
                 />
             ))}
         </RTable>
