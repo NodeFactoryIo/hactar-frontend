@@ -1,0 +1,51 @@
+.table-wrapper {
+  flex: 1 1 auto;
+}
+
+.ReactVirtualized__Table__headerRow {
+  background-color: $elevation;
+}
+
+.table-custom-header {
+  text-transform: capitalize;
+  color: $technical;
+  font-weight: 500;
+  font-size: 0.89rem;
+  margin-right: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:first-of-type {
+    padding-left: 2rem;
+    margin-left: 0;
+  }
+}
+
+.table-custom-grid {
+  background-color: $container;
+}
+
+.table-custom-row {
+  color: $accented;
+  font-size: 0.89rem;
+  text-align: center;
+
+  &.odd {
+    border-top: 1px solid #363C4D;
+  }
+
+  .ReactVirtualized__Table__rowColumn {
+    margin-right: 0;
+  }
+
+  .ReactVirtualized__Table__rowColumn:first-of-type {
+    margin-left: 2rem;
+  }
+
+  span.Rejected, span.Failed { color: $error; }
+  span.Accepted, span.Complete { color: $primary; }
+  span.Unknown, span.Sealing { color: $regular; }
+}
+

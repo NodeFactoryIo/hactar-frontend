@@ -1,5 +1,5 @@
 import React from "react";
-import { Table as RTable, Column, Index } from "react-virtualized";
+import { Table as RTable, Column, Index, AutoSizer } from "react-virtualized";
 
 interface ITableProps {
     data: Object[];
@@ -17,27 +17,33 @@ export const Table = ({ data, columns }: ITableProps) => {
     };
 
     return (
-        <RTable
-            headerClassName="table-custom-header"
-            rowClassName={getRowClassName}
-            gridClassName="table-custom-grid"
-            width={1000}
-            height={400}
-            headerHeight={80}
-            rowHeight={56}
-            rowCount={data.length}
-            rowGetter={({index}) => data[index]}
-        >
-            {columns.map((column, index) => (
-                <Column
-                    key={index}
-                    label={column.label || column.key}
-                    dataKey={column.key}
-                    width={200}
-                    cellRenderer={column.renderer}
-                />
-            ))}
-        </RTable>
+        <div className="table-wrapper">
+            <AutoSizer>
+                {({width, height}) => { console.log(height); return (
+                    <RTable
+                        headerClassName="table-custom-header"
+                        rowClassName={getRowClassName}
+                        gridClassName="table-custom-grid"
+                        width={width}
+                        height={height || 400}
+                        headerHeight={80}
+                        rowHeight={56}
+                        rowCount={data.length}
+                        rowGetter={({index}) => data[index]}
+                        >
+                    {columns.map((column, index) => (
+                        <Column
+                        key={index}
+                        label={column.label || column.key}
+                        dataKey={column.key}
+                        width={200}
+                        cellRenderer={column.renderer}
+                        />
+                    ))}
+                </RTable>
+                )}}
+            </AutoSizer>
+        </div>
     );
 }
 
