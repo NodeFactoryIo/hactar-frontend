@@ -30,7 +30,7 @@ export const Table = ({ data, columns }: ITableProps) => {
                         rowHeight={56}
                         rowCount={data.length}
                         rowGetter={({index}) => data[index]}
-                        >
+                    >
                     {columns.map((column, index) => (
                         <Column
                         key={index}

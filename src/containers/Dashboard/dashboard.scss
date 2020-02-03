@@ -27,10 +27,59 @@ body {
       flex-wrap: wrap;
     }
   }
+
+  .splitted-row {
+    display: flex;
+    flex-wrap: wrap;
+
+    .column {
+      width: 100%;
+
+      @media #{$mq-medium} {
+        width: 50%;
+      }
+    }
+  }
+
+  .column.left .container {
+    margin-right: 0.67rem;
+  }
+  
+  .column.right .container  {
+    margin-left: 0.67rem;
+  }
+
+  .tables {
+    display: flex;
+    flex-direction: column;
+
+    @media #{$mq-medium} {
+      flex-direction: row;
+    }
+
+    .table-wrapper {
+      height: 20rem;
+
+      @media #{$mq-medium} {
+        height: auto;
+      }
+    }
+
+    .left {
+      width: 100%;
+
+      @media #{$mq-medium} {
+        width: 60%;
+      }
+    }
+
+    .right, .right .container {
+      display: flex;
+      flex: 1;
+    }
+  }
 }
 
 .vertical-margin {
   margin: 2.67rem 0;
 }
-
-@import "../GeneralInfo/general-info.scss";

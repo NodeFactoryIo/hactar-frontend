@@ -44,26 +44,6 @@ label {
   height: 0;
 }
 
-.splitted-row {
-  display: flex;
-  flex-wrap: wrap;
-
-  .column {
-    width: 100%;
-
-    @media #{$mq-medium} {
-      width: 50%;
-    }
-  }
-
-  .column.left .container {
-    margin-right: 0.67rem;
-  }
-  .column.right .container  {
-    margin-left: 0.67rem;
-  }
-}
-
 .no-line-height {
   line-height: 0;
 }
