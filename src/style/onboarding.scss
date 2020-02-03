@@ -1,12 +1,16 @@
 @import "./variables.scss";
 @import "./typography.scss";
 
-.onboarding-container {
-  background: url(../assets/images/background.svg) no-repeat center center fixed;
-  background-size: cover;
-  height: 100%;
-  overflow: hidden;
+.background-image {
+  min-height: 100%;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 
+.onboarding-container {
   display: flex;
   flex-direction: column;;
   justify-content: space-around;
@@ -44,4 +48,8 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.elevated {
+  z-index: 1;
 }
