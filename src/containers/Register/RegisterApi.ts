@@ -10,7 +10,10 @@ export async function registerUser(email: string, password: string): Promise<voi
     const url = `${config.apiURL}/user/register`;
 
     try {
-        const response = await axios.get<User[]>(url);
+        const response = await axios.post<User[]>(url, {
+            email,
+            password,
+        });
         console.log(response);
     } catch (err) {
         throw err;
