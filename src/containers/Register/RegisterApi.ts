@@ -1,4 +1,5 @@
 import axios from "axios";
+import {config} from "../../app/config";
 
 export interface User {
     email: string;
@@ -6,7 +7,7 @@ export interface User {
 }
 
 export async function registerUser(email: string, password: string): Promise<void> {
-    const url = `/user/register`;
+    const url = `${config.apiURL}/user/register`;
 
     try {
         const response = await axios.get<User[]>(url);
