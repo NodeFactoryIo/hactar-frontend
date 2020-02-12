@@ -34,7 +34,8 @@ module.exports = {
         "camelcase": "error",
         "no-param-reassign": "error",
         "max-len": ["error", {
-            "code": 120
+            "code": 120,
+            "ignoreRegExpLiterals": true
         }],
         "new-parens": "error",
         "no-caller": "error",

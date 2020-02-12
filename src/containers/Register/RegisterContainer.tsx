@@ -1,4 +1,4 @@
-import React, {ReactElement, useEffect} from "react";
+import React, {ReactElement, useState, useEffect} from "react";
 import BackgroundImage from "../../assets/images/background.svg";
 import {Routes} from "../../constants/routes";
 import {RegisterForm, IRegisterFormData} from "./RegisterForm";
@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 
 export const RegisterContainer = (): ReactElement => {
+    const [notificationStatus, setNotificationStatus] = useState<boolean>(false);
     const history = useHistory();
     const dispatch = useDispatch();
     const registerState = useSelector((state: RootState) => state.register);
@@ -19,15 +20,20 @@ export const RegisterContainer = (): ReactElement => {
                 password: submitData.password,
             }),
         );
-        console.log(submitData);
     };
 
     useEffect(() => {
         if (registerState.success) history.push(Routes.LOGIN_ROUTE);
-    }, [registerState.success]);
+        if (registerState.error) {
+            setNotificationStatus(true);
+            setTimeout(setNotificationStatus, 4000, false);
+        }
+    }, [registerState.success, registerState.error]);
 
     return (
         <div className="onboarding-container">
+            {/* temporary notification */}
+            <div className={`temporary-notification ${notificationStatus ? "" : "hidden"}`}>{registerState.error}</div>
             <img src={BackgroundImage} className="background-image" />
 
             <h1 className="elevated">

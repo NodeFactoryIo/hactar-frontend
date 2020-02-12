@@ -42,8 +42,12 @@ export const submitUserRegistration = (data: IUser): AppThunk => async dispatch 
         // console.log(response);
         // console.log(response.status);
         if (response.status === 201) dispatch(registerSuccess());
-        console.log(response);
+        else {
+            const responseText = JSON.parse(response.request.responseText);
+            dispatch(registerError(responseText.error));
+        }
     } catch (err) {
+        // console.log("catch error");
         // console.log(err.errors);
         dispatch(registerError(err.toString()));
     }
