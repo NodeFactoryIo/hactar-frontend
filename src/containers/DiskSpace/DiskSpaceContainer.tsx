@@ -36,7 +36,10 @@ export const DiskSpace = (): ReactElement => {
                 date={toolTip.date}
                 values={[
                     {value: `Free - ${toolTip.free} GB`, icon: <img src={require("../../assets/icons/polygon.svg")} />},
-                    {value: `Taken - ${toolTip.taken} GB`, icon: <img src={require("../../assets/icons/polygon-dark.svg")} />},
+                    {
+                        value: `Taken - ${toolTip.taken} GB`,
+                        icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
+                    },
                 ]}
             />
 

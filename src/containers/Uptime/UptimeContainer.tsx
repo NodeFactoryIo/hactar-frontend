@@ -33,7 +33,12 @@ export const Uptime = (): ReactElement => {
 
             <ChartHeader
                 date={toolTip.date}
-                values={[{icon: <img src={require("../../assets/icons/polygon.svg")} />, value: toolTip.value ? "Online" : "Offline"}]}
+                values={[
+                    {
+                        icon: <img src={require("../../assets/icons/polygon.svg")} />,
+                        value: toolTip.value ? "Online" : "Offline",
+                    },
+                ]}
             />
 
             <UptimeChart data={data} onMouseMove={updateTooltip} />

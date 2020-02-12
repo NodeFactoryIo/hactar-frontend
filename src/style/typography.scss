@@ -36,7 +36,7 @@ body {
   font-size: $base-font-size;
   line-height: $base-line-height;
   font-family: 'Barlow';
-  //font-size: 18px;
+  // font-size: 18px;
 
   @media #{$mq-medium} {
     font-size: $base-font-size*1.2;
