@@ -22,12 +22,11 @@ input::placeholder {
 .input-wrapper{
   display: flex;
   flex-direction: column;
-  height: 80px;
+  height: 5rem;
 }
 .input-container {
   display: flex;
   width: 100%;
-  // margin: 16px 0;
 
   .material-icons {
     position: absolute;
@@ -41,13 +40,8 @@ input::placeholder {
     padding-left: 46px;
   }
 
-  &.error {
-    input, .material-icons {
-      color: $error;
-    }
-  }
 }
 .error-message {
   color: $error;
-  font-size: 16px;
+  font-size: 1rem;
 }

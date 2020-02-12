@@ -17,8 +17,7 @@ export const RegisterForm = (props: IRegisterFormProps) => {
     const {register, handleSubmit, errors, control, watch} = useForm<IRegisterFormData>();
 
     const onSubmit = handleSubmit((submitData: IRegisterFormData) => {
-        if (submitData.password === submitData.repeatPassword) props.onSubmit(submitData);
-        else console.log("Passwords don't match!");
+        props.onSubmit(submitData);
     });
 
     useEffect(() => {
@@ -59,7 +58,7 @@ export const RegisterForm = (props: IRegisterFormProps) => {
                 type="text"
                 placeholder="Email"
                 icon="email"
-                errorMessage={errors.email && errors.email.message}
+                error={errors.email && errors.email.message}
             />
             <Controller
                 as={Input}
@@ -68,7 +67,7 @@ export const RegisterForm = (props: IRegisterFormProps) => {
                 type="password"
                 placeholder="Password"
                 icon="lock"
-                errorMessage={errors.password && errors.password.message}
+                error={errors.password && errors.password.message}
             />
             <Controller
                 as={Input}
@@ -77,7 +76,7 @@ export const RegisterForm = (props: IRegisterFormProps) => {
                 type="password"
                 placeholder="Repeat password"
                 icon="lock"
-                errorMessage={errors.repeatPassword && errors.repeatPassword.message}
+                error={errors.repeatPassword && errors.repeatPassword.message}
             />
             <Button type="primary">Sign up</Button>
         </form>

@@ -4,7 +4,6 @@ import classNames from "classnames";
 interface IInputContainerProps extends React.HTMLProps<HTMLInputElement> {
     icon?: string;
     error?: string;
-    errorMessage?: string;
 }
 
 export const Input = (props: IInputContainerProps) => {
@@ -30,7 +29,7 @@ export const Input = (props: IInputContainerProps) => {
                 {iconElement}
                 <input {...props} />
             </div>
-            <div className="error-message">{props.errorMessage}</div>
+            <div className="error-message">{props.error}</div>
         </div>
     );
 };
