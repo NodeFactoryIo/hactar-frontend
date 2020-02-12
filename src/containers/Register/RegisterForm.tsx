@@ -14,8 +14,6 @@ export interface IRegisterFormData {
 }
 
 export const RegisterForm = (props: IRegisterFormProps) => {
-    // const [password, setPassword] = useState<string>();
-    // const [rePassword, setRePassword] = useState<string>("");
     const {register, handleSubmit, errors, control, watch} = useForm<IRegisterFormData>();
 
     const onSubmit = handleSubmit((submitData: IRegisterFormData) => {

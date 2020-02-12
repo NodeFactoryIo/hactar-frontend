@@ -17,6 +17,5 @@ export async function registerUser(email: string, password: string): Promise<Axi
         return response;
     } catch (err) {
         return err;
-        // throw err;
     }
 }
