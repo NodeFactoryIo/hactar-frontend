@@ -1,21 +1,22 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {config} from "../../app/config";
 
-export interface User {
+export interface IUser {
     email: string;
     password: string;
 }
 
-export async function registerUser(email: string, password: string): Promise<void> {
+export async function registerUser(email: string, password: string): Promise<AxiosResponse<IUser[]>> {
     const url = `${config.apiURL}/user/register`;
 
     try {
-        const response = await axios.post<User[]>(url, {
+        const response = await axios.post<IUser[]>(url, {
             email,
             password,
         });
-        console.log(response);
+        return response;
     } catch (err) {
-        throw err;
+        return err;
+        // throw err;
     }
 }

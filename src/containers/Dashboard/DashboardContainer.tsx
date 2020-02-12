@@ -18,12 +18,9 @@ export const DashboardContainer = (): ReactElement => {
         <div className="dashboard-container">
             <TopBar />
 
-            <GeneralInfo
-                setElementsHidden={setElementsHidden}
-                areElementsHidden={areElementsHidden}
-            />
+            <GeneralInfo setElementsHidden={setElementsHidden} areElementsHidden={areElementsHidden} />
 
-            <div className={classNames("splitted-row", {"hidden": areElementsHidden})}>
+            <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                 <div className="column left">
                     <CurrentBalanceContainer />
                     <BalanceHistoryContainer />
@@ -34,7 +31,7 @@ export const DashboardContainer = (): ReactElement => {
                 </div>
             </div>
 
-            <div className={classNames("tables", {"hidden": areElementsHidden})}>
+            <div className={classNames("tables", {hidden: areElementsHidden})}>
                 <div className="column left">
                     <DealsContainer />
                 </div>

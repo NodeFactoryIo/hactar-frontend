@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 import {Input} from "../../components/Input/Input";
 import {Button} from "../../components/Button/Button";
@@ -17,7 +17,9 @@ export const LoginForm = () => {
             <Input placeholder="Email" icon="email" />
             <Input placeholder="Password" icon="lock" />
 
-            <Button type="primary" onClick={onClick}>Login</Button>
+            <Button type="primary" onClick={onClick}>
+                Login
+            </Button>
         </form>
     );
 };

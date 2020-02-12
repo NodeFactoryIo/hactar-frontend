@@ -1,10 +1,31 @@
-import React, {ReactElement} from "react";
-
+import React, {ReactElement, useEffect} from "react";
 import BackgroundImage from "../../assets/images/background.svg";
 import {Routes} from "../../constants/routes";
-import {RegisterForm} from "./RegisterForm";
+import {RegisterForm, IRegisterFormData} from "./RegisterForm";
+import {submitUserRegistration} from "./RegisterSlice";
+import {useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../app/rootReducer";
 
 export const RegisterContainer = (): ReactElement => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const registerState = useSelector((state: RootState) => state.register);
+
+    const handleSignUp = (submitData: IRegisterFormData): void => {
+        dispatch(
+            submitUserRegistration({
+                email: submitData.email,
+                password: submitData.password,
+            }),
+        );
+        console.log(submitData);
+    };
+
+    useEffect(() => {
+        if (registerState.success) history.push(Routes.LOGIN_ROUTE);
+    }, [registerState.success]);
+
     return (
         <div className="onboarding-container">
             <img src={BackgroundImage} className="background-image" />
@@ -21,7 +42,7 @@ export const RegisterContainer = (): ReactElement => {
                 <div className="form-container flex-column">
                     <div className="logo-horizontal self-centered" />
 
-                    <RegisterForm />
+                    <RegisterForm onSubmit={handleSignUp} />
                 </div>
 
                 <div className="signup-suggestion">

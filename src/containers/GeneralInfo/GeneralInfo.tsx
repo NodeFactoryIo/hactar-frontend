@@ -7,7 +7,7 @@ interface IGeneralInfoProps {
     areElementsHidden: boolean;
 }
 
-export const GeneralInfo = ({ setElementsHidden, areElementsHidden }: IGeneralInfoProps): ReactElement => {
+export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfoProps): ReactElement => {
     const onNodeClick = () => {
         setElementsHidden(!areElementsHidden);
     };
@@ -16,7 +16,7 @@ export const GeneralInfo = ({ setElementsHidden, areElementsHidden }: IGeneralIn
         <div className="container flex-column vertical-margin general-info">
             <NodeListContainer display={areElementsHidden} onNodeClick={onNodeClick} />
 
-            <div className={classNames({"hidden": areElementsHidden})}>
+            <div className={classNames({hidden: areElementsHidden})}>
                 <div className="row-spaced upper">
                     <div className="centered">
                         <h3>Node name 1</h3>

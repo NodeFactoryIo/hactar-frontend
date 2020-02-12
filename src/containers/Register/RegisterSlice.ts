@@ -1,47 +1,52 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from '../../app/store';
-import {registerUser, User} from "./RegisterApi";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AppThunk} from "../../app/store";
+import {registerUser, IUser} from "./RegisterApi";
 
-interface RegisterState {
+interface IRegisterState {
     isLoading: boolean;
+    success: boolean;
     error: string | null;
 }
-const initialState: RegisterState = {
+const initialState: IRegisterState = {
     isLoading: false,
+    success: false,
     error: null,
 };
 
-const register = createSlice({
-    name: 'register',
+const registerSlice = createSlice({
+    name: "register",
     initialState,
     reducers: {
-        registerStart(state: RegisterState) {
+        registerStart(state: IRegisterState) {
             state.isLoading = true;
         },
-        registerSuccess(state: RegisterState) {
+        registerSuccess(state: IRegisterState) {
             state.isLoading = false;
             state.error = null;
+            state.success = true;
         },
-        registerError(state: RegisterState, action: PayloadAction<string>) {
+        registerError(state: IRegisterState, action: PayloadAction<any>) {
             state.isLoading = false;
             state.error = action.payload;
-        }
-    }
+        },
+    },
 });
 
-const {
-    registerStart,
-    registerSuccess,
-    registerError,
-} = register.actions;
+export const {registerStart, registerSuccess, registerError} = registerSlice.actions;
 
-export const submitUserRegistration = (data: User): AppThunk => async dispatch => {
+export const submitUserRegistration = (data: IUser): AppThunk => async dispatch => {
     try {
         dispatch(registerStart());
-        const { email, password } = data;
-        await registerUser(email, password);
-        dispatch(registerSuccess());
+        const {email, password} = data;
+        const response = await registerUser(email, password);
+        // console.log(response);
+        // console.log(response.status);
+        if (response.status === 201) dispatch(registerSuccess());
+        console.log(response);
     } catch (err) {
+        // console.log(err.errors);
         dispatch(registerError(err.toString()));
     }
 };
+
+export default registerSlice.reducer;

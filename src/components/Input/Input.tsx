@@ -4,11 +4,11 @@ import classNames from "classnames";
 interface IInputContainerProps extends React.HTMLProps<HTMLInputElement> {
     icon?: string;
     error?: string;
+    errorMessage?: string;
 }
 
 export const Input = (props: IInputContainerProps) => {
     const {icon, error} = props;
-
     let iconElement = null;
     if (icon) {
         iconElement = <i className="material-icons">{icon}</i>;
@@ -25,9 +25,12 @@ export const Input = (props: IInputContainerProps) => {
     // }
 
     return (
-        <div className={classNames("input-container", {"has-icon": !!icon, error})}>
-            {iconElement}
-            <input {...props} />
+        <div className="input-wrapper">
+            <div className={classNames("input-container", {"has-icon": !!icon, error})}>
+                {iconElement}
+                <input {...props} />
+            </div>
+            <div className="error-message">{props.errorMessage}</div>
         </div>
     );
 };

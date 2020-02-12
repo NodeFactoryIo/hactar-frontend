@@ -19,11 +19,15 @@ input::placeholder {
   color: $hint;
   font-size: 18px;
 }
-
+.input-wrapper{
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+}
 .input-container {
   display: flex;
   width: 100%;
-  margin: 16px 0;
+  // margin: 16px 0;
 
   .material-icons {
     position: absolute;
@@ -42,4 +46,8 @@ input::placeholder {
       color: $error;
     }
   }
+}
+.error-message {
+  color: $error;
+  font-size: 16px;
 }

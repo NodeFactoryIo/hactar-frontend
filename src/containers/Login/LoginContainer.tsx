@@ -25,7 +25,7 @@ export const LoginContainer = (): ReactElement => {
                 </div>
 
                 <div className="signup-suggestion">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <b>
                         <a href={Routes.REGISTER_ROUTE}>Sign Up</a>
                     </b>
