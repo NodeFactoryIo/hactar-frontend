@@ -1,10 +1,26 @@
 import React, {ReactElement} from "react";
-
 import BackgroundImage from "../../assets/images/background.svg";
 import {LoginForm} from "./LoginForm";
 import {Routes} from "../../constants/routes";
+import {useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../app/rootReducer";
+import {ILoginFormData} from "./LoginForm";
+import {submitUserLogin} from "./LoginSlice";
 
 export const LoginContainer = (): ReactElement => {
+    const history = useHistory();    
+    const dispatch = useDispatch();
+    // const loginState = useSelector((state: RootState) => state.login);
+
+    const handleSignIn = (submitData: ILoginFormData): void => {
+        console.log(submitData);
+        dispatch(
+            submitUserLogin(submitData)
+        )
+
+    };
+
     return (
         <div className="onboarding-container">
             <img src={BackgroundImage} className="background-image" />
@@ -21,7 +37,7 @@ export const LoginContainer = (): ReactElement => {
                 <div className="form-container flex-column">
                     <div className="logo-horizontal self-centered" />
 
-                    <LoginForm />
+                    <LoginForm onSubmit={handleSignIn}/>
                 </div>
 
                 <div className="signup-suggestion">

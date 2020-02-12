@@ -26,7 +26,7 @@ export const RegisterContainer = (): ReactElement => {
         if (registerState.success) {
             setNotificationStatus(true);
             setTimeout(history.push, 1000, Routes.LOGIN_ROUTE);
-        } 
+        }
         if (registerState.error) {
             setNotificationStatus(true);
             setTimeout(setNotificationStatus, 4000, false);
@@ -37,7 +37,7 @@ export const RegisterContainer = (): ReactElement => {
         <div className="onboarding-container">
             {/* temporary notification */}
             <div className={`temporary-notification ${notificationStatus ? "" : "hidden"}`}>
-            {registerState.success ? "Registration successful" : registerState.error}
+                {registerState.success ? "Registration successful" : registerState.error}
             </div>
             <img src={BackgroundImage} className="background-image" />
 
