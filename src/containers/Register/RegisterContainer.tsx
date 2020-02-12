@@ -1,13 +1,18 @@
 import React, {ReactElement} from "react";
-
-import BackgroundImage from "../../assets/images/background.svg";
+import BackgroundImage4096 from "../../assets/images/background-photo4096.png";
+import BackgroundImage2048 from "../../assets/images/background-photo2048.png";
+import BackgroundImage1024 from "../../assets/images/background-photo1024.png";
 import {Routes} from "../../constants/routes";
 import {RegisterForm} from "./RegisterForm";
 
 export const RegisterContainer = (): ReactElement => {
     return (
         <div className="onboarding-container">
-            <img src={BackgroundImage} className="background-image" />
+            <img 
+                className="background-image" 
+                src={BackgroundImage1024} 
+                srcSet={`${BackgroundImage1024} 1024w, ${BackgroundImage2048} 2048w, ${BackgroundImage4096} 4096w`}
+            />
 
             <h1 className="elevated">
                 An analysis tool for your{" "}
