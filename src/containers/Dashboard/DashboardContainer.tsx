@@ -13,15 +13,37 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../constants/routes";
+import {getNodes} from "./DashboardApi";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState(false);
+    // const [storageToken, setStorageToken] = useState<string>("");
     const history = useHistory();
     const stateToken = useSelector((state: RootState) => state.login.token);
     const storageToken = localStorage.getItem("token");
 
+    // if(storageTokenValue) setStorageToken(storageTokenValue);
+
     useEffect(() => {
-        if (!stateToken && !storageToken) history.push(Routes.LOGIN_ROUTE);
+        if (!stateToken && !storageToken) {
+            history.push(Routes.LOGIN_ROUTE)
+        } 
+        else {
+            const func = async () => {
+                console.log(storageToken);
+                const x = await getNodes(storageToken);
+                console.log(x);
+            }
+            func();
+            // if(stateToken) {
+            //     const response = getNodes(stateToken);
+            //     console.log(response);
+            // }
+            // else {
+            //     const response = getNodes(storageToken);
+            //     console.log(response);
+            // }
+        }
     }, [stateToken]);
     return (
         <div className="dashboard-container">
