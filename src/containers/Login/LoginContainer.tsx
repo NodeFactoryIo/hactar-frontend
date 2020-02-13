@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useState, useEffect} from "react";
 import BackgroundImage from "../../assets/images/background.svg";
 import {LoginForm} from "./LoginForm";
 import {Routes} from "../../constants/routes";
@@ -9,20 +9,30 @@ import {ILoginFormData} from "./LoginForm";
 import {submitUserLogin} from "./LoginSlice";
 
 export const LoginContainer = (): ReactElement => {
-    const history = useHistory();    
+    const [notificationStatus, setNotificationStatus] = useState<boolean>(false);
+    const history = useHistory();
     const dispatch = useDispatch();
-    // const loginState = useSelector((state: RootState) => state.login);
+    const loginState = useSelector((state: RootState) => state.login);
 
     const handleSignIn = (submitData: ILoginFormData): void => {
-        console.log(submitData);
-        dispatch(
-            submitUserLogin(submitData)
-        )
-
+        dispatch(submitUserLogin(submitData));
     };
-
+    useEffect(() => {
+        if (loginState.success) {
+            setNotificationStatus(true);
+            setTimeout(history.push, 1000, Routes.DASHBOARD_ROUTE);
+        }
+        if (loginState.error) {
+            setNotificationStatus(true);
+            setTimeout(setNotificationStatus, 4000, false);
+        }
+    }, [loginState]);
     return (
         <div className="onboarding-container">
+            {/* temporary notification */}
+            <div className={`temporary-notification ${notificationStatus ? "" : "hidden"}`}>
+                {loginState.success ? "Registration successful" : loginState.error}
+            </div>
             <img src={BackgroundImage} className="background-image" />
 
             <h1 className="elevated">
@@ -37,7 +47,7 @@ export const LoginContainer = (): ReactElement => {
                 <div className="form-container flex-column">
                     <div className="logo-horizontal self-centered" />
 
-                    <LoginForm onSubmit={handleSignIn}/>
+                    <LoginForm onSubmit={handleSignIn} />
                 </div>
 
                 <div className="signup-suggestion">

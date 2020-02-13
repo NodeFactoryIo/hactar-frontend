@@ -19,7 +19,7 @@ export const LoginForm = (props: ILoginFormProps) => {
         props.onSubmit(submitData);
     });
 
-    useEffect(()=>{
+    useEffect(() => {
         register(
             {name: "email"},
             {
@@ -40,10 +40,10 @@ export const LoginForm = (props: ILoginFormProps) => {
                 },
             },
         );
-    },[register])
+    }, [register]);
 
     return (
-        <form onSubmit={onSubmit} >
+        <form onSubmit={onSubmit}>
             <Controller
                 as={Input}
                 control={control}
@@ -62,9 +62,7 @@ export const LoginForm = (props: ILoginFormProps) => {
                 icon="lock"
                 error={errors.password && errors.password.message}
             />
-            <Button type="primary">
-                Login
-            </Button>
+            <Button type="primary">Login</Button>
         </form>
     );
 };
