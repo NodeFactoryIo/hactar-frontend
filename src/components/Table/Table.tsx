@@ -1,14 +1,14 @@
 import React from "react";
-import { Table as RTable, Column, Index, AutoSizer } from "react-virtualized";
+import {Table as RTable, Column, Index, AutoSizer} from "react-virtualized";
 
 interface ITableProps {
-    data: Object[];
+    data: Record<string, any>[];
     columns: any[];
 }
 
-export const Table = ({ data, columns }: ITableProps) => {
+export const Table = ({data, columns}: ITableProps) => {
     const getRowClassName = ({index}: Index) => {
-        let className = "table-custom-row";
+        const className = "table-custom-row";
         if (index < 0) {
             return "";
         } else {
@@ -31,19 +31,18 @@ export const Table = ({ data, columns }: ITableProps) => {
                         rowCount={data.length}
                         rowGetter={({index}) => data[index]}
                     >
-                    {columns.map((column, index) => (
-                        <Column
-                        key={index}
-                        label={column.label || column.key}
-                        dataKey={column.key}
-                        width={200}
-                        cellRenderer={column.renderer}
-                        />
-                    ))}
-                </RTable>
+                        {columns.map((column, index) => (
+                            <Column
+                                key={index}
+                                label={column.label || column.key}
+                                dataKey={column.key}
+                                width={200}
+                                cellRenderer={column.renderer}
+                            />
+                        ))}
+                    </RTable>
                 )}
             </AutoSizer>
         </div>
     );
-}
-
+};

@@ -3,14 +3,14 @@ import {Table} from "../../components/Table/Table";
 
 export const PledgedCollateralContainer = (): ReactElement => {
     const data = [
-        {id: 'jf3ij56lasdak42djapasurmdanddu728', amount: "0.4", sectors: 25},
-        {id: 'kas791jsga82093udmaska7291jkadjad', amount: "1.2", sectors: 12},
+        {id: "jf3ij56lasdak42djapasurmdanddu728", amount: "0.4", sectors: 25},
+        {id: "kas791jsga82093udmaska7291jkadjad", amount: "1.2", sectors: 12},
     ];
 
     const columns = [
-        { key: "id", label: "ID" },
-        { key: "amount", label: "Amount (FIL)" },
-        { key: "sectors", label: "Sectors Slashed" },
+        {key: "id", label: "ID"},
+        {key: "amount", label: "Amount (FIL)"},
+        {key: "sectors", label: "Sectors Slashed"},
     ];
 
     return (
@@ -21,5 +21,5 @@ export const PledgedCollateralContainer = (): ReactElement => {
 
             <Table data={data} columns={columns} />
         </div>
-    )
+    );
 };
