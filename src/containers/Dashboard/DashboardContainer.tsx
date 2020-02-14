@@ -13,14 +13,23 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../constants/routes";
+import jwt_decode from "jwt-decode";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState(false);
     const history = useHistory();
     const stateToken = useSelector((state: RootState) => state.user.token);
 
+    const checkTokenExpireTime = (token: string | null): boolean => {
+        if(token) {
+            const jwt: {id: number, iat: number, exp:number} = jwt_decode(token);
+            const returnValue = (jwt.exp > Date.now()/1000) ? false : true;
+            return returnValue
+        } else return true
+    }
+
     useEffect(() => {
-        if (!stateToken) history.push(Routes.LOGIN_ROUTE);
+        if (checkTokenExpireTime(stateToken)) history.push(Routes.LOGIN_ROUTE);
     }, [stateToken]);
     return (
         <div className="dashboard-container">
