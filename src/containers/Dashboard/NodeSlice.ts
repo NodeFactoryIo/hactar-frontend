@@ -1,40 +1,50 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes} from "./DashboardApi";
+import {getNodes, getMinerInfo} from "./DashboardApi";
+import {INodeState, INodeInfoState} from "./NodeInterface";
 
-interface INodeState {
-    id: number;
-    url: string;
-    token: string;
-    address: string;
-    createdAt: string;
-    updatedAt: string;
-    userId: number;
+interface IState {
+    nodeList: Array<INodeState>;
+    nodeInfo: INodeInfoState | null;
 }
-
-const initialState: Array<INodeState> = []
+const initialState: IState = {
+    nodeList: [],
+    nodeInfo: null,
+};
 
 const nodeSlice = createSlice({
     name: "node",
     initialState,
     reducers: {
-        storeNodes(state: Array<INodeState>, action: PayloadAction<Array<INodeState>>) {
-            action.payload.map((node) => state.concat(node));
-        }
-    }
+        storeNodeList(state: IState, action: PayloadAction<Array<INodeState>>): void {
+            action.payload.map(node => state.nodeList.push(node));
+        },
+        storeNodeInfo(state: IState, action: PayloadAction<INodeInfoState>): void {
+            state.nodeInfo = action.payload;
+        },
+    },
 });
 
-export const {storeNodes} = nodeSlice.actions;
+export const {storeNodeList, storeNodeInfo} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (auth: string | null): AppThunk => async dispatch => {
-    try{
-        const response = await getNodes(auth);
-        console.log(response);
-        console.log(response.data);
-        dispatch(storeNodes(response.data));
+    try {
+        const nodeListResponse = await getNodes(auth);
+        dispatch(storeNodeList(nodeListResponse.data));
+
+        if (nodeListResponse.data[0] && nodeListResponse.data[0].id) {
+            const nodeInfoResponse = await getMinerInfo(auth, nodeListResponse.data[0].id);
+            dispatch(
+                storeNodeInfo({
+                    version: nodeInfoResponse.data.version,
+                    sectorSize: nodeInfoResponse.data.sectorSize,
+                    minerPower: nodeInfoResponse.data.minerPower,
+                    totalPower: nodeInfoResponse.data.totalPower,
+                }),
+            );
+        }
+    } catch (err) {
+        throw err;
     }
-    catch(err){
-        throw(err)
-    }
-}
+};

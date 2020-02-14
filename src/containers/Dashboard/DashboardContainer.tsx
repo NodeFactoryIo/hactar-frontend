@@ -21,22 +21,20 @@ export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState(false);
     const history = useHistory();
     const authToken = useSelector((state: RootState) => state.user.token);
-    const nodeList = useSelector((state: RootState)=> state.node);
     const dispatch = useDispatch();
 
     const checkTokenExpireTime = (token: string | null): boolean => {
-        if(token) {
-            const jwt: {id: number, iat: number, exp:number} = jwt_decode(token);
-            const returnValue = (jwt.exp > Date.now()/1000) ? false : true;
-            return returnValue
-        } else return true
-    }
+        if (token) {
+            const jwt: {id: number; iat: number; exp: number} = jwt_decode(token);
+            const returnValue = jwt.exp > Date.now() / 1000 ? false : true;
+            return returnValue;
+        } else return true;
+    };
 
     useEffect(() => {
         if (checkTokenExpireTime(authToken)) {
-            history.push(Routes.LOGIN_ROUTE)
-        }
-        else {
+            history.push(Routes.LOGIN_ROUTE);
+        } else {
             dispatch(getNodeList(authToken));
         }
     }, [authToken]);
