@@ -1,13 +1,13 @@
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import {config} from "../../app/config";
 
-export async function getNodes(userIdToken: string | null) {
+export async function getNodes(auth: string | null) {
     const url = `${config.apiURL}/user/node`; 
 
     try {
         const response = await axios.get(url, {
             headers: {
-                authorization: userIdToken
+                authorization: auth
             }
         });
         return response;

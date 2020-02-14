@@ -13,38 +13,33 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../constants/routes";
-import {getNodes} from "./DashboardApi";
+import jwt_decode from "jwt-decode";
+import {getNodeList} from "./NodeSlice";
+import {useDispatch} from "react-redux";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState(false);
-    // const [storageToken, setStorageToken] = useState<string>("");
     const history = useHistory();
-    const stateToken = useSelector((state: RootState) => state.login.token);
-    const storageToken = localStorage.getItem("token");
+    const authToken = useSelector((state: RootState) => state.user.token);
+    const nodeList = useSelector((state: RootState)=> state.node);
+    const dispatch = useDispatch();
 
-    // if(storageTokenValue) setStorageToken(storageTokenValue);
+    const checkTokenExpireTime = (token: string | null): boolean => {
+        if(token) {
+            const jwt: {id: number, iat: number, exp:number} = jwt_decode(token);
+            const returnValue = (jwt.exp > Date.now()/1000) ? false : true;
+            return returnValue
+        } else return true
+    }
 
     useEffect(() => {
-        if (!stateToken && !storageToken) {
+        if (checkTokenExpireTime(authToken)) {
             history.push(Routes.LOGIN_ROUTE)
-        } 
-        else {
-            const func = async () => {
-                console.log(storageToken);
-                const x = await getNodes(storageToken);
-                console.log(x);
-            }
-            func();
-            // if(stateToken) {
-            //     const response = getNodes(stateToken);
-            //     console.log(response);
-            // }
-            // else {
-            //     const response = getNodes(storageToken);
-            //     console.log(response);
-            // }
         }
-    }, [stateToken]);
+        else {
+            dispatch(getNodeList(authToken));
+        }
+    }, [authToken]);
     return (
         <div className="dashboard-container">
             <TopBar />

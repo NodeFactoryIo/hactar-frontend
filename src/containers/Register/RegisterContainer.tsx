@@ -5,7 +5,7 @@ import BackgroundImage1024 from "../../assets/images/background-photo1024.png";
 import BackgroundImage768 from "../../assets/images/background-photo768.png";
 import {Routes} from "../../constants/routes";
 import {RegisterForm, IRegisterFormData} from "./RegisterForm";
-import {submitUserRegistration} from "./RegisterSlice";
+import {submitUserRegistration} from "./UserSlice";
 import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
@@ -14,7 +14,7 @@ export const RegisterContainer = (): ReactElement => {
     const [notificationStatus, setNotificationStatus] = useState<boolean>(false);
     const history = useHistory();
     const dispatch = useDispatch();
-    const registerState = useSelector((state: RootState) => state.register);
+    const userState = useSelector((state: RootState) => state.user);
 
     const handleSignUp = (submitData: IRegisterFormData): void => {
         dispatch(
@@ -26,21 +26,21 @@ export const RegisterContainer = (): ReactElement => {
     };
 
     useEffect(() => {
-        if (registerState.success) {
+        if (userState.registerSuccessValue) {
             setNotificationStatus(true);
             setTimeout(history.push, 1000, Routes.LOGIN_ROUTE);
         }
-        if (registerState.error) {
+        if (userState.registerErrorValue) {
             setNotificationStatus(true);
             setTimeout(setNotificationStatus, 4000, false);
         }
-    }, [registerState.success, registerState.error]);
+    }, [userState]);
 
     return (
         <div className="onboarding-container">
             {/* temporary notification */}
             <div className={`temporary-notification ${notificationStatus ? "" : "hidden"}`}>
-                {registerState.success ? "Registration successful" : registerState.error}
+                {userState.registerSuccessValue ? "Registration successful" : userState.registerErrorValue}
             </div>
             <img
                 className="background-image"

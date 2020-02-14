@@ -9,32 +9,32 @@ import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {ILoginFormData} from "./LoginForm";
-import {submitUserLogin} from "./LoginSlice";
+import {submitUserLogin} from "../Register/UserSlice";
 
 export const LoginContainer = (): ReactElement => {
     const [notificationStatus, setNotificationStatus] = useState<boolean>(false);
     const history = useHistory();
     const dispatch = useDispatch();
-    const loginState = useSelector((state: RootState) => state.login);
+    const userState = useSelector((state: RootState) => state.user);
 
     const handleSignIn = (submitData: ILoginFormData): void => {
         dispatch(submitUserLogin(submitData));
     };
     useEffect(() => {
-        if (loginState.success) {
+        if (userState.loginSuccessValue) {
             setNotificationStatus(true);
             setTimeout(history.push, 1000, Routes.DASHBOARD_ROUTE);
         }
-        if (loginState.error) {
+        if (userState.loginErrorValue) {
             setNotificationStatus(true);
             setTimeout(setNotificationStatus, 4000, false);
         }
-    }, [loginState]);
+    }, [userState]);
     return (
         <div className="onboarding-container">
             {/* temporary notification */}
             <div className={`temporary-notification ${notificationStatus ? "" : "hidden"}`}>
-                {loginState.success ? "Registration successful" : loginState.error}
+                {userState.loginSuccessValue ? "Registration successful" : userState.loginErrorValue}
             </div>
             <img
                 className="background-image"
