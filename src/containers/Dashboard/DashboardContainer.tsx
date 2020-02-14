@@ -17,11 +17,10 @@ import {Routes} from "../../constants/routes";
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState(false);
     const history = useHistory();
-    const stateToken = useSelector((state: RootState) => state.login.token);
-    const storageToken = localStorage.getItem("token");
+    const stateToken = useSelector((state: RootState) => state.user.token);
 
     useEffect(() => {
-        if (!stateToken && !storageToken) history.push(Routes.LOGIN_ROUTE);
+        if (!stateToken) history.push(Routes.LOGIN_ROUTE);
     }, [stateToken]);
     return (
         <div className="dashboard-container">
