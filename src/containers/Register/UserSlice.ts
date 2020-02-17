@@ -2,6 +2,17 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
 import {registerUser, IUser} from "./RegisterApi";
 import {logInUser} from "../Login/LoginApi";
+import jwt_decode from "jwt-decode";
+
+const setInitialToken = (): string | null => {
+    const token = localStorage.getItem("token");
+    if(token){
+        const jwt: {id: number, iat: number, exp:number} = jwt_decode(token);
+        if (jwt.exp > Date.now()/1000)
+            return token
+        else return null
+    }else return null
+}
 
 interface IUserState {
     isLoading: boolean;
@@ -18,7 +29,7 @@ const initialState: IUserState = {
     registerErrorValue: null,
     loginSuccessValue: false,
     loginErrorValue: null,
-    token: localStorage.getItem("token")
+    token: setInitialToken()
 };
 
 const userSlice = createSlice({
