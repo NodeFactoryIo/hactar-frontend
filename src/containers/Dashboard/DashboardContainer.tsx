@@ -13,7 +13,6 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../constants/routes";
-import jwt_decode from "jwt-decode";
 import {getNodeList} from "./NodeSlice";
 import {useDispatch} from "react-redux";
 
@@ -23,23 +22,15 @@ export const DashboardContainer = (): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
 
-    const checkTokenExpireTime = (token: string | null): boolean => {
-        if (token) {
-            const jwt: {id: number; iat: number; exp: number} = jwt_decode(token);
-            const returnValue = jwt.exp > Date.now() / 1000 ? false : true;
-            return returnValue;
-        } else return true;
-    };
-
     useEffect(() => {
-        if (checkTokenExpireTime(state.user.token)) {
+        if (!state.user.token) {
             history.push(Routes.LOGIN_ROUTE);
         } else {
             dispatch(getNodeList(state.user.token));
         }
-        if(state.node.nodeList.length) setElementsHidden(false);
+        if (state.node.nodeList.length) setElementsHidden(false);
     }, [state.node.fetchComplete, state.user.token]);
-    
+
     return (
         <div className="dashboard-container">
             <TopBar />
