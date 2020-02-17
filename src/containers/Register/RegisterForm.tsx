@@ -13,7 +13,7 @@ export interface IRegisterFormData {
     repeatPassword: string;
 }
 
-export const RegisterForm = (props: IRegisterFormProps) => {
+export const RegisterForm = (props: IRegisterFormProps): React.ReactElement => {
     const {register, handleSubmit, errors, control, watch} = useForm<IRegisterFormData>();
 
     const onSubmit = handleSubmit((submitData: IRegisterFormData) => {

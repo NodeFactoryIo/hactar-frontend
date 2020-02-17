@@ -13,15 +13,24 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../constants/routes";
+import {getNodeList} from "./NodeSlice";
+import {useDispatch} from "react-redux";
 
 export const DashboardContainer = (): ReactElement => {
-    const [areElementsHidden, setElementsHidden] = useState(false);
+    const [areElementsHidden, setElementsHidden] = useState(true);
     const history = useHistory();
-    const stateToken = useSelector((state: RootState) => state.user.token);
+    const state = useSelector((state: RootState) => state);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!stateToken) history.push(Routes.LOGIN_ROUTE);
-    }, [stateToken]);
+        if (!state.user.token) {
+            history.push(Routes.LOGIN_ROUTE);
+        } else {
+            dispatch(getNodeList(state.user.token));
+        }
+        if (state.node.nodeList.length) setElementsHidden(false);
+    }, [state.node.fetchComplete, state.user.token]);
+
     return (
         <div className="dashboard-container">
             <TopBar />

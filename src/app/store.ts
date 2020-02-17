@@ -1,10 +1,14 @@
-import {configureStore, Action} from "@reduxjs/toolkit";
+import {configureStore, Action, getDefaultMiddleware} from "@reduxjs/toolkit";
 import {ThunkAction} from "redux-thunk";
+import logger from "redux-logger";
 
 import rootReducer, {RootState} from "./rootReducer";
 
+const middleware = [...getDefaultMiddleware(), logger];
+
 const store = configureStore({
     reducer: rootReducer,
+    middleware,
 });
 
 if (process.env.NODE_ENV === "development" && module.hot) {

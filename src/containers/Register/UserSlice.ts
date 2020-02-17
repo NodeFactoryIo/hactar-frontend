@@ -6,13 +6,12 @@ import jwt_decode from "jwt-decode";
 
 const setInitialToken = (): string | null => {
     const token = localStorage.getItem("token");
-    if(token){
-        const jwt: {id: number, iat: number, exp:number} = jwt_decode(token);
-        if (jwt.exp > Date.now()/1000)
-            return token
-        else return null
-    }else return null
-}
+    if (token) {
+        const jwt: {id: number; iat: number; exp: number} = jwt_decode(token);
+        if (jwt.exp > Date.now() / 1000) return token;
+        else return null;
+    } else return null;
+};
 
 interface IUserState {
     isLoading: boolean;
@@ -29,51 +28,43 @@ const initialState: IUserState = {
     registerErrorValue: null,
     loginSuccessValue: false,
     loginErrorValue: null,
-    token: setInitialToken()
+    token: setInitialToken(),
 };
 
 const userSlice = createSlice({
     name: "register",
     initialState,
     reducers: {
-        registerStart(state: IUserState) {
+        registerStart(state: IUserState): void {
             state.isLoading = true;
         },
-        registerSuccess(state: IUserState) {
+        registerSuccess(state: IUserState): void {
             state.isLoading = false;
             state.registerErrorValue = null;
             state.registerSuccessValue = true;
         },
-        registerError(state: IUserState, action: PayloadAction<string>) {
+        registerError(state: IUserState, action: PayloadAction<string>): void {
             state.isLoading = false;
             state.registerErrorValue = action.payload;
         },
 
-
-        loginStart(state: IUserState) {
+        loginStart(state: IUserState): void {
             state.isLoading = true;
         },
-        loginSuccess(state: IUserState, action: PayloadAction<string>) {
+        loginSuccess(state: IUserState, action: PayloadAction<string>): void {
             state.isLoading = false;
             state.loginSuccessValue = true;
             state.loginErrorValue = null;
             state.token = action.payload;
         },
-        loginError(state: IUserState, action: PayloadAction<string>) {
+        loginError(state: IUserState, action: PayloadAction<string>): void {
             state.isLoading = false;
             state.loginErrorValue = action.payload;
         },
     },
 });
 
-export const {
-    registerStart, 
-    registerSuccess, 
-    registerError,
-    loginStart,
-    loginSuccess,
-    loginError
-} = userSlice.actions;
+export const {registerStart, registerSuccess, registerError, loginStart, loginSuccess, loginError} = userSlice.actions;
 export default userSlice.reducer;
 
 export const submitUserRegistration = (data: IUser): AppThunk => async dispatch => {
@@ -91,8 +82,6 @@ export const submitUserRegistration = (data: IUser): AppThunk => async dispatch 
     }
 };
 
-
-
 export const submitUserLogin = (data: IUser): AppThunk => async dispatch => {
     try {
         dispatch(loginStart());
@@ -109,4 +98,3 @@ export const submitUserLogin = (data: IUser): AppThunk => async dispatch => {
         dispatch(loginError(err.toString()));
     }
 };
-
