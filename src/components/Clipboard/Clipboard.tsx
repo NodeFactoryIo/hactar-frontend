@@ -8,7 +8,7 @@ export interface IClipboardProps {
 
 export const ClipboardTable = ({cellData}: TableCellProps): JSX.Element => {
     return (
-        <>  
+        <>
             <CopyToClipboard text={cellData}>
                 <span>{cellData}</span>
             </CopyToClipboard>
