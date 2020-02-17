@@ -40,6 +40,8 @@
 
   .ReactVirtualized__Table__rowColumn {
     margin-right: 0;
+    position: relative;
+    padding-right: 1rem;
   }
 
   .ReactVirtualized__Table__rowColumn:first-of-type {
@@ -51,3 +53,4 @@
   span.Unknown, span.Sealing { color: $regular; }
 }
 
+.ReactVirtualized__Grid:focus {outline:0;}
