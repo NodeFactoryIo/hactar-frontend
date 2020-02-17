@@ -18,9 +18,9 @@ import {getNodeList} from "./NodeSlice";
 import {useDispatch} from "react-redux";
 
 export const DashboardContainer = (): ReactElement => {
-    const [areElementsHidden, setElementsHidden] = useState(false);
+    const [areElementsHidden, setElementsHidden] = useState(true);
     const history = useHistory();
-    const authToken = useSelector((state: RootState) => state.user.token);
+    const state = useSelector((state: RootState) => state);
     const dispatch = useDispatch();
 
     const checkTokenExpireTime = (token: string | null): boolean => {
@@ -32,12 +32,14 @@ export const DashboardContainer = (): ReactElement => {
     };
 
     useEffect(() => {
-        if (checkTokenExpireTime(authToken)) {
+        if (checkTokenExpireTime(state.user.token)) {
             history.push(Routes.LOGIN_ROUTE);
         } else {
-            dispatch(getNodeList(authToken));
+            dispatch(getNodeList(state.user.token));
         }
-    }, [authToken]);
+        if(state.node.nodeList.length) setElementsHidden(false);
+    }, [state.node.fetchComplete, state.user.token]);
+    
     return (
         <div className="dashboard-container">
             <TopBar />

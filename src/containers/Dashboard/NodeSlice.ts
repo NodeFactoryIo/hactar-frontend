@@ -4,10 +4,12 @@ import {getNodes, getMinerInfo} from "./DashboardApi";
 import {INodeState, INodeInfoState} from "./NodeInterface";
 
 interface IState {
+    fetchComplete: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
 }
 const initialState: IState = {
+    fetchComplete: false,
     nodeList: [],
     nodeInfo: null,
 };
@@ -16,6 +18,9 @@ const nodeSlice = createSlice({
     name: "node",
     initialState,
     reducers: {
+        loading(state: IState): void {
+            state.fetchComplete = true;
+        },
         storeNodeList(state: IState, action: PayloadAction<Array<INodeState>>): void {
             action.payload.map(node => state.nodeList.push(node));
         },
@@ -25,7 +30,7 @@ const nodeSlice = createSlice({
     },
 });
 
-export const {storeNodeList, storeNodeInfo} = nodeSlice.actions;
+export const {loading, storeNodeList, storeNodeInfo} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (auth: string | null): AppThunk => async dispatch => {
@@ -43,6 +48,7 @@ export const getNodeList = (auth: string | null): AppThunk => async dispatch => 
                     totalPower: nodeInfoResponse.data.totalPower,
                 }),
             );
+            dispatch(loading());
         }
     } catch (err) {
         throw err;
