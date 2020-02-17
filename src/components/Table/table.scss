@@ -48,6 +48,14 @@
     margin-left: 2rem;
   }
 
+  .ReactVirtualized__Table__rowColumn:first-of-type:hover {
+    color: $accented-hovered;
+    cursor: copy;
+  }
+  .ReactVirtualized__Table__rowColumn:first-of-type:active {
+    color: $accented-pressed;
+  }
+
   span.Rejected, span.Failed { color: $error; }
   span.Accepted, span.Complete { color: $primary; }
   span.Unknown, span.Sealing { color: $regular; }
