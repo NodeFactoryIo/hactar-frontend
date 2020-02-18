@@ -1,6 +1,7 @@
 import React, {ReactElement, Dispatch, SetStateAction} from "react";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
+import {Clipboard} from "../../components/Clipboard/Clipboard";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -39,7 +40,7 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
 
                     <div className="stat">
                         <label>node address</label>
-                        <p>t3xgw3...</p>
+                        <Clipboard copyText="t3xgw3..." />
                     </div>
 
                     <div className="stat">
