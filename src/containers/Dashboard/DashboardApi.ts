@@ -1,14 +1,16 @@
 import axios from "axios";
 import {config} from "../../app/config";
 
+const getHeaders = (auth: string | null) => {
+    return {authorization: auth};
+};
+
 export async function getNodes(auth: string | null) {
     const url = `${config.apiURL}/user/node`;
 
     try {
         const response = await axios.get(url, {
-            headers: {
-                authorization: auth,
-            },
+            headers: getHeaders(auth),
         });
         return response;
     } catch (err) {
@@ -21,9 +23,7 @@ export async function getDiskDetails(auth: string | null, nodeIdValue: number) {
 
     try {
         const response = await axios.get(url, {
-            headers: {
-                authorization: auth,
-            },
+            headers: getHeaders(auth),
             params: {
                 nodeId: nodeIdValue,
             },
@@ -39,9 +39,7 @@ export async function getMinerInfo(auth: string | null, nodeIdValue: number) {
 
     try {
         const response = await axios.get(url, {
-            headers: {
-                authorization: auth,
-            },
+            headers: getHeaders(auth),
             params: {
                 nodeId: nodeIdValue,
             },

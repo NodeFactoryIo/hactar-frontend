@@ -9,12 +9,11 @@ import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 import classNames from "classnames";
 import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {useHistory} from "react-router-dom";
 import {Routes} from "../../constants/routes";
 import {getNodeList} from "./NodeSlice";
-import {useDispatch} from "react-redux";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState(true);
@@ -29,7 +28,7 @@ export const DashboardContainer = (): ReactElement => {
             dispatch(getNodeList(state.user.token));
         }
         if (state.node.nodeList.length) setElementsHidden(false);
-    }, [state.node.fetchComplete, state.user.token]);
+    }, [state.node.nodeListComplete]);
 
     return (
         <div className="dashboard-container">

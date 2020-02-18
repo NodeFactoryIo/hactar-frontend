@@ -1,36 +1,41 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes, getMinerInfo} from "./DashboardApi";
-import {INodeState, INodeInfoState} from "./NodeInterface";
+import {getNodes, getMinerInfo, getDiskDetails} from "./DashboardApi";
+import {INodeState, INodeInfoState, INodeDiskState} from "./NodeInterface";
 
 interface IState {
-    fetchComplete: boolean;
+    nodeListComplete: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
+    nodeDiskInfo: Array<INodeDiskState>;
 }
 const initialState: IState = {
-    fetchComplete: false,
+    nodeListComplete: false,
     nodeList: [],
     nodeInfo: null,
+    nodeDiskInfo: [],
 };
 
 const nodeSlice = createSlice({
     name: "node",
     initialState,
     reducers: {
-        loading(state: IState): void {
-            state.fetchComplete = true;
+        nodeListComplete(state: IState): void {
+            state.nodeListComplete = true;
         },
         storeNodeList(state: IState, action: PayloadAction<Array<INodeState>>): void {
-            action.payload.map(node => state.nodeList.push(node));
+            state.nodeList = action.payload;
         },
         storeNodeInfo(state: IState, action: PayloadAction<INodeInfoState>): void {
             state.nodeInfo = action.payload;
         },
+        storeDiskInfo(state: IState, action: PayloadAction<Array<INodeDiskState>>): void {
+            state.nodeDiskInfo = action.payload;
+        },
     },
 });
 
-export const {loading, storeNodeList, storeNodeInfo} = nodeSlice.actions;
+export const {nodeListComplete, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (auth: string | null): AppThunk => async dispatch => {
@@ -48,7 +53,22 @@ export const getNodeList = (auth: string | null): AppThunk => async dispatch => 
                     totalPower: nodeInfoResponse.data.totalPower,
                 }),
             );
-            dispatch(loading());
+
+            const diskDetailsList: Array<INodeDiskState> = [];
+            const nodeList = nodeListResponse.data;
+
+            for (let index = 0; index < nodeList.length; index++) {
+                const response: any = await getDiskDetails(auth, nodeList[index].id);
+                diskDetailsList.push({
+                    id: response.data[0].id,
+                    freeSpace: response.data[0].freeSpace,
+                    takenSpace: response.data[0].takenSpace,
+                    nodeId: response.data[0].nodeId,
+                });
+            }
+
+            dispatch(storeDiskInfo(diskDetailsList));
+            dispatch(nodeListComplete());
         }
     } catch (err) {
         throw err;

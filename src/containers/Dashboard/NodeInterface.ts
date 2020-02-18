@@ -13,3 +13,9 @@ export interface INodeInfoState {
     minerPower: number;
     totalPower: number;
 }
+export interface INodeDiskState {
+    id: number;
+    freeSpace: number;
+    takenSpace: number;
+    nodeId: number;
+}
