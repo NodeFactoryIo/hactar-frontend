@@ -21,13 +21,11 @@ export const ClipboardTable = ({cellData}: TableCellProps): JSX.Element => {
 
 export const Clipboard = ({copyText}: IClipboardProps): JSX.Element => {
     return (
-        <div className="clipboard_container">
-            <CopyToClipboard text={copyText}>
+        <CopyToClipboard text={copyText}>
+            <div className="clipboard_container">
                 <p>{copyText}</p>
-            </CopyToClipboard>
-            <CopyToClipboard text={copyText}>
                 <button className="copy_icon"></button>
-            </CopyToClipboard>
-        </div>
+            </div>
+        </CopyToClipboard>
     );
 };
