@@ -31,7 +31,12 @@ module.exports = {
         }],
         "@typescript-eslint/no-use-before-define": "off",
         "@typescript-eslint/semi": "error",
-        "camelcase": "error",
+        "@typescript-eslint/camelcase": ["warn", { 
+            "ignoreImports": true 
+        }],
+        "camelcase": ["warn", { 
+            "ignoreImports": true 
+        }],
         "no-param-reassign": "error",
         "max-len": ["error", {
             "code": 120,

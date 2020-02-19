@@ -1,6 +1,8 @@
 import React, {ReactElement, Dispatch, SetStateAction} from "react";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
+import {useSelector} from "react-redux";
+import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
 
 interface IGeneralInfoProps {
@@ -9,6 +11,8 @@ interface IGeneralInfoProps {
 }
 
 export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfoProps): ReactElement => {
+    const node = useSelector((state: RootState) => state.node);
+
     const onNodeClick = () => {
         setElementsHidden(!areElementsHidden);
     };
@@ -35,32 +39,32 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
                 <div className="general-info-stats lower">
                     <div className="stat">
                         <label>node version</label>
-                        <p>0.11.0</p>
+                        <p>{node.nodeInfo && node.nodeInfo.version}</p>
                     </div>
 
                     <div className="stat">
                         <label>node address</label>
-                        <Clipboard copyText="t3xgw3..." />
+                        <Clipboard copyText={node.nodeList[0] && node.nodeList[0].address} />
                     </div>
 
                     <div className="stat">
                         <label>miner power</label>
-                        <p>1 TiB</p>
+                        <p>{node.nodeInfo && node.nodeInfo.minerPower}</p>
                     </div>
 
                     <div className="stat">
                         <label>total power</label>
-                        <p>30.4 TiB</p>
+                        <p>{node.nodeInfo && node.nodeInfo.totalPower}</p>
                     </div>
 
                     <div className="stat">
                         <label>sector size</label>
-                        <p>3.56 GB</p>
+                        <p>{node.nodeInfo && node.nodeInfo.sectorSize}</p>
                     </div>
 
                     <div className="stat">
                         <label>number of sectors</label>
-                        <p>14</p>
+                        <p>{node.nodeInfo && node.nodeInfo.sectorSize}</p>
                     </div>
                 </div>
             </div>

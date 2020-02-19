@@ -1,6 +1,8 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useState, useEffect} from "react";
 import {EmptyList} from "../../components/EmptyList/EmptyList";
 import classNames from "classnames";
+import {useSelector} from "react-redux";
+import {RootState} from "../../app/rootReducer";
 
 interface INodeListProps {
     display?: boolean;
@@ -8,17 +10,24 @@ interface INodeListProps {
 }
 
 export const NodeListContainer = ({display, onNodeClick}: INodeListProps): ReactElement => {
-    const data = [
-        {name: "Node name 1", freeSpace: "0.5 TB", takenSpace: "2.1 TB", online: true},
-        {name: "Node name 2", freeSpace: "32 GB", takenSpace: "1.1 TB", online: false},
-    ];
+    const state = useSelector((state: RootState) => state);
+    const diskInfo = state.node.nodeDiskInfo;
+    const [showArrow, setShowArrow] = useState<boolean>(true);
 
+    useEffect(() => {
+        if (diskInfo.length > 0) setShowArrow(false);
+    }, [state.node.nodeDiskInfo]);
     return (
         <div className={classNames("flex-column node-list-container", {hidden: !display})}>
             <div className="upper">
                 <div className="row node-name">
                     <h3>Nodes</h3>
-                    <a href="#" onClick={onNodeClick} className="accented">
+                    <a
+                        href="#"
+                        onClick={onNodeClick}
+                        // className="accented"
+                        className={classNames("accented", {hidden: showArrow})}
+                    >
                         <i className="material-icons">arrow_drop_up</i>
                     </a>
                 </div>
@@ -30,16 +39,20 @@ export const NodeListContainer = ({display, onNodeClick}: INodeListProps): React
                 <p>Status</p>
             </div>
 
-            {data.length === 0 ? (
+            {diskInfo.length === 0 ? (
                 <EmptyList message="No nodes are added" />
             ) : (
-                data.map((node, index) => (
+                diskInfo.map((node, index) => (
                     <div key={index} className="node-list lower row-spaced">
-                        <p>{node.name}</p>
+                        <p>Node {node.nodeId}</p>
                         <p>
                             {node.freeSpace} / {node.takenSpace}
                         </p>
-                        <p className={node.online ? "yellow" : "status"}>{node.online ? "Online" : "Offline"}</p>
+                        {/* TODO - online status */}
+                        {/* <p className={node.online ? "yellow" : "status"}>
+                        {node.online ? "Online" : "Offline"}
+                        </p> */}
+                        <p className="yellow">Online</p>
                     </div>
                 ))
             )}

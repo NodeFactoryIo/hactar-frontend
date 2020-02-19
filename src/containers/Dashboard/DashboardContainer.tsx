@@ -1,5 +1,4 @@
-import React, {ReactElement, useState} from "react";
-
+import React, {ReactElement, useState, useEffect} from "react";
 import "./dashboard.scss";
 import {TopBar} from "../../components/TopBar/TopBar";
 import {GeneralInfo} from "../GeneralInfo/GeneralInfo";
@@ -10,9 +9,26 @@ import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 import classNames from "classnames";
 import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
+import {useSelector, useDispatch} from "react-redux";
+import {RootState} from "../../app/rootReducer";
+import {useHistory} from "react-router-dom";
+import {Routes} from "../../constants/routes";
+import {getNodeList} from "./NodeSlice";
 
 export const DashboardContainer = (): ReactElement => {
-    const [areElementsHidden, setElementsHidden] = useState(false);
+    const [areElementsHidden, setElementsHidden] = useState(true);
+    const history = useHistory();
+    const state = useSelector((state: RootState) => state);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!state.user.token) {
+            history.push(Routes.LOGIN_ROUTE);
+        } else {
+            dispatch(getNodeList(state.user.token));
+        }
+        if (state.node.nodeList.length) setElementsHidden(false);
+    }, [state.node.nodeListComplete]);
 
     return (
         <div className="dashboard-container">
