@@ -39,7 +39,9 @@ export const DashboardContainer = (): ReactElement => {
 
     return (
         <div className="dashboard-container">
-            <TopBar />
+            <TopBar 
+                email="johndoe@nodefactory.io"
+            />
 
             <GeneralInfo
                 setElementsHidden={setElementsHidden}
