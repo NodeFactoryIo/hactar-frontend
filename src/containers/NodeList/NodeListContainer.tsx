@@ -3,16 +3,29 @@ import {EmptyList} from "../../components/EmptyList/EmptyList";
 import classNames from "classnames";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
+import {NodeNameTitle} from "../../components/NodeNameTitle/NodeNameTitle";
 
 interface INodeListProps {
     display?: boolean;
-    onNodeClick: any;
+    selectedNode?: number;
+    onNodeHeaderClick: () => void;
+    onNodeClick: (index: number) => void;
 }
 
-export const NodeListContainer = ({display, onNodeClick}: INodeListProps): ReactElement => {
+export const NodeListContainer = ({
+    display,
+    selectedNode,
+    onNodeHeaderClick,
+    onNodeClick,
+}: INodeListProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const diskInfo = state.node.nodeDiskInfo;
     const [showArrow, setShowArrow] = useState<boolean>(true);
+
+    const isNodeSelected = (nodeIndex: number): string => {
+        if (nodeIndex === selectedNode) return "selected";
+        else return "notSelected";
+    };
 
     useEffect(() => {
         if (diskInfo.length > 0) setShowArrow(false);
@@ -20,17 +33,7 @@ export const NodeListContainer = ({display, onNodeClick}: INodeListProps): React
     return (
         <div className={classNames("flex-column node-list-container", {hidden: !display})}>
             <div className="upper">
-                <div className="row node-name">
-                    <h3>Nodes</h3>
-                    <a
-                        href="#"
-                        onClick={onNodeClick}
-                        // className="accented"
-                        className={classNames("accented", {hidden: showArrow})}
-                    >
-                        <i className="material-icons">arrow_drop_up</i>
-                    </a>
-                </div>
+                <NodeNameTitle title="Nodes" onClick={onNodeHeaderClick} showArrow={showArrow} arrowOpen={true} />
             </div>
 
             <div className="lower row-spaced header">
@@ -44,7 +47,9 @@ export const NodeListContainer = ({display, onNodeClick}: INodeListProps): React
             ) : (
                 diskInfo.map((node, index) => (
                     <div key={index} className="node-list lower row-spaced">
-                        <p>Node {node.nodeId}</p>
+                        <p className={`node-name ${isNodeSelected(index)}`} onClick={(): void => onNodeClick(index)}>
+                            Node {node.nodeId}
+                        </p>
                         <p>
                             {node.freeSpace} / {node.takenSpace}
                         </p>

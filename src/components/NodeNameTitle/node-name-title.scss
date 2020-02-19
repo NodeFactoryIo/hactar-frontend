@@ -1,0 +1,17 @@
+.node-name-title {
+    display: flex;
+    align-items: center;
+    i{
+        padding-top: 0.75rem;
+    }
+    &.active {
+        cursor: pointer;
+    }
+    &.active:hover {color: $accented-hovered;}
+    &.active:active {color: $accented-pressed;}
+    
+    &.inactive {
+        cursor: default;
+    }
+}
+

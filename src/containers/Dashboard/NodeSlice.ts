@@ -51,20 +51,22 @@ export const getNodeList = (auth: string | null): AppThunk => async dispatch => 
 export const getGeneralInfo = (auth: string | null, nodeId: number): AppThunk => async dispatch => {
     try {
         const nodeInfoResponse = await getMinerInfo(auth, nodeId);
-        dispatch(storeNodeInfo({
-            version: nodeInfoResponse.data.version,
-            sectorSize: nodeInfoResponse.data.sectorSize,
-            minerPower: nodeInfoResponse.data.minerPower,
-            totalPower: nodeInfoResponse.data.totalPower,
-        }));
+        dispatch(
+            storeNodeInfo({
+                version: nodeInfoResponse.data.version,
+                sectorSize: nodeInfoResponse.data.sectorSize,
+                minerPower: nodeInfoResponse.data.minerPower,
+                totalPower: nodeInfoResponse.data.totalPower,
+            }),
+        );
     } catch (err) {
         throw err;
     }
 };
 
-export const getDiskInfo = (auth: string | null, nodeList:Array<INodeState>): AppThunk => async dispatch => {
+export const getDiskInfo = (auth: string | null, nodeList: Array<INodeState>): AppThunk => async dispatch => {
     try {
-        const diskDetailsList: Array<INodeDiskState> = []; 
+        const diskDetailsList: Array<INodeDiskState> = [];
         for (let index = 0; index < nodeList.length; index++) {
             const response: any = await getDiskDetails(auth, nodeList[index].id);
             diskDetailsList.push({

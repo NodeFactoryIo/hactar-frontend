@@ -4,32 +4,47 @@ import classNames from "classnames";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
+import {NodeNameTitle} from "../../components/NodeNameTitle/NodeNameTitle";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
     areElementsHidden: boolean;
+    setSelectedNodeIndex: Dispatch<SetStateAction<number>>;
+    selectedNodeIndex: number;
 }
 
-export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfoProps): ReactElement => {
+export const GeneralInfo = ({
+    setElementsHidden,
+    areElementsHidden,
+    setSelectedNodeIndex,
+    selectedNodeIndex,
+}: IGeneralInfoProps): ReactElement => {
     const node = useSelector((state: RootState) => state.node);
 
-    const onNodeClick = () => {
+    const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
+    };
+
+    const onNodeClick = (index: number): void => {
+        setSelectedNodeIndex(index);
     };
 
     return (
         <div className="container flex-column vertical-margin general-info">
-            <NodeListContainer display={areElementsHidden} onNodeClick={onNodeClick} />
+            <NodeListContainer
+                display={areElementsHidden}
+                selectedNode={selectedNodeIndex}
+                onNodeHeaderClick={onNodeHeaderClick}
+                onNodeClick={onNodeClick}
+            />
 
             <div className={classNames({hidden: areElementsHidden})}>
                 <div className="row-spaced upper">
-                    <div className="centered">
-                        <h3>Node name 1</h3>
-                        <a href="#" onClick={onNodeClick}>
-                            <i className="material-icons">arrow_drop_down</i>
-                        </a>
-                    </div>
-
+                    <NodeNameTitle
+                        title={`Node ${node.nodeList[selectedNodeIndex].id}`}
+                        onClick={onNodeHeaderClick}
+                        arrowOpen={false}
+                    />
                     <div className="node-options">
                         <i className="material-icons">notifications_none</i>
                         <i className="material-icons">more_vert</i>

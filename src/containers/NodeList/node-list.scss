@@ -6,7 +6,7 @@
     color: $accented;
   }
 
-  .node-name {
+  .nodes-header {
     color: $accented;
     align-items: center;
   }
@@ -29,6 +29,15 @@
 
     p.status {
       color: $primary-faded;
+    }
+    .node-name {
+      cursor: pointer;
+      &.selected {
+        color: $accented-focused;
+        cursor: default;
+      }
+      &.notSelected:hover {color: $accented-hovered;}
+      &.notSelected:active {color: $accented-pressed;}
     }
   }
 }

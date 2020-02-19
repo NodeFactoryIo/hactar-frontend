@@ -17,7 +17,7 @@ import {getNodeList, getDiskInfo, getGeneralInfo} from "./NodeSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
-    const [selectedNodeId, setSelectedNodeId] = useState<number>(0);
+    const [selectedNodeIndex, setSelectedNodeIndex] = useState<number>(0);
     const history = useHistory();
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state);
@@ -29,20 +29,24 @@ export const DashboardContainer = (): ReactElement => {
             history.push(Routes.LOGIN_ROUTE);
         } else {
             dispatch(getNodeList(token));
-            if(nodeList[0] && nodeList[0].id) {
-                console.log(nodeList);
-                dispatch(getGeneralInfo(token, nodeList[selectedNodeId].id));
+            if (nodeList[0] && nodeList[0].id) {
+                dispatch(getGeneralInfo(token, nodeList[selectedNodeIndex].id));
                 dispatch(getDiskInfo(token, nodeList));
                 if (nodeList.length) setElementsHidden(false);
             }
         }
-    }, [state.node.nodeListComplete, selectedNodeId]);
+    }, [state.node.nodeListComplete, selectedNodeIndex]);
 
     return (
         <div className="dashboard-container">
             <TopBar />
 
-            <GeneralInfo setElementsHidden={setElementsHidden} areElementsHidden={areElementsHidden} />
+            <GeneralInfo
+                setElementsHidden={setElementsHidden}
+                areElementsHidden={areElementsHidden}
+                setSelectedNodeIndex={setSelectedNodeIndex}
+                selectedNodeIndex={selectedNodeIndex}
+            />
 
             <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                 <div className="column left">
