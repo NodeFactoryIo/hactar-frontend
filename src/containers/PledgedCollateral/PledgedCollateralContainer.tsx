@@ -1,5 +1,6 @@
 import React, {ReactElement} from "react";
 import {Table} from "../../components/Table/Table";
+import {ClipboardTable} from "../../components/Clipboard/Clipboard";
 
 export const PledgedCollateralContainer = (): ReactElement => {
     const data = [
@@ -8,7 +9,7 @@ export const PledgedCollateralContainer = (): ReactElement => {
     ];
 
     const columns = [
-        {key: "id", label: "ID"},
+        {key: "id", label: "ID", renderer: ClipboardTable},
         {key: "amount", label: "Amount (FIL)"},
         {key: "sectors", label: "Sectors Slashed"},
     ];

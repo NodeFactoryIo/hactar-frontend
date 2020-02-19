@@ -3,6 +3,7 @@ import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
+import {Clipboard} from "../../components/Clipboard/Clipboard";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -43,7 +44,7 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
 
                     <div className="stat">
                         <label>node address</label>
-                        <p>{node.nodeList[0] && node.nodeList[0].address}</p>
+                        <Clipboard copyText={node.nodeList[0] && node.nodeList[0].address} />
                     </div>
 
                     <div className="stat">
