@@ -1,6 +1,7 @@
 import React, {ReactElement} from "react";
 import {TableCellProps} from "react-virtualized";
 import {Table} from "../../components/Table/Table";
+import {ClipboardTable} from "../../components/Clipboard/Clipboard";
 
 export const DealsContainer = (): ReactElement => {
     const data = [
@@ -27,7 +28,7 @@ export const DealsContainer = (): ReactElement => {
     };
 
     const columns = [
-        {key: "id", label: "ID"},
+        {key: "id", label: "ID", renderer: ClipboardTable},
         {key: "status", renderer: statusCellRenderer},
         {key: "provider"},
         {key: "size"},
