@@ -42,34 +42,39 @@ export const getNodeList = (auth: string | null): AppThunk => async dispatch => 
     try {
         const nodeListResponse = await getNodes(auth);
         dispatch(storeNodeList(nodeListResponse.data));
+        dispatch(nodeListComplete());
+    } catch (err) {
+        throw err;
+    }
+};
 
-        if (nodeListResponse.data[0] && nodeListResponse.data[0].id) {
-            const nodeInfoResponse = await getMinerInfo(auth, nodeListResponse.data[0].id);
-            dispatch(
-                storeNodeInfo({
-                    version: nodeInfoResponse.data.version,
-                    sectorSize: nodeInfoResponse.data.sectorSize,
-                    minerPower: nodeInfoResponse.data.minerPower,
-                    totalPower: nodeInfoResponse.data.totalPower,
-                }),
-            );
+export const getGeneralInfo = (auth: string | null, nodeId: number): AppThunk => async dispatch => {
+    try {
+        const nodeInfoResponse = await getMinerInfo(auth, nodeId);
+        dispatch(storeNodeInfo({
+            version: nodeInfoResponse.data.version,
+            sectorSize: nodeInfoResponse.data.sectorSize,
+            minerPower: nodeInfoResponse.data.minerPower,
+            totalPower: nodeInfoResponse.data.totalPower,
+        }));
+    } catch (err) {
+        throw err;
+    }
+};
 
-            const diskDetailsList: Array<INodeDiskState> = [];
-            const nodeList = nodeListResponse.data;
-
-            for (let index = 0; index < nodeList.length; index++) {
-                const response: any = await getDiskDetails(auth, nodeList[index].id);
-                diskDetailsList.push({
-                    id: response.data[0].id,
-                    freeSpace: response.data[0].freeSpace,
-                    takenSpace: response.data[0].takenSpace,
-                    nodeId: response.data[0].nodeId,
-                });
-            }
-
-            dispatch(storeDiskInfo(diskDetailsList));
-            dispatch(nodeListComplete());
+export const getDiskInfo = (auth: string | null, nodeList:Array<INodeState>): AppThunk => async dispatch => {
+    try {
+        const diskDetailsList: Array<INodeDiskState> = []; 
+        for (let index = 0; index < nodeList.length; index++) {
+            const response: any = await getDiskDetails(auth, nodeList[index].id);
+            diskDetailsList.push({
+                id: response.data[0].id,
+                freeSpace: response.data[0].freeSpace,
+                takenSpace: response.data[0].takenSpace,
+                nodeId: response.data[0].nodeId,
+            });
         }
+        dispatch(storeDiskInfo(diskDetailsList));
     } catch (err) {
         throw err;
     }
