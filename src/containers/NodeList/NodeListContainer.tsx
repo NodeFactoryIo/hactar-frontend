@@ -3,7 +3,7 @@ import {EmptyList} from "../../components/EmptyList/EmptyList";
 import classNames from "classnames";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {NodeNameTitle} from "../../components/NodeNameTitle/NodeNameTitle";
+import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 
 interface INodeListProps {
     display?: boolean;

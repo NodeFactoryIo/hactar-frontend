@@ -4,13 +4,13 @@ import {getNodes, getMinerInfo, getDiskDetails} from "./DashboardApi";
 import {INodeState, INodeInfoState, INodeDiskState} from "./NodeInterface";
 
 interface IState {
-    nodeListComplete: boolean;
+    isLoading: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
     nodeDiskInfo: Array<INodeDiskState>;
 }
 const initialState: IState = {
-    nodeListComplete: false,
+    isLoading: false,
     nodeList: [],
     nodeInfo: null,
     nodeDiskInfo: [],
@@ -20,8 +20,8 @@ const nodeSlice = createSlice({
     name: "node",
     initialState,
     reducers: {
-        nodeListComplete(state: IState): void {
-            state.nodeListComplete = true;
+        isLoading(state: IState): void {
+            state.isLoading = true;
         },
         storeNodeList(state: IState, action: PayloadAction<Array<INodeState>>): void {
             state.nodeList = action.payload;
@@ -35,14 +35,14 @@ const nodeSlice = createSlice({
     },
 });
 
-export const {nodeListComplete, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
+export const {isLoading, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (auth: string | null): AppThunk => async dispatch => {
     try {
         const nodeListResponse = await getNodes(auth);
         dispatch(storeNodeList(nodeListResponse.data));
-        dispatch(nodeListComplete());
+        dispatch(isLoading());
     } catch (err) {
         throw err;
     }

@@ -4,7 +4,7 @@ import classNames from "classnames";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
-import {NodeNameTitle} from "../../components/NodeNameTitle/NodeNameTitle";
+import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;

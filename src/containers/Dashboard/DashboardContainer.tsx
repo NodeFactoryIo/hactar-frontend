@@ -32,10 +32,10 @@ export const DashboardContainer = (): ReactElement => {
             if (nodeList[0] && nodeList[0].id) {
                 dispatch(getGeneralInfo(token, nodeList[selectedNodeIndex].id));
                 dispatch(getDiskInfo(token, nodeList));
-                if (nodeList.length) setElementsHidden(false);
+                setElementsHidden(false);
             }
         }
-    }, [state.node.nodeListComplete, selectedNodeIndex]);
+    }, [state.node.isLoading, selectedNodeIndex]);
 
     return (
         <div className="dashboard-container">
