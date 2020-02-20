@@ -7,9 +7,17 @@ import jwt_decode from "jwt-decode";
 const setInitialToken = (): string | null => {
     const token = localStorage.getItem("token");
     if (token) {
-        const jwt: {id: number; iat: number; exp: number} = jwt_decode(token);
-        if (jwt.exp > Date.now() / 1000) return token;
-        else return null;
+        try {
+            const jwt: {id: number; iat: number; exp: number} = jwt_decode(token);
+            if (jwt.exp > Date.now() / 1000) {
+                return token;
+            }
+        } catch (e) {
+            console.error(e);
+            localStorage.clear();
+        }
+
+        return null;
     } else return null;
 };
 
