@@ -4,13 +4,13 @@ import {getNodes, getMinerInfo, getDiskDetails} from "./DashboardApi";
 import {INodeState, INodeInfoState, INodeDiskState} from "./NodeInterface";
 
 interface IState {
-    nodeListComplete: boolean;
+    isLoading: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
     nodeDiskInfo: Array<INodeDiskState>;
 }
 const initialState: IState = {
-    nodeListComplete: false,
+    isLoading: false,
     nodeList: [],
     nodeInfo: null,
     nodeDiskInfo: [],
@@ -20,8 +20,8 @@ const nodeSlice = createSlice({
     name: "node",
     initialState,
     reducers: {
-        nodeListComplete(state: IState): void {
-            state.nodeListComplete = true;
+        isLoading(state: IState): void {
+            state.isLoading = true;
         },
         storeNodeList(state: IState, action: PayloadAction<Array<INodeState>>): void {
             state.nodeList = action.payload;
@@ -35,28 +35,32 @@ const nodeSlice = createSlice({
     },
 });
 
-export const {nodeListComplete, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
+export const {isLoading, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
-export const getNodeList = (auth: string | null): AppThunk => async dispatch => {
+export const getNodeList = (): AppThunk => async (dispatch, getState) => {
     try {
-        const nodeListResponse = await getNodes(auth);
+        const token = getState().user.token;
+        const nodeListResponse = await getNodes(token);
         dispatch(storeNodeList(nodeListResponse.data));
-        dispatch(nodeListComplete());
+        dispatch(isLoading());
     } catch (err) {
         throw err;
     }
 };
 
-export const getGeneralInfo = (auth: string | null, nodeId: number): AppThunk => async dispatch => {
+export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, getState) => {
     try {
-        const nodeInfoResponse = await getMinerInfo(auth, nodeId);
+        const token = getState().user.token;
+        const nodeInfoResponse = await getMinerInfo(token, nodeId);
         dispatch(
             storeNodeInfo({
                 version: nodeInfoResponse.data.version,
                 sectorSize: nodeInfoResponse.data.sectorSize,
                 minerPower: nodeInfoResponse.data.minerPower,
                 totalPower: nodeInfoResponse.data.totalPower,
+                createdAt: nodeInfoResponse.data.createdAt,
+                updatedAt: nodeInfoResponse.data.updatedAt,
             }),
         );
     } catch (err) {
@@ -64,15 +68,18 @@ export const getGeneralInfo = (auth: string | null, nodeId: number): AppThunk =>
     }
 };
 
-export const getDiskInfo = (auth: string | null, nodeList: Array<INodeState>): AppThunk => async dispatch => {
+export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async (dispatch, getState) => {
     try {
+        const token = getState().user.token;
         const diskDetailsList: Array<INodeDiskState> = [];
         for (let index = 0; index < nodeList.length; index++) {
-            const response: any = await getDiskDetails(auth, nodeList[index].id);
+            const response: any = await getDiskDetails(token, nodeList[index].id);
             diskDetailsList.push({
                 id: response.data[0].id,
                 freeSpace: response.data[0].freeSpace,
                 takenSpace: response.data[0].takenSpace,
+                createdAt: response.data[0].createdAt,
+                updatedAt: response.data[0].updatedAt,
                 nodeId: response.data[0].nodeId,
             });
         }

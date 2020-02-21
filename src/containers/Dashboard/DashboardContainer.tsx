@@ -11,31 +11,23 @@ import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {useHistory} from "react-router-dom";
-import {Routes} from "../../constants/routes";
-import {getNodeList, getDiskInfo, getGeneralInfo} from "./NodeSlice";
+import {getNodeList, getDiskInfoList, getGeneralInfo} from "./NodeSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
     const [selectedNodeIndex, setSelectedNodeIndex] = useState<number>(0);
-    const history = useHistory();
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state);
-    const token = state.user.token;
     const nodeList = state.node.nodeList;
 
     useEffect(() => {
-        if (!token) {
-            history.push(Routes.LOGIN_ROUTE);
-        } else {
-            dispatch(getNodeList(token));
-            if (nodeList[0] && nodeList[0].id) {
-                dispatch(getGeneralInfo(token, nodeList[selectedNodeIndex].id));
-                dispatch(getDiskInfo(token, nodeList));
-                if (nodeList.length) setElementsHidden(false);
-            }
+        dispatch(getNodeList());
+        if (nodeList[0] && nodeList[0].id) {
+            dispatch(getGeneralInfo(nodeList[selectedNodeIndex].id));
+            dispatch(getDiskInfoList(nodeList));
+            setElementsHidden(false);
         }
-    }, [state.node.nodeListComplete, selectedNodeIndex]);
+    }, [state.node.isLoading, selectedNodeIndex]);
 
     return (
         <div className="dashboard-container">
