@@ -68,7 +68,7 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
     }
 };
 
-export const getDiskInfo = (nodeList: Array<INodeState>): AppThunk => async (dispatch, getState) => {
+export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async (dispatch, getState) => {
     try {
         const token = getState().user.token;
         const diskDetailsList: Array<INodeDiskState> = [];
