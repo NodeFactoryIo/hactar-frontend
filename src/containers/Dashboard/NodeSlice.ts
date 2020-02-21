@@ -20,6 +20,7 @@ const nodeSlice = createSlice({
     name: "node",
     initialState,
     reducers: {
+        resetNodeState: state => initialState,
         isLoading(state: IState): void {
             state.isLoading = true;
         },
@@ -35,7 +36,7 @@ const nodeSlice = createSlice({
     },
 });
 
-export const {isLoading, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
+export const {resetNodeState, isLoading, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (): AppThunk => async (dispatch, getState) => {

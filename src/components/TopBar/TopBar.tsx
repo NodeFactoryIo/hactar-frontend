@@ -1,14 +1,13 @@
 import React, {useState} from "react";
-import classNames from "classnames"
+import classNames from "classnames";
 
 export interface ITopBarProps {
     email: string;
-
+    logOut: () => void;
 }
 
 export const TopBar: React.FunctionComponent<ITopBarProps> = (props: ITopBarProps) => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
-
 
     return (
         <>
@@ -23,7 +22,7 @@ export const TopBar: React.FunctionComponent<ITopBarProps> = (props: ITopBarProp
                 {props.email}
                 <i className="material-icons">arrow_drop_down</i>
                     <div className={classNames("dropdown", {hidden: !showDropdown}, )}>
-                        <div className="item">
+                        <div onClick={props.logOut} className="item">
                             <i className="material-icons">exit_to_app</i>
                             <div>Log out</div>
                         </div>
