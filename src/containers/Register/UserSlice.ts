@@ -44,7 +44,7 @@ const userSlice = createSlice({
     name: "register",
     initialState,
     reducers: {
-        resetUserState: state => initialState,
+        resetUserState: (): IUserState => initialState,
         registerStart(state: IUserState): void {
             state.isLoading = true;
         },
@@ -75,19 +75,20 @@ const userSlice = createSlice({
 });
 
 export const {
-    resetUserState, 
-    registerStart, 
-    registerSuccess, 
-    registerError, 
-    loginStart, 
-    loginSuccess, 
-    loginError} = userSlice.actions;
+    resetUserState,
+    registerStart,
+    registerSuccess,
+    registerError,
+    loginStart,
+    loginSuccess,
+    loginError,
+} = userSlice.actions;
 export default userSlice.reducer;
 
 export const logOutUser = (): AppThunk => dispatch => {
     dispatch(resetUserState());
     dispatch(resetNodeState());
-}
+};
 
 export const submitUserRegistration = (data: IUser): AppThunk => async dispatch => {
     try {

@@ -20,7 +20,7 @@ const nodeSlice = createSlice({
     name: "node",
     initialState,
     reducers: {
-        resetNodeState: state => initialState,
+        resetNodeState: (): IState => initialState,
         isLoading(state: IState): void {
             state.isLoading = true;
         },

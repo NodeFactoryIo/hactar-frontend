@@ -16,7 +16,7 @@ import {logOutUser} from "../../containers/Register/UserSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
-    const [selectedNodeIndex, setSelectedNodeIndex] = useState<number>(0)
+    const [selectedNodeIndex, setSelectedNodeIndex] = useState<number>(0);
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state);
     const nodeList = state.node.nodeList;
@@ -32,8 +32,8 @@ export const DashboardContainer = (): ReactElement => {
 
     return (
         <div className="dashboard-container">
-            <TopBar 
-                logOut={()=>{
+            <TopBar
+                logOut={() => {
                     localStorage.removeItem("token");
                     dispatch(logOutUser());
                 }}
