@@ -59,6 +59,8 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
                 sectorSize: nodeInfoResponse.data.sectorSize,
                 minerPower: nodeInfoResponse.data.minerPower,
                 totalPower: nodeInfoResponse.data.totalPower,
+                createdAt: nodeInfoResponse.data.createdAt,
+                updatedAt: nodeInfoResponse.data.updatedAt,
             }),
         );
     } catch (err) {
@@ -76,6 +78,8 @@ export const getDiskInfo = (nodeList: Array<INodeState>): AppThunk => async (dis
                 id: response.data[0].id,
                 freeSpace: response.data[0].freeSpace,
                 takenSpace: response.data[0].takenSpace,
+                createdAt: response.data[0].createdAt,
+                updatedAt: response.data[0].updatedAt,
                 nodeId: response.data[0].nodeId,
             });
         }
