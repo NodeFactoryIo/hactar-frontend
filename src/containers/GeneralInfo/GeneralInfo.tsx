@@ -4,32 +4,48 @@ import classNames from "classnames";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
+import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
     areElementsHidden: boolean;
+    setSelectedNodeIndex: Dispatch<SetStateAction<number>>;
+    selectedNodeIndex: number;
 }
 
-export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfoProps): ReactElement => {
+export const GeneralInfo = ({
+    setElementsHidden,
+    areElementsHidden,
+    setSelectedNodeIndex,
+    selectedNodeIndex,
+}: IGeneralInfoProps): ReactElement => {
     const node = useSelector((state: RootState) => state.node);
+    const {nodeInfo, nodeList} = node;
 
-    const onNodeClick = () => {
+    const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
+    };
+
+    const onNodeClick = (index: number): void => {
+        setSelectedNodeIndex(index);
     };
 
     return (
         <div className="container flex-column vertical-margin general-info">
-            <NodeListContainer display={areElementsHidden} onNodeClick={onNodeClick} />
+            <NodeListContainer
+                display={areElementsHidden}
+                selectedNode={selectedNodeIndex}
+                onNodeHeaderClick={onNodeHeaderClick}
+                onNodeClick={onNodeClick}
+            />
 
             <div className={classNames({hidden: areElementsHidden})}>
                 <div className="row-spaced upper">
-                    <div className="centered">
-                        <h3>Node name 1</h3>
-                        <a href="#" onClick={onNodeClick}>
-                            <i className="material-icons">arrow_drop_down</i>
-                        </a>
-                    </div>
-
+                    <NodeNameTitle
+                        title={`Node ${nodeList[selectedNodeIndex] && nodeList[selectedNodeIndex].id}`}
+                        onClick={onNodeHeaderClick}
+                        arrowOpen={false}
+                    />
                     <div className="node-options">
                         <i className="material-icons">notifications_none</i>
                         <i className="material-icons">more_vert</i>
@@ -39,32 +55,32 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
                 <div className="general-info-stats lower">
                     <div className="stat">
                         <label>node version</label>
-                        <p>{node.nodeInfo && node.nodeInfo.version}</p>
+                        <p>{nodeInfo && nodeInfo.version}</p>
                     </div>
 
                     <div className="stat">
                         <label>node address</label>
-                        <Clipboard copyText={node.nodeList[0] && node.nodeList[0].address} />
+                        <Clipboard copyText={nodeList[0] && nodeList[0].address} />
                     </div>
 
                     <div className="stat">
                         <label>miner power</label>
-                        <p>{node.nodeInfo && node.nodeInfo.minerPower}</p>
+                        <p>{nodeInfo && nodeInfo.minerPower}</p>
                     </div>
 
                     <div className="stat">
                         <label>total power</label>
-                        <p>{node.nodeInfo && node.nodeInfo.totalPower}</p>
+                        <p>{nodeInfo && nodeInfo.totalPower}</p>
                     </div>
 
                     <div className="stat">
                         <label>sector size</label>
-                        <p>{node.nodeInfo && node.nodeInfo.sectorSize}</p>
+                        <p>{nodeInfo && nodeInfo.sectorSize}</p>
                     </div>
 
                     <div className="stat">
                         <label>number of sectors</label>
-                        <p>{node.nodeInfo && node.nodeInfo.sectorSize}</p>
+                        <p>{nodeInfo && nodeInfo.sectorSize}</p>
                     </div>
                 </div>
             </div>

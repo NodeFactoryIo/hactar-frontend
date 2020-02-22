@@ -11,30 +11,34 @@ import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {useHistory} from "react-router-dom";
-import {Routes} from "../../constants/routes";
-import {getNodeList} from "./NodeSlice";
+import {getNodeList, getDiskInfoList, getGeneralInfo} from "./NodeSlice";
 
 export const DashboardContainer = (): ReactElement => {
-    const [areElementsHidden, setElementsHidden] = useState(true);
-    const history = useHistory();
-    const state = useSelector((state: RootState) => state);
+    const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
+    const [selectedNodeIndex, setSelectedNodeIndex] = useState<number>(0);
     const dispatch = useDispatch();
+    const state = useSelector((state: RootState) => state);
+    const nodeList = state.node.nodeList;
 
     useEffect(() => {
-        if (!state.user.token) {
-            history.push(Routes.LOGIN_ROUTE);
-        } else {
-            dispatch(getNodeList(state.user.token));
+        dispatch(getNodeList());
+        if (nodeList[0] && nodeList[0].id) {
+            dispatch(getGeneralInfo(nodeList[selectedNodeIndex].id));
+            dispatch(getDiskInfoList(nodeList));
+            setElementsHidden(false);
         }
-        if (state.node.nodeList.length) setElementsHidden(false);
-    }, [state.node.nodeListComplete]);
+    }, [state.node.isLoading, selectedNodeIndex]);
 
     return (
         <div className="dashboard-container">
             <TopBar />
 
-            <GeneralInfo setElementsHidden={setElementsHidden} areElementsHidden={areElementsHidden} />
+            <GeneralInfo
+                setElementsHidden={setElementsHidden}
+                areElementsHidden={areElementsHidden}
+                setSelectedNodeIndex={setSelectedNodeIndex}
+                selectedNodeIndex={selectedNodeIndex}
+            />
 
             <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                 <div className="column left">
@@ -51,7 +55,6 @@ export const DashboardContainer = (): ReactElement => {
                 <div className="column left">
                     <DealsContainer />
                 </div>
-
                 <div className="column right">
                     <PledgedCollateralContainer />
                 </div>

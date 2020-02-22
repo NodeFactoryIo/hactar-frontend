@@ -12,10 +12,14 @@ export interface INodeInfoState {
     sectorSize: number;
     minerPower: number;
     totalPower: number;
+    createdAt: string;
+    updatedAt: string;
 }
 export interface INodeDiskState {
     id: number;
     freeSpace: number;
     takenSpace: number;
+    createdAt: string;
+    updatedAt: string;
     nodeId: number;
 }

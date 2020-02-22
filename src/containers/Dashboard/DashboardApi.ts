@@ -1,7 +1,7 @@
 import axios from "axios";
 import {config} from "../../app/config";
 
-const getHeaders = (auth: string | null) => {
+const getHeaders = (auth: string | null): object => {
     return {authorization: auth};
 };
 
