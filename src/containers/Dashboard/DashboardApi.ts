@@ -62,3 +62,12 @@ export async function getBalance(auth: string | null, nodeIdValue: number) {
         return err;
     }
 }
+
+export async function getLatestNodeVersion() {
+    try {
+        const response = await axios.get("https://api.github.com/repos/filecoin-project/lotus/releases");
+        return response;
+    } catch (err) {
+        return err;
+    }
+}

@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
+import {NodeVersion} from "../Dashboard/NodeVersion/NodeVersion";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -55,7 +56,14 @@ export const GeneralInfo = ({
                 <div className="general-info-stats lower">
                     <div className="stat">
                         <label>node version</label>
-                        <p>{nodeInfo && nodeInfo.version}</p>
+                        <NodeVersion 
+                            // version={nodeInfo && nodeInfo.version}
+                            version={"2.4.5"}
+                            updateAvailabe={true}
+                        />
+                        {/* <p>{nodeInfo && nodeInfo.version}</p> */}
+                        {/* <p>2.4.5</p>
+                        <i className="material-icons">update</i> */}
                     </div>
 
                     <div className="stat">

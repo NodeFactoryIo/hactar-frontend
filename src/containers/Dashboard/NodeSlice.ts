@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes, getMinerInfo, getDiskDetails, getBalance} from "./DashboardApi";
+import {getNodes, getMinerInfo, getDiskDetails, getBalance, getLatestNodeVersion} from "./DashboardApi";
 import {INodeState, INodeInfoState, INodeDiskState, INodeBalance} from "./NodeInterface";
 
 interface IState {
@@ -9,6 +9,7 @@ interface IState {
     nodeInfo: INodeInfoState | null;
     nodeDiskInfo: Array<INodeDiskState>;
     nodeBalance: INodeBalance | null;
+    latestNodeVersion: string | null;
 }
 const initialState: IState = {
     isLoading: false,
@@ -16,6 +17,7 @@ const initialState: IState = {
     nodeInfo: null,
     nodeDiskInfo: [],
     nodeBalance: null,
+    latestNodeVersion: null,
 };
 
 const nodeSlice = createSlice({
@@ -36,6 +38,9 @@ const nodeSlice = createSlice({
         },
         storeBalanceInfo(state: IState, action: PayloadAction<INodeBalance>): void {
             state.nodeBalance = action.payload;
+        },
+        storeLatestNodeVersion(state: IState, action: PayloadAction<string>): void {
+            state.latestNodeVersion = action.payload;
         }
     },
 });
@@ -45,7 +50,8 @@ export const {
     storeNodeList, 
     storeNodeInfo, 
     storeDiskInfo, 
-    storeBalanceInfo} = nodeSlice.actions;
+    storeBalanceInfo,
+    storeLatestNodeVersion} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (): AppThunk => async (dispatch, getState) => {
@@ -63,7 +69,7 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
     try {
         const token = getState().user.token;
         const nodeInfoResponse = await getMinerInfo(token, nodeId);
-        console.log(nodeInfoResponse);
+        // console.log(nodeInfoResponse);
         // Waiting for Backend...
         // dispatch(
         //     storeNodeInfo({
@@ -104,10 +110,21 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
 export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, getState) => {
     try {
         const token = getState().user.token
-        const response = await getBalance(token, nodeId);
-        console.log(response);
+        // const response = await getBalance(token, nodeId);
+        // console.log(response);
         // Waiting for Backend...
         // dispatch(storeBalanceInfo(response));
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getNodeVersion = (): AppThunk => async dispatch => {
+    try{
+        const response = await getLatestNodeVersion();
+        console.log("test");
+        console.log(response.data[0].name);
+        dispatch(storeLatestNodeVersion(response.data[0].name));
     } catch (err) {
         throw err;
     }
