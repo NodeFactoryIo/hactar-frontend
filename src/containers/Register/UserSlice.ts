@@ -86,6 +86,7 @@ export const {
 export default userSlice.reducer;
 
 export const logOutUser = (): AppThunk => dispatch => {
+    localStorage.removeItem("token");
     dispatch(resetUserState());
     dispatch(resetNodeState());
 };

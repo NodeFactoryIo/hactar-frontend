@@ -32,13 +32,7 @@ export const DashboardContainer = (): ReactElement => {
 
     return (
         <div className="dashboard-container">
-            <TopBar
-                logOut={() => {
-                    localStorage.removeItem("token");
-                    dispatch(logOutUser());
-                }}
-                email="johndoe@nodefactory.io"
-            />
+            <TopBar logOut={() => dispatch(logOutUser())} email="johndoe@nodefactory.io" />
 
             <GeneralInfo
                 setElementsHidden={setElementsHidden}
