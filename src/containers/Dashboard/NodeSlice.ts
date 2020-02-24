@@ -1,19 +1,21 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes, getMinerInfo, getDiskDetails} from "./DashboardApi";
-import {INodeState, INodeInfoState, INodeDiskState} from "./NodeInterface";
+import {getNodes, getMinerInfo, getDiskDetails, getBalance} from "./DashboardApi";
+import {INodeState, INodeInfoState, INodeDiskState, INodeBalance} from "./NodeInterface";
 
 interface IState {
     isLoading: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
     nodeDiskInfo: Array<INodeDiskState>;
+    nodeBalance: INodeBalance | null;
 }
 const initialState: IState = {
     isLoading: false,
     nodeList: [],
     nodeInfo: null,
     nodeDiskInfo: [],
+    nodeBalance: null,
 };
 
 const nodeSlice = createSlice({
@@ -32,10 +34,18 @@ const nodeSlice = createSlice({
         storeDiskInfo(state: IState, action: PayloadAction<Array<INodeDiskState>>): void {
             state.nodeDiskInfo = action.payload;
         },
+        storeBalanceInfo(state: IState, action: PayloadAction<INodeBalance>): void {
+            state.nodeBalance = action.payload;
+        }
     },
 });
 
-export const {isLoading, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
+export const {
+    isLoading, 
+    storeNodeList, 
+    storeNodeInfo, 
+    storeDiskInfo, 
+    storeBalanceInfo} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (): AppThunk => async (dispatch, getState) => {
@@ -53,16 +63,18 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
     try {
         const token = getState().user.token;
         const nodeInfoResponse = await getMinerInfo(token, nodeId);
-        dispatch(
-            storeNodeInfo({
-                version: nodeInfoResponse.data.version,
-                sectorSize: nodeInfoResponse.data.sectorSize,
-                minerPower: nodeInfoResponse.data.minerPower,
-                totalPower: nodeInfoResponse.data.totalPower,
-                createdAt: nodeInfoResponse.data.createdAt,
-                updatedAt: nodeInfoResponse.data.updatedAt,
-            }),
-        );
+        console.log(nodeInfoResponse);
+        // Waiting for Backend...
+        // dispatch(
+        //     storeNodeInfo({
+        //         version: nodeInfoResponse.data.version,
+        //         sectorSize: nodeInfoResponse.data.sectorSize,
+        //         minerPower: nodeInfoResponse.data.minerPower,
+        //         totalPower: nodeInfoResponse.data.totalPower,
+        //         createdAt: nodeInfoResponse.data.createdAt,
+        //         updatedAt: nodeInfoResponse.data.updatedAt,
+        //     }),
+        // );
     } catch (err) {
         throw err;
     }
@@ -84,6 +96,18 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
             });
         }
         dispatch(storeDiskInfo(diskDetailsList));
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, getState) => {
+    try {
+        const token = getState().user.token
+        const response = await getBalance(token, nodeId);
+        console.log(response);
+        // Waiting for Backend...
+        // dispatch(storeBalanceInfo(response));
     } catch (err) {
         throw err;
     }

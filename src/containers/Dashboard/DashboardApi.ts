@@ -25,7 +25,7 @@ export async function getDiskDetails(auth: string | null, nodeIdValue: number) {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
             params: {
-                nodeId: nodeIdValue,
+                filter: "year"
             },
         });
         return response;
@@ -41,8 +41,21 @@ export async function getMinerInfo(auth: string | null, nodeIdValue: number) {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
             params: {
-                nodeId: nodeIdValue,
+                filter: "year"
             },
+        });
+        return response;
+    } catch (err) {
+        return err;
+    }
+}
+
+export async function getBalance(auth: string | null, nodeIdValue: number) {
+    const url = `${config.apiURL}/user/node/balance/${nodeIdValue}`;
+
+    try {
+        const response = await axios.get(url, {
+            headers: getHeaders(auth),
         });
         return response;
     } catch (err) {

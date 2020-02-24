@@ -11,7 +11,7 @@ import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {getNodeList, getDiskInfoList, getGeneralInfo} from "./NodeSlice";
+import {getNodeList, getDiskInfoList, getGeneralInfo, getBalanceInfo} from "./NodeSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -25,6 +25,7 @@ export const DashboardContainer = (): ReactElement => {
         if (nodeList[0] && nodeList[0].id) {
             dispatch(getGeneralInfo(nodeList[selectedNodeIndex].id));
             dispatch(getDiskInfoList(nodeList));
+            dispatch(getBalanceInfo(nodeList[selectedNodeIndex].id));
             setElementsHidden(false);
         }
     }, [state.node.isLoading, selectedNodeIndex]);
