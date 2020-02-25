@@ -20,10 +20,6 @@ export const DashboardContainer = (): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const nodeList = state.node.nodeList;
 
-    const compareNodeVersions = () => {
-
-    }
-
     useEffect(() => {
         dispatch(getNodeList());
         dispatch(getNodeVersion());
@@ -32,7 +28,6 @@ export const DashboardContainer = (): ReactElement => {
             dispatch(getDiskInfoList(nodeList));
             dispatch(getBalanceInfo(nodeList[selectedNodeIndex].id));
             setElementsHidden(false);
-            
         }
     }, [state.node.isLoading, selectedNodeIndex]);
 
@@ -45,12 +40,11 @@ export const DashboardContainer = (): ReactElement => {
                 areElementsHidden={areElementsHidden}
                 setSelectedNodeIndex={setSelectedNodeIndex}
                 selectedNodeIndex={selectedNodeIndex}
-
             />
 
             <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                 <div className="column left">
-                    <CurrentBalanceContainer />
+                    <CurrentBalanceContainer balance={state.node.nodeBalance} />
                     <BalanceHistoryContainer />
                 </div>
                 <div className="column right">

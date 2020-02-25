@@ -1,4 +1,4 @@
-import React, {ReactElement, Dispatch, SetStateAction, useState} from "react";
+import React, {ReactElement, Dispatch, SetStateAction} from "react";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
 import {useSelector} from "react-redux";
@@ -20,7 +20,6 @@ export const GeneralInfo = ({
     setSelectedNodeIndex,
     selectedNodeIndex,
 }: IGeneralInfoProps): ReactElement => {
-    // const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
     const node = useSelector((state: RootState) => state.node);
     const {nodeInfo, nodeList} = node;
 
@@ -30,6 +29,13 @@ export const GeneralInfo = ({
 
     const onNodeClick = (index: number): void => {
         setSelectedNodeIndex(index);
+    };
+
+    const compareNodeVersions = (): boolean => {
+        if (node.latestNodeVersion && node.nodeInfo && node.nodeInfo.version) {
+            if (node.latestNodeVersion.substring(1) === node.nodeInfo.version) return false;
+            else return true;
+        } else return false;
     };
 
     return (
@@ -57,10 +63,7 @@ export const GeneralInfo = ({
                 <div className="general-info-stats lower">
                     <div className="stat">
                         <label>node version</label>
-                        <NodeVersion 
-                            version={nodeInfo && nodeInfo.version}
-                            updateAvailabe={true}
-                        />
+                        <NodeVersion version={nodeInfo && nodeInfo.version} updateAvailabe={compareNodeVersions()} />
                     </div>
 
                     <div className="stat">

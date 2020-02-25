@@ -41,17 +41,18 @@ const nodeSlice = createSlice({
         },
         storeLatestNodeVersion(state: IState, action: PayloadAction<string>): void {
             state.latestNodeVersion = action.payload;
-        }
+        },
     },
 });
 
 export const {
-    isLoading, 
-    storeNodeList, 
-    storeNodeInfo, 
-    storeDiskInfo, 
+    isLoading,
+    storeNodeList,
+    storeNodeInfo,
+    storeDiskInfo,
     storeBalanceInfo,
-    storeLatestNodeVersion} = nodeSlice.actions;
+    storeLatestNodeVersion,
+} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (): AppThunk => async (dispatch, getState) => {
@@ -69,18 +70,16 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
     try {
         const token = getState().user.token;
         const nodeInfoResponse = await getMinerInfo(token, nodeId);
-        // console.log(nodeInfoResponse);
-        // Waiting for Backend...
-        // dispatch(
-        //     storeNodeInfo({
-        //         version: nodeInfoResponse.data.version,
-        //         sectorSize: nodeInfoResponse.data.sectorSize,
-        //         minerPower: nodeInfoResponse.data.minerPower,
-        //         totalPower: nodeInfoResponse.data.totalPower,
-        //         createdAt: nodeInfoResponse.data.createdAt,
-        //         updatedAt: nodeInfoResponse.data.updatedAt,
-        //     }),
-        // );
+        dispatch(
+            storeNodeInfo({
+                version: nodeInfoResponse.data.version,
+                sectorSize: nodeInfoResponse.data.sectorSize,
+                minerPower: nodeInfoResponse.data.minerPower,
+                totalPower: nodeInfoResponse.data.totalPower,
+                createdAt: nodeInfoResponse.data.createdAt,
+                updatedAt: nodeInfoResponse.data.updatedAt,
+            }),
+        );
     } catch (err) {
         throw err;
     }
@@ -109,21 +108,24 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
 
 export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, getState) => {
     try {
-        const token = getState().user.token
-        // const response = await getBalance(token, nodeId);
-        // console.log(response);
-        // Waiting for Backend...
-        // dispatch(storeBalanceInfo(response));
+        const token = getState().user.token;
+        const response = await getBalance(token, nodeId);
+        dispatch(
+            storeBalanceInfo({
+                currentBalance: response.data.currentBalance,
+                updatedAt: response.data.updatedAt,
+                balanceChangePerc: response.data.balanceChangePerc,
+                balanceChange: response.data.balanceChange,
+            }),
+        );
     } catch (err) {
         throw err;
     }
 };
 
 export const getNodeVersion = (): AppThunk => async dispatch => {
-    try{
+    try {
         const response = await getLatestNodeVersion();
-        console.log("test");
-        console.log(response.data[0].name);
         dispatch(storeLatestNodeVersion(response.data[0].name));
     } catch (err) {
         throw err;
