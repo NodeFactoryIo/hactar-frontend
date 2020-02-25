@@ -12,6 +12,7 @@ import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateral
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {getNodeList, getDiskInfoList, getGeneralInfo, getBalanceInfo} from "./NodeSlice";
+import {logOutUser} from "../../containers/Register/UserSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -32,7 +33,7 @@ export const DashboardContainer = (): ReactElement => {
 
     return (
         <div className="dashboard-container">
-            <TopBar />
+            <TopBar logOut={() => dispatch(logOutUser())} email="johndoe@nodefactory.io" />
 
             <GeneralInfo
                 setElementsHidden={setElementsHidden}
