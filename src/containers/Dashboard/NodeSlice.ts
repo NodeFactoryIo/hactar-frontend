@@ -24,6 +24,7 @@ const nodeSlice = createSlice({
     name: "node",
     initialState,
     reducers: {
+        resetNodeState: (): IState => initialState,
         isLoading(state: IState): void {
             state.isLoading = true;
         },
@@ -46,6 +47,7 @@ const nodeSlice = createSlice({
 });
 
 export const {
+    resetNodeState,
     isLoading,
     storeNodeList,
     storeNodeInfo,
