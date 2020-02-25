@@ -36,16 +36,11 @@ const nodeSlice = createSlice({
         },
         storeBalanceInfo(state: IState, action: PayloadAction<INodeBalance>): void {
             state.nodeBalance = action.payload;
-        }
+        },
     },
 });
 
-export const {
-    isLoading, 
-    storeNodeList, 
-    storeNodeInfo, 
-    storeDiskInfo, 
-    storeBalanceInfo} = nodeSlice.actions;
+export const {isLoading, storeNodeList, storeNodeInfo, storeDiskInfo, storeBalanceInfo} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (): AppThunk => async (dispatch, getState) => {
@@ -63,18 +58,16 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
     try {
         const token = getState().user.token;
         const nodeInfoResponse = await getMinerInfo(token, nodeId);
-        console.log(nodeInfoResponse);
-        // Waiting for Backend...
-        // dispatch(
-        //     storeNodeInfo({
-        //         version: nodeInfoResponse.data.version,
-        //         sectorSize: nodeInfoResponse.data.sectorSize,
-        //         minerPower: nodeInfoResponse.data.minerPower,
-        //         totalPower: nodeInfoResponse.data.totalPower,
-        //         createdAt: nodeInfoResponse.data.createdAt,
-        //         updatedAt: nodeInfoResponse.data.updatedAt,
-        //     }),
-        // );
+        dispatch(
+            storeNodeInfo({
+                version: nodeInfoResponse.data.version,
+                sectorSize: nodeInfoResponse.data.sectorSize,
+                minerPower: nodeInfoResponse.data.minerPower,
+                totalPower: nodeInfoResponse.data.totalPower,
+                createdAt: nodeInfoResponse.data.createdAt,
+                updatedAt: nodeInfoResponse.data.updatedAt,
+            }),
+        );
     } catch (err) {
         throw err;
     }
@@ -103,11 +96,16 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
 
 export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, getState) => {
     try {
-        const token = getState().user.token
+        const token = getState().user.token;
         const response = await getBalance(token, nodeId);
-        console.log(response);
-        // Waiting for Backend...
-        // dispatch(storeBalanceInfo(response));
+        dispatch(
+            storeBalanceInfo({
+                currentBalance: response.data.currentBalance,
+                updatedAt: response.data.updatedAt,
+                balanceChangePerc: response.data.balanceChangePerc,
+                balanceChange: response.data.balanceChange,
+            }),
+        );
     } catch (err) {
         throw err;
     }

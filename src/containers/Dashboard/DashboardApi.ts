@@ -25,7 +25,7 @@ export async function getDiskDetails(auth: string | null, nodeIdValue: number) {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
             params: {
-                filter: "year"
+                filter: "year",
             },
         });
         return response;
@@ -41,7 +41,7 @@ export async function getMinerInfo(auth: string | null, nodeIdValue: number) {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
             params: {
-                filter: "year"
+                filter: "year",
             },
         });
         return response;

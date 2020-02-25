@@ -1,7 +1,14 @@
 import React, {ReactElement} from "react";
 import "./balance.scss";
+import {INodeBalance} from "../Dashboard/NodeInterface";
 
-export const CurrentBalanceContainer = (): ReactElement => {
+export interface ICurrentBalanceContainerProps {
+    balance: INodeBalance | null;
+}
+
+export const CurrentBalanceContainer: React.FC<ICurrentBalanceContainerProps> = ({
+    balance,
+}: ICurrentBalanceContainerProps): ReactElement => {
     return (
         <div className="container flex-column">
             <div className="upper">
@@ -9,8 +16,10 @@ export const CurrentBalanceContainer = (): ReactElement => {
             </div>
 
             <div className="lower balance">
-                <h2>122.4589 FIL</h2>
-                <p className="yellow">+ 0.0189 FIL (0,0318%)</p>
+                <h2>{balance && balance.currentBalance} FIL</h2>
+                <p className="yellow">
+                    + {balance && balance.balanceChange} FIL ({balance && balance.balanceChangePerc})
+                </p>
             </div>
         </div>
     );

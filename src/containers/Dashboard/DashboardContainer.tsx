@@ -43,7 +43,7 @@ export const DashboardContainer = (): ReactElement => {
 
             <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                 <div className="column left">
-                    <CurrentBalanceContainer />
+                    <CurrentBalanceContainer balance={state.node.nodeBalance} />
                     <BalanceHistoryContainer />
                 </div>
                 <div className="column right">

@@ -30,4 +30,5 @@ export interface INodeBalance {
     currentBalance: number;
     updatedAt: string;
     balanceChangePerc: string;
+    balanceChange: number;
 }
