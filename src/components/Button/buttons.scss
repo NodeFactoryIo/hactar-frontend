@@ -1,13 +1,15 @@
 .button {
   border-radius: 4px;
-  width: 384px;
-  height: 48px;
+  width: 24rem;
+  height: 3rem;
   text-transform: uppercase;
   border: none;
   color: $text-dark;
   font-weight: bold;
   outline: none;
   cursor: pointer;
+  font-size: 1.125rem;
+  letter-spacing: 0.03125rem;
 }
 
 .btn-primary {

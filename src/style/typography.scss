@@ -57,7 +57,7 @@ body {
 }
 
 h1 {
-  font-size: 2.67rem;
+  font-size: 3rem;
   line-height: 1.5;
   letter-spacing: 0.5px;
   font-weight: bold;
@@ -66,10 +66,12 @@ h1 {
 
 h2 {
   color: $accented;
+  font-size: 2.25rem;
+  margin: 0;
 }
 
 h3 {
-  font-size: 1.33rem;
+  font-size: 1.5rem;
 }
 
 a {
