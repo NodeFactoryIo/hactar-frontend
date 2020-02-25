@@ -1,4 +1,4 @@
-import React, {ReactElement, Dispatch, SetStateAction} from "react";
+import React, {ReactElement, Dispatch, SetStateAction, useState} from "react";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
 import {useSelector} from "react-redux";
@@ -20,6 +20,7 @@ export const GeneralInfo = ({
     setSelectedNodeIndex,
     selectedNodeIndex,
 }: IGeneralInfoProps): ReactElement => {
+    // const [updateAvailable, setUpdateAvailable] = useState<boolean>(false);
     const node = useSelector((state: RootState) => state.node);
     const {nodeInfo, nodeList} = node;
 
@@ -57,13 +58,9 @@ export const GeneralInfo = ({
                     <div className="stat">
                         <label>node version</label>
                         <NodeVersion 
-                            // version={nodeInfo && nodeInfo.version}
-                            version={"2.4.5"}
+                            version={nodeInfo && nodeInfo.version}
                             updateAvailabe={true}
                         />
-                        {/* <p>{nodeInfo && nodeInfo.version}</p> */}
-                        {/* <p>2.4.5</p>
-                        <i className="material-icons">update</i> */}
                     </div>
 
                     <div className="stat">

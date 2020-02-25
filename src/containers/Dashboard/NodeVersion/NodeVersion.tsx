@@ -9,9 +9,9 @@ export interface INodeVersion {
 export const NodeVersion: React.FunctionComponent<INodeVersion> = ({version, updateAvailabe}: INodeVersion): React.ReactElement => {
     
     return(
-            <div className={classNames("row", {alert: updateAvailabe})}>
-                <p>{version}</p>
-                <i className={classNames("material-icons", {hidden: !updateAvailabe})}>update</i>
-            </div>
+        <div className={classNames("row", {alert: updateAvailabe})}>
+            <p>{version}</p>
+            <i className={classNames("material-icons", {hidden: !updateAvailabe})}>update</i>
+        </div>
     );
 };
