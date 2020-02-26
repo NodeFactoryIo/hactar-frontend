@@ -1,14 +1,13 @@
 @import "../../style/variables";
 
-.balance.lower {
+.balance{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding: 1.24rem 2rem !important;
 
   .yellow {
-    margin-left: 1rem;
+    margin: 0 0 0 1rem;
     line-height: 3.3rem;
   }
 }
