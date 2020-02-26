@@ -28,4 +28,4 @@ jobs:
           # Enable linters
           eslint: true
           prettier: true
-          eslint_args: "src/"
+          eslint_args: "--color --ext .ts --ext .tsx src/"
