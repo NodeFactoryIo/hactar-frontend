@@ -4,7 +4,6 @@ import {getNodes, getMinerInfo, getDiskDetails, getBalance, getLatestNodeVersion
 import {INodeState, INodeInfoState, INodeDiskState, INodeBalance} from "./NodeInterface";
 
 interface IState {
-    isLoading: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
     nodeDiskInfo: Array<INodeDiskState>;
@@ -12,7 +11,6 @@ interface IState {
     latestNodeVersion: string | null;
 }
 const initialState: IState = {
-    isLoading: false,
     nodeList: [],
     nodeInfo: null,
     nodeDiskInfo: [],
@@ -25,9 +23,6 @@ const nodeSlice = createSlice({
     initialState,
     reducers: {
         resetNodeState: (): IState => initialState,
-        isLoading(state: IState): void {
-            state.isLoading = true;
-        },
         storeNodeList(state: IState, action: PayloadAction<Array<INodeState>>): void {
             state.nodeList = action.payload;
         },
@@ -48,7 +43,6 @@ const nodeSlice = createSlice({
 
 export const {
     resetNodeState,
-    isLoading,
     storeNodeList,
     storeNodeInfo,
     storeDiskInfo,
@@ -62,7 +56,6 @@ export const getNodeList = (): AppThunk => async (dispatch, getState) => {
         const token = getState().user.token;
         const nodeListResponse = await getNodes(token);
         dispatch(storeNodeList(nodeListResponse.data));
-        dispatch(isLoading());
     } catch (err) {
         throw err;
     }
@@ -128,7 +121,11 @@ export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, get
 export const getNodeVersion = (): AppThunk => async dispatch => {
     try {
         const response = await getLatestNodeVersion();
-        if (response.data) dispatch(storeLatestNodeVersion(response.data[0].name));
+        if (response.data) {
+            if (response.data.length > 0 && response.data[0].name) {
+                dispatch(storeLatestNodeVersion(response.data[0].name.substring(1)));
+            }
+        }
     } catch (err) {
         throw err;
     }
