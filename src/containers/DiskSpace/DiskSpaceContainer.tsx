@@ -27,22 +27,23 @@ export const DiskSpace = (): ReactElement => {
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log("loaded");
-    },[reset])
+    }, [reset]);
 
     return (
         <div className="container flex-column vertical-margin">
             <div className="upper">
                 <label>disk space</label>
             </div>
-            <div onClick={()=>setReset(true)}>Test</div>
+            <div onClick={() => setReset(true)}>Test</div>
             <ChartHeader
+                onIntervalClick={(e)=>console.log(e)}
                 date={toolTip.date}
                 values={[
                     {
-                        value: `Free - ${toolTip.free} GB`, 
-                        icon: <img src={require("../../assets/icons/polygon.svg")} />
+                        value: `Free - ${toolTip.free} GB`,
+                        icon: <img src={require("../../assets/icons/polygon.svg")} />,
                     },
                     {
                         value: `Taken - ${toolTip.taken} GB`,

@@ -84,7 +84,7 @@ export const GeneralInfo = ({
 
                     <div className="stat">
                         <label>number of sectors</label>
-                        <p>{nodeInfo && nodeInfo.sectorSize}</p>
+                        <p>{nodeInfo && nodeInfo.numberOfSectors}</p>
                     </div>
                 </div>
             </div>

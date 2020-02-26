@@ -18,7 +18,7 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
 
     if (nodeVersion)
         return (
-            <div className={classNames("row", {"alert": isUpdateAvailable()})}>
+            <div className={classNames("row", {alert: isUpdateAvailable()})}>
                 <p>{nodeVersion}</p>
                 <i className={classNames("material-icons", {hidden: !isUpdateAvailable()})}>update</i>
             </div>

@@ -7,6 +7,7 @@ interface IState {
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
     nodeDiskInfoList: Array<INodeDiskState>;
+    nodeDiskInfo: Array<INodeDiskState>;
     nodeBalance: INodeBalance | null;
     latestNodeVersion: string | null;
 }
@@ -14,6 +15,7 @@ const initialState: IState = {
     nodeList: [],
     nodeInfo: null,
     nodeDiskInfoList: [],
+    nodeDiskInfo: [],
     nodeBalance: null,
     latestNodeVersion: null,
 };
@@ -32,6 +34,9 @@ const nodeSlice = createSlice({
         storeDiskInfoList(state: IState, action: PayloadAction<Array<INodeDiskState>>): void {
             state.nodeDiskInfoList = action.payload;
         },
+        storeDiskInfo(state: IState, action: PayloadAction<Array<INodeDiskState>>): void {
+            state.nodeDiskInfo = action.payload;
+        },
         storeBalanceInfo(state: IState, action: PayloadAction<INodeBalance>): void {
             state.nodeBalance = action.payload;
         },
@@ -46,6 +51,7 @@ export const {
     storeNodeList,
     storeNodeInfo,
     storeDiskInfoList,
+    storeDiskInfo,
     storeBalanceInfo,
     storeLatestNodeVersion,
 } = nodeSlice.actions;
@@ -68,7 +74,9 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
         dispatch(
             storeNodeInfo({
                 version: nodeInfoResponse.data.version,
+                walletAddress: nodeInfoResponse.data.walletAddress,
                 sectorSize: nodeInfoResponse.data.sectorSize,
+                numberOfSectors: nodeInfoResponse.data.numberOfSectors,
                 minerPower: nodeInfoResponse.data.minerPower,
                 totalPower: nodeInfoResponse.data.totalPower,
                 createdAt: nodeInfoResponse.data.createdAt,
@@ -96,6 +104,16 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
             });
         }
         dispatch(storeDiskInfoList(diskDetailsList));
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getDiskInfo = (nodeId: number, interval: string): AppThunk => async (dispatch, getState) => {
+    try {
+        const token = getState().user.token;
+        const response = await getDiskDetails(token, nodeId, interval);
+        dispatch(storeDiskInfo(response.data));
     } catch (err) {
         throw err;
     }
