@@ -5,3 +5,5 @@ jobs:
   lint:
     steps:
       - uses: samuelmeuli/lint-action@v1.2.0
+        with:
+          node-version: 12.x
