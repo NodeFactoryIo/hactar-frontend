@@ -9,18 +9,27 @@ export interface ICurrentBalanceContainerProps {
 export const CurrentBalanceContainer: React.FC<ICurrentBalanceContainerProps> = ({
     balance,
 }: ICurrentBalanceContainerProps): ReactElement => {
-    return (
-        <div className="container flex-column">
-            <div className="upper">
-                <label>Current balance</label>
-            </div>
+    if (balance)
+        return (
+            <div className="container flex-column">
+                <div className="upper">
+                    <label>Current balance</label>
+                </div>
 
-            <div className="lower balance">
-                <h2>{balance && balance.currentBalance} FIL</h2>
-                <p className="yellow">
-                    + {balance && balance.balanceChange} FIL ({balance && balance.balanceChangePerc})
-                </p>
+                <div className="lower balance">
+                    <h2>{balance.currentBalance} FIL</h2>
+                    <p className="yellow">
+                        + {balance.balanceChange} FIL ({balance.balanceChangePerc})
+                    </p>
+                </div>
             </div>
-        </div>
-    );
+        );
+    else
+        return (
+            <div className="container flex-column">
+                <div className="upper">
+                    <label>Loading balance...</label>
+                </div>
+            </div>
+        );
 };
