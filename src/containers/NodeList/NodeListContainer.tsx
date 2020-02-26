@@ -4,6 +4,7 @@ import classNames from "classnames";
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
+import {formatBytes} from "../../app/utils";
 
 interface INodeListProps {
     display?: boolean;
@@ -51,7 +52,7 @@ export const NodeListContainer = ({
                             Node {node.nodeId}
                         </p>
                         <p>
-                            {node.freeSpace} / {node.takenSpace}
+                            {formatBytes(node.freeSpace)} / {formatBytes(node.takenSpace)}
                         </p>
                         {/* TODO - online status */}
                         {/* <p className={node.online ? "yellow" : "status"}>

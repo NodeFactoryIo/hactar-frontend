@@ -6,6 +6,7 @@ import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {NodeVersion} from "../Dashboard/NodeVersion/NodeVersion";
+import {formatBytes} from "../../app/utils";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -64,17 +65,17 @@ export const GeneralInfo = ({
 
                     <div className="stat">
                         <label>node address</label>
-                        <Clipboard copyText={nodeList[0] && nodeList[0].address} />
+                        <Clipboard copyText={(nodeInfo && nodeInfo.walletAddress) || ""} truncate={true} />
                     </div>
 
                     <div className="stat">
                         <label>miner power</label>
-                        <p>{nodeInfo && nodeInfo.minerPower}</p>
+                        <p>{nodeInfo && formatBytes(nodeInfo.minerPower)}</p>
                     </div>
 
                     <div className="stat">
                         <label>total power</label>
-                        <p>{nodeInfo && nodeInfo.totalPower}</p>
+                        <p>{nodeInfo && formatBytes(nodeInfo.totalPower)}</p>
                     </div>
 
                     <div className="stat">

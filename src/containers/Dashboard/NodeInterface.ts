@@ -16,6 +16,7 @@ export interface INodeInfoState {
     numberOfSectors: number;
     minerPower: number;
     totalPower: number;
+    walletAddress: string;
     createdAt: string;
     updatedAt: string;
 }
