@@ -10,18 +10,17 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
     nodeVersion,
     latestVersion,
 }: INodeVersion): React.ReactElement => {
-    const compareNodeVersions = (): boolean => {
+    const isUpdateAvailable = (): boolean => {
         if (latestVersion && nodeVersion) {
-            if (latestVersion.substring(1) === nodeVersion) return false;
-            else return true;
+            return latestVersion !== nodeVersion;
         } else return false;
     };
 
     if (nodeVersion)
         return (
-            <div className={classNames("row", {alert: compareNodeVersions})}>
+            <div className={classNames("row", {"alert": isUpdateAvailable()})}>
                 <p>{nodeVersion}</p>
-                <i className={classNames("material-icons", {hidden: !compareNodeVersions})}>update</i>
+                <i className={classNames("material-icons", {hidden: !isUpdateAvailable()})}>update</i>
             </div>
         );
     else
