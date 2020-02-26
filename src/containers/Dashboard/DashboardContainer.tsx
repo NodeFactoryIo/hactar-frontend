@@ -11,25 +11,33 @@ import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {getNodeList, getDiskInfoList, getGeneralInfo, getBalanceInfo} from "./NodeSlice";
+import {getNodeList, getDiskInfoList, getGeneralInfo, getBalanceInfo, getNodeVersion} from "./NodeSlice";
 import {logOutUser} from "../../containers/Register/UserSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
     const [selectedNodeIndex, setSelectedNodeIndex] = useState<number>(0);
+    const [fetchingNodeList, setFetchingNodeList] = useState<boolean>(false);
+    const [fetchingNodeStatus, setFetchingNodeStatus] = useState<boolean>(false);
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state);
     const nodeList = state.node.nodeList;
 
     useEffect(() => {
-        dispatch(getNodeList());
-        if (nodeList[0] && nodeList[0].id) {
+        if (!fetchingNodeList) {
+            setFetchingNodeList(true);
+            dispatch(getNodeList());
+        }
+
+        if (!fetchingNodeStatus && nodeList[0] && nodeList[0].id) {
+            setFetchingNodeStatus(true);
+            dispatch(getNodeVersion());
             dispatch(getGeneralInfo(nodeList[selectedNodeIndex].id));
             dispatch(getDiskInfoList(nodeList));
             dispatch(getBalanceInfo(nodeList[selectedNodeIndex].id));
             setElementsHidden(false);
         }
-    }, [state.node.isLoading, selectedNodeIndex]);
+    }, [fetchingNodeList, fetchingNodeStatus, selectedNodeIndex, nodeList]);
 
     return (
         <div className="dashboard-container">

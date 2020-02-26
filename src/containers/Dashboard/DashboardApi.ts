@@ -40,9 +40,6 @@ export async function getMinerInfo(auth: string | null, nodeIdValue: number) {
     try {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
-            params: {
-                filter: "year",
-            },
         });
         return response;
     } catch (err) {
@@ -57,6 +54,15 @@ export async function getBalance(auth: string | null, nodeIdValue: number) {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
         });
+        return response;
+    } catch (err) {
+        return err;
+    }
+}
+
+export async function getLatestNodeVersion() {
+    try {
+        const response = await axios.get("https://api.github.com/repos/filecoin-project/lotus/releases");
         return response;
     } catch (err) {
         return err;
