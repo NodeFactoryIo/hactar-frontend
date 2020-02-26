@@ -1,3 +1,7 @@
-name: Lint Action
+name: CI Linter
 on: [pull_request, push]
-uses: samuelmeuli/lint-action@v1.2.0
+
+jobs:
+  lint:
+    steps:
+      - uses: samuelmeuli/lint-action@v1.2.0
