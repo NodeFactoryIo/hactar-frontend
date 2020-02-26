@@ -27,6 +27,4 @@ jobs:
           auto_fix: ${{ github.event_name == 'pull_request' }}
           # Enable linters
           eslint: true
-          prettier: true
           eslint_args: "--color --ext .ts --ext .tsx src/"
-          prettier_dir: "src/"
