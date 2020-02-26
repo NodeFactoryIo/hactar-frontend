@@ -1,21 +1,21 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes, getMinerInfo, getDiskDetails, getBalance} from "./DashboardApi";
+import {getNodes, getMinerInfo, getDiskDetails, getBalance, getLatestNodeVersion} from "./DashboardApi";
 import {INodeState, INodeInfoState, INodeDiskState, INodeBalance} from "./NodeInterface";
 
 interface IState {
-    isLoading: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
     nodeDiskInfoList: Array<INodeDiskState>;
     nodeBalance: INodeBalance | null;
+    latestNodeVersion: string | null;
 }
 const initialState: IState = {
-    isLoading: false,
     nodeList: [],
     nodeInfo: null,
     nodeDiskInfoList: [],
     nodeBalance: null,
+    latestNodeVersion: null,
 };
 
 const nodeSlice = createSlice({
@@ -23,9 +23,6 @@ const nodeSlice = createSlice({
     initialState,
     reducers: {
         resetNodeState: (): IState => initialState,
-        isLoading(state: IState): void {
-            state.isLoading = true;
-        },
         storeNodeList(state: IState, action: PayloadAction<Array<INodeState>>): void {
             state.nodeList = action.payload;
         },
@@ -38,16 +35,19 @@ const nodeSlice = createSlice({
         storeBalanceInfo(state: IState, action: PayloadAction<INodeBalance>): void {
             state.nodeBalance = action.payload;
         },
+        storeLatestNodeVersion(state: IState, action: PayloadAction<string>): void {
+            state.latestNodeVersion = action.payload;
+        },
     },
 });
 
 export const {
     resetNodeState,
-    isLoading,
     storeNodeList,
     storeNodeInfo,
     storeDiskInfoList,
     storeBalanceInfo,
+    storeLatestNodeVersion,
 } = nodeSlice.actions;
 export default nodeSlice.reducer;
 
@@ -56,7 +56,6 @@ export const getNodeList = (): AppThunk => async (dispatch, getState) => {
         const token = getState().user.token;
         const nodeListResponse = await getNodes(token);
         dispatch(storeNodeList(nodeListResponse.data));
-        dispatch(isLoading());
     } catch (err) {
         throw err;
     }
@@ -114,6 +113,19 @@ export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, get
                 balanceChange: response.data.balanceChange,
             }),
         );
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getNodeVersion = (): AppThunk => async dispatch => {
+    try {
+        const response = await getLatestNodeVersion();
+        if (response.data) {
+            if (response.data.length > 0 && response.data[0].name) {
+                dispatch(storeLatestNodeVersion(response.data[0].name.substring(1)));
+            }
+        }
     } catch (err) {
         throw err;
     }
