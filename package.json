@@ -42,7 +42,7 @@
     "build-storybook": "build-storybook -s public",
     "lint": "eslint --color --ext .ts --ext .tsx src/",
     "lint:fix": "yarn run lint --fix",
-    "prettier": "prettier --check \"src/*.{ts, tsx}\"",
+    "prettier": "prettier --check \"src/*.{ts, tsx, css, scss}\"",
     "prettier:fix": "yarn run prettier --write"
   },
   "eslintConfig": {

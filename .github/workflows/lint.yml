@@ -29,4 +29,4 @@ jobs:
           eslint: true
           prettier: true
           eslint_args: "--color --ext .ts --ext .tsx src/"
-          prettier_args: "--check \"src/*.{ts, tsx}\""
+          prettier_args: "--list-different \"src/*.{ts, tsx, css, scss}\""
