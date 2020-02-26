@@ -2,18 +2,32 @@ import React from "react";
 import classNames from "classnames";
 
 export interface INodeVersion {
-    version: string | null;
-    updateAvailabe: boolean;
+    nodeVersion: string | null;
+    latestVersion: string | null;
 }
 
 export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
-    version,
-    updateAvailabe,
+    nodeVersion,
+    latestVersion,
 }: INodeVersion): React.ReactElement => {
-    return (
-        <div className={classNames("row", {alert: updateAvailabe})}>
-            <p>{version}</p>
-            <i className={classNames("material-icons", {hidden: !updateAvailabe})}>update</i>
-        </div>
-    );
+    const compareNodeVersions = (): boolean => {
+        if (latestVersion && nodeVersion) {
+            if (latestVersion.substring(1) === nodeVersion) return false;
+            else return true;
+        } else return false;
+    };
+
+    if (nodeVersion)
+        return (
+            <div className={classNames("row", {alert: compareNodeVersions})}>
+                <p>{nodeVersion}</p>
+                <i className={classNames("material-icons", {hidden: !compareNodeVersions})}>update</i>
+            </div>
+        );
+    else
+        return (
+            <div className={"row"}>
+                <p>Loading...</p>
+            </div>
+        );
 };

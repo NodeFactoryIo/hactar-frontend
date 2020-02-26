@@ -31,13 +31,6 @@ export const GeneralInfo = ({
         setSelectedNodeIndex(index);
     };
 
-    const compareNodeVersions = (): boolean => {
-        if (node.latestNodeVersion && node.nodeInfo && node.nodeInfo.version) {
-            if (node.latestNodeVersion.substring(1) === node.nodeInfo.version) return false;
-            else return true;
-        } else return false;
-    };
-
     return (
         <div className="container flex-column vertical-margin general-info">
             <NodeListContainer
@@ -63,7 +56,10 @@ export const GeneralInfo = ({
                 <div className="general-info-stats lower">
                     <div className="stat">
                         <label>node version</label>
-                        <NodeVersion version={nodeInfo && nodeInfo.version} updateAvailabe={compareNodeVersions()} />
+                        <NodeVersion
+                            nodeVersion={nodeInfo && nodeInfo.version}
+                            latestVersion={node.latestNodeVersion}
+                        />
                     </div>
 
                     <div className="stat">
