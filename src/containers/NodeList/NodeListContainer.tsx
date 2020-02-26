@@ -19,7 +19,7 @@ export const NodeListContainer = ({
     onNodeClick,
 }: INodeListProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
-    const diskInfo = state.node.nodeDiskInfo;
+    const diskInfoList = state.node.nodeDiskInfoList;
     const [showArrow, setShowArrow] = useState<boolean>(true);
 
     const isNodeSelected = (nodeIndex: number): string => {
@@ -28,8 +28,8 @@ export const NodeListContainer = ({
     };
 
     useEffect(() => {
-        if (diskInfo.length > 0) setShowArrow(false);
-    }, [state.node.nodeDiskInfo]);
+        if (diskInfoList.length > 0) setShowArrow(false);
+    }, [state.node.nodeDiskInfoList]);
     return (
         <div className={classNames("flex-column node-list-container", {hidden: !display})}>
             <div className="upper">
@@ -42,10 +42,10 @@ export const NodeListContainer = ({
                 <p>Status</p>
             </div>
 
-            {diskInfo.length === 0 ? (
+            {diskInfoList.length === 0 ? (
                 <EmptyList message="No nodes are added" />
             ) : (
-                diskInfo.map((node, index) => (
+                diskInfoList.map((node, index) => (
                     <div key={index} className="node-list lower row-spaced">
                         <p className={`node-name ${isNodeSelected(index)}`} onClick={(): void => onNodeClick(index)}>
                             Node {node.nodeId}

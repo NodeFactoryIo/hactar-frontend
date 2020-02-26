@@ -7,14 +7,14 @@ interface IState {
     isLoading: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
-    nodeDiskInfo: Array<INodeDiskState>;
+    nodeDiskInfoList: Array<INodeDiskState>;
     nodeBalance: INodeBalance | null;
 }
 const initialState: IState = {
     isLoading: false,
     nodeList: [],
     nodeInfo: null,
-    nodeDiskInfo: [],
+    nodeDiskInfoList: [],
     nodeBalance: null,
 };
 
@@ -32,8 +32,8 @@ const nodeSlice = createSlice({
         storeNodeInfo(state: IState, action: PayloadAction<INodeInfoState>): void {
             state.nodeInfo = action.payload;
         },
-        storeDiskInfo(state: IState, action: PayloadAction<Array<INodeDiskState>>): void {
-            state.nodeDiskInfo = action.payload;
+        storeDiskInfoList(state: IState, action: PayloadAction<Array<INodeDiskState>>): void {
+            state.nodeDiskInfoList = action.payload;
         },
         storeBalanceInfo(state: IState, action: PayloadAction<INodeBalance>): void {
             state.nodeBalance = action.payload;
@@ -46,7 +46,7 @@ export const {
     isLoading,
     storeNodeList,
     storeNodeInfo,
-    storeDiskInfo,
+    storeDiskInfoList,
     storeBalanceInfo,
 } = nodeSlice.actions;
 export default nodeSlice.reducer;
@@ -86,7 +86,7 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
         const token = getState().user.token;
         const diskDetailsList: Array<INodeDiskState> = [];
         for (let index = 0; index < nodeList.length; index++) {
-            const response: any = await getDiskDetails(token, nodeList[index].id);
+            const response: any = await getDiskDetails(token, nodeList[index].id, "year");
             diskDetailsList.push({
                 id: response.data[0].id,
                 freeSpace: response.data[0].freeSpace,
@@ -96,7 +96,7 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
                 nodeId: response.data[0].nodeId,
             });
         }
-        dispatch(storeDiskInfo(diskDetailsList));
+        dispatch(storeDiskInfoList(diskDetailsList));
     } catch (err) {
         throw err;
     }

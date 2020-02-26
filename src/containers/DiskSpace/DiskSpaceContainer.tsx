@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement, useState, useEffect} from "react";
 import {ChartHeader} from "../../components/ChartHeader/ChartHeader";
 import {DiskSpaceChart} from "./DiskSpaceChart";
 
@@ -19,6 +19,7 @@ export const DiskSpace = (): ReactElement => {
     ];
 
     const [toolTip, setToolTip] = useState(data[5]);
+    const [reset, setReset] = useState(false);
 
     const updateTooltip = (e: any): void => {
         if (e.activePayload) {
@@ -26,16 +27,23 @@ export const DiskSpace = (): ReactElement => {
         }
     };
 
+    useEffect(()=>{
+        console.log("loaded");
+    },[reset])
+
     return (
         <div className="container flex-column vertical-margin">
             <div className="upper">
                 <label>disk space</label>
             </div>
-
+            <div onClick={()=>setReset(true)}>Test</div>
             <ChartHeader
                 date={toolTip.date}
                 values={[
-                    {value: `Free - ${toolTip.free} GB`, icon: <img src={require("../../assets/icons/polygon.svg")} />},
+                    {
+                        value: `Free - ${toolTip.free} GB`, 
+                        icon: <img src={require("../../assets/icons/polygon.svg")} />
+                    },
                     {
                         value: `Taken - ${toolTip.taken} GB`,
                         icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
