@@ -13,7 +13,6 @@ import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {getNodeList, getDiskInfoList, getGeneralInfo, getBalanceInfo, getNodeVersion} from "./NodeSlice";
 import {logOutUser} from "../../containers/Register/UserSlice";
-import {ConfirmationDialog} from "../../components/ConfirmationDialog/ConfirmationDialog";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -35,14 +34,6 @@ export const DashboardContainer = (): ReactElement => {
 
     return (
         <div className="dashboard-container">
-            <ConfirmationDialog
-                title="Disable notification"
-                confirmationButtonLabel="disable"
-                onConfirmation={()=>{}}
-            >
-                <p>Disable notifications on your email from Node name 1?</p>
-            </ConfirmationDialog>
-
             <TopBar logOut={() => dispatch(logOutUser())} email="johndoe@nodefactory.io" />
 
             <GeneralInfo

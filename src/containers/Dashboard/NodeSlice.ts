@@ -128,8 +128,7 @@ export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, get
 export const getNodeVersion = (): AppThunk => async dispatch => {
     try {
         const response = await getLatestNodeVersion();
-        if(response.data)
-            dispatch(storeLatestNodeVersion(response.data[0].name));
+        if (response.data) dispatch(storeLatestNodeVersion(response.data[0].name));
     } catch (err) {
         throw err;
     }

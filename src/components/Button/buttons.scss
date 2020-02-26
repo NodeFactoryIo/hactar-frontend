@@ -18,7 +18,7 @@
   &:hover{
     background: $primary-hovered;
   }
-  &:active{
+  &.btn-primary:active{
     background: $primary-pressed;
   }
   &:focus {
@@ -27,4 +27,21 @@
   &:disabled {
     background: $primary-disabled;
   }
+}
+
+.btn-secondary {
+  background: transparent;
+  color: $secondary;
+    &:hover{
+      color: $secondary-hovered;
+    }
+    &.btn-secondary:active{
+      color: $secondary-pressed;
+    }
+    &:focus {
+      color: $secondary-focused;
+    }
+    &:disabled {
+      color: $secondary-disabled;
+    }
 }
