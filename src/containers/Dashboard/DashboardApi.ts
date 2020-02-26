@@ -40,9 +40,6 @@ export async function getMinerInfo(auth: string | null, nodeIdValue: number) {
     try {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
-            params: {
-                filter: "year",
-            },
         });
         return response;
     } catch (err) {
