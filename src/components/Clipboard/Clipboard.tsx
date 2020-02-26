@@ -4,7 +4,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 
 export interface IClipboardProps {
     copyText: string;
-    truncate?: boolean
+    truncate?: boolean;
 }
 
 export const ClipboardTable = ({cellData}: TableCellProps): JSX.Element => {

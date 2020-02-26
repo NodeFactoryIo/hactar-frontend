@@ -65,7 +65,7 @@ export const GeneralInfo = ({
 
                     <div className="stat">
                         <label>node address</label>
-                        <Clipboard copyText={nodeInfo && nodeInfo.walletAddress || ""} truncate={true} />
+                        <Clipboard copyText={(nodeInfo && nodeInfo.walletAddress) || ""} truncate={true} />
                     </div>
 
                     <div className="stat">
