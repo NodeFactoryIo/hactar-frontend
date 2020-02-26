@@ -1,19 +1,21 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes, getMinerInfo, getDiskDetails} from "./DashboardApi";
-import {INodeState, INodeInfoState, INodeDiskState} from "./NodeInterface";
+import {getNodes, getMinerInfo, getDiskDetails, getBalance} from "./DashboardApi";
+import {INodeState, INodeInfoState, INodeDiskState, INodeBalance} from "./NodeInterface";
 
 interface IState {
     isLoading: boolean;
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
     nodeDiskInfo: Array<INodeDiskState>;
+    nodeBalance: INodeBalance | null;
 }
 const initialState: IState = {
     isLoading: false,
     nodeList: [],
     nodeInfo: null,
     nodeDiskInfo: [],
+    nodeBalance: null,
 };
 
 const nodeSlice = createSlice({
@@ -33,10 +35,20 @@ const nodeSlice = createSlice({
         storeDiskInfo(state: IState, action: PayloadAction<Array<INodeDiskState>>): void {
             state.nodeDiskInfo = action.payload;
         },
+        storeBalanceInfo(state: IState, action: PayloadAction<INodeBalance>): void {
+            state.nodeBalance = action.payload;
+        },
     },
 });
 
-export const {resetNodeState, isLoading, storeNodeList, storeNodeInfo, storeDiskInfo} = nodeSlice.actions;
+export const {
+    resetNodeState,
+    isLoading,
+    storeNodeList,
+    storeNodeInfo,
+    storeDiskInfo,
+    storeBalanceInfo,
+} = nodeSlice.actions;
 export default nodeSlice.reducer;
 
 export const getNodeList = (): AppThunk => async (dispatch, getState) => {
@@ -85,6 +97,23 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
             });
         }
         dispatch(storeDiskInfo(diskDetailsList));
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, getState) => {
+    try {
+        const token = getState().user.token;
+        const response = await getBalance(token, nodeId);
+        dispatch(
+            storeBalanceInfo({
+                currentBalance: response.data.currentBalance,
+                updatedAt: response.data.updatedAt,
+                balanceChangePerc: response.data.balanceChangePerc,
+                balanceChange: response.data.balanceChange,
+            }),
+        );
     } catch (err) {
         throw err;
     }

@@ -11,7 +11,7 @@ import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
-import {getNodeList, getDiskInfoList, getGeneralInfo} from "./NodeSlice";
+import {getNodeList, getDiskInfoList, getGeneralInfo, getBalanceInfo} from "./NodeSlice";
 import {logOutUser} from "../../containers/Register/UserSlice";
 
 export const DashboardContainer = (): ReactElement => {
@@ -26,6 +26,7 @@ export const DashboardContainer = (): ReactElement => {
         if (nodeList[0] && nodeList[0].id) {
             dispatch(getGeneralInfo(nodeList[selectedNodeIndex].id));
             dispatch(getDiskInfoList(nodeList));
+            dispatch(getBalanceInfo(nodeList[selectedNodeIndex].id));
             setElementsHidden(false);
         }
     }, [state.node.isLoading, selectedNodeIndex]);
@@ -43,7 +44,7 @@ export const DashboardContainer = (): ReactElement => {
 
             <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                 <div className="column left">
-                    <CurrentBalanceContainer />
+                    <CurrentBalanceContainer balance={state.node.nodeBalance} />
                     <BalanceHistoryContainer />
                 </div>
                 <div className="column right">

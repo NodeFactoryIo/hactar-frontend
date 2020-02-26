@@ -3,6 +3,8 @@ export interface INodeState {
     url: string;
     token: string;
     address: string;
+    name: string;
+    description: string;
     createdAt: string;
     updatedAt: string;
     userId: number;
@@ -22,4 +24,11 @@ export interface INodeDiskState {
     createdAt: string;
     updatedAt: string;
     nodeId: number;
+}
+
+export interface INodeBalance {
+    currentBalance: number;
+    updatedAt: string;
+    balanceChangePerc: string;
+    balanceChange: number;
 }
