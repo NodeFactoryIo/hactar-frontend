@@ -1,7 +1,14 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes, getMinerInfo, getDiskDetails, getBalance, getLatestNodeVersion} from "./DashboardApi";
-import {INodeState, INodeInfoState, INodeDiskState, INodeBalance} from "./NodeInterface";
+import {
+    getNodes,
+    getMinerInfo,
+    getDiskDetails,
+    getBalance,
+    getLatestNodeVersion,
+    fetchMiningRewards,
+} from "./DashboardApi";
+import {INodeState, INodeInfoState, INodeDiskState, INodeBalance, IMiningReward} from "./NodeInterface";
 
 interface IState {
     nodeList: Array<INodeState>;
@@ -9,6 +16,7 @@ interface IState {
     nodeDiskInfo: Array<INodeDiskState>;
     nodeBalance: INodeBalance | null;
     latestNodeVersion: string | null;
+    miningRewards: Array<IMiningReward>;
 }
 const initialState: IState = {
     nodeList: [],
@@ -16,6 +24,7 @@ const initialState: IState = {
     nodeDiskInfo: [],
     nodeBalance: null,
     latestNodeVersion: null,
+    miningRewards: [],
 };
 
 const nodeSlice = createSlice({
@@ -38,6 +47,9 @@ const nodeSlice = createSlice({
         storeLatestNodeVersion(state: IState, action: PayloadAction<string>): void {
             state.latestNodeVersion = action.payload;
         },
+        storeMiningRewards(state: IState, action: PayloadAction<Array<IMiningReward>>): void {
+            state.miningRewards = action.payload;
+        },
     },
 });
 
@@ -48,6 +60,7 @@ export const {
     storeDiskInfo,
     storeBalanceInfo,
     storeLatestNodeVersion,
+    storeMiningRewards,
 } = nodeSlice.actions;
 export default nodeSlice.reducer;
 
@@ -126,6 +139,18 @@ export const getNodeVersion = (): AppThunk => async dispatch => {
             if (response.data.length > 0 && response.data[0].name) {
                 dispatch(storeLatestNodeVersion(response.data[0].name.substring(1)));
             }
+        }
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getMiningRewards = (nodeId: number): AppThunk => async (dispatch, getState) => {
+    try {
+        const token = getState().user.token;
+        const response = await fetchMiningRewards(token, nodeId);
+        if (response.data) {
+            dispatch(storeMiningRewards(response.data));
         }
     } catch (err) {
         throw err;
