@@ -23,5 +23,6 @@ export const formatTokens = (amount: string, decimalPoints = 4): string => {
 
     let whole = (value / tenPower).toString();
 
+    // TODO: Should round better last decimal
     return whole + '.' + fraction.substring(0, decimalPoints);
 };

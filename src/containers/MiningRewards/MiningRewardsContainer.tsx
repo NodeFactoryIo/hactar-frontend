@@ -16,7 +16,8 @@ export const MiningRewardsContainer = (): ReactElement => {
         }
     };
 
-    if (!miningRewards.isLoading && toolTip.rewardAmount === "0") {
+    // Set tooltip for chart header to display latest value as initial
+    if (!miningRewards.isLoading && toolTip.rewardAmount === "0" && miningRewards.data.length > 0) {
         setToolTip(miningRewards.data[miningRewards.data.length - 1]);
     }
 

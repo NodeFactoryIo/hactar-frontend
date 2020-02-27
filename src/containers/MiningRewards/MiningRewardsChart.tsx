@@ -3,6 +3,7 @@ import React from "react";
 
 import {ChartWrapper} from "../../components/ChartWrapper";
 import {IMiningReward} from "../Dashboard/NodeInterface";
+import {formatTokens} from "../../app/utils";
 
 type MiningRewardChartProps = {
     data: IMiningReward[];
@@ -12,7 +13,7 @@ type MiningRewardChartProps = {
 export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
     public render() {
         const {data, onMouseMove} = this.props;
-        const formattedData = data.map(v => ({date: v.updatedAt, amount: parseInt(v.rewardAmount)}));
+        const formattedData = data.map(v => ({date: v.updatedAt, amount: parseFloat(formatTokens(v.rewardAmount))}));
 
         return (
             <ResponsiveContainer width="100%" height={360}>
