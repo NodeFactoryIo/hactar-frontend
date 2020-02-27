@@ -62,7 +62,7 @@ export const DashboardContainer = (): ReactElement => {
             <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                 <div className="column left">
                     <CurrentBalanceContainer balance={state.node.nodeBalance} />
-                    <MiningRewardsContainer />
+                    <MiningRewardsContainer nodeId={state.node.nodeList[selectedNodeIndex].id} />
                 </div>
                 <div className="column right">
                     <Uptime />

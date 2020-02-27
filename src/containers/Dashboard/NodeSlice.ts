@@ -167,10 +167,10 @@ export const getNodeVersion = (): AppThunk => async dispatch => {
     }
 };
 
-export const getMiningRewards = (nodeId: number): AppThunk => async (dispatch, getState) => {
+export const getMiningRewards = (nodeId: number, interval: string = "Week"): AppThunk => async (dispatch, getState) => {
     try {
         const token = getState().user.token;
-        const response = await fetchMiningRewards(token, nodeId);
+        const response = await fetchMiningRewards(token, nodeId, interval);
         if (response.data) {
             dispatch(storeMiningRewardsSuccess(response.data));
         }

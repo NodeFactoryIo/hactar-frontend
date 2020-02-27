@@ -69,14 +69,14 @@ export async function getLatestNodeVersion() {
     }
 }
 
-export async function fetchMiningRewards(auth: string | null, nodeId: number, filter: string = "week") {
+export async function fetchMiningRewards(auth: string | null, nodeId: number, interval: string = "week") {
     const url = `${config.apiURL}/user/node/miningrewards/${nodeId}`;
 
     try {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
             params: {
-                filter,
+                filter: interval.toLowerCase(),
             },
         });
         return response;
