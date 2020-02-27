@@ -15,14 +15,16 @@ export const formatTokens = (amount: string, decimalPoints = 4): string => {
     const tenPower = BigInt("1000000000000000000");
     const value = BigInt(amount);
     let fraction = (value % tenPower).toString();
-    while (fraction.length < decimals) { fraction = '0' + fraction; }
+    while (fraction.length < decimals) {
+        fraction = "0" + fraction;
+    }
 
     // Strip trailing 0
     // @ts-ignore
     fraction = fraction.match(/^([0-9]*[1-9]|0)(0*)/)[1];
 
-    let whole = (value / tenPower).toString();
+    const whole = (value / tenPower).toString();
 
     // TODO: Should round better last decimal
-    return whole + '.' + fraction.substring(0, decimalPoints);
+    return whole + "." + fraction.substring(0, decimalPoints);
 };

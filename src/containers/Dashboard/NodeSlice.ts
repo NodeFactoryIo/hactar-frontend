@@ -28,8 +28,8 @@ interface IState {
     nodeBalance: INodeBalance | null;
     latestNodeVersion: string | null;
     miningRewards: IDataEntity & {
-        data: Array<IMiningReward>,
-    },
+        data: Array<IMiningReward>;
+    };
 }
 const initialState: IState = {
     nodeList: [],
@@ -167,7 +167,7 @@ export const getNodeVersion = (): AppThunk => async dispatch => {
     }
 };
 
-export const getMiningRewards = (nodeId: number, interval: string = "Week"): AppThunk => async (dispatch, getState) => {
+export const getMiningRewards = (nodeId: number, interval = "Week"): AppThunk => async (dispatch, getState) => {
     try {
         const token = getState().user.token;
         const response = await fetchMiningRewards(token, nodeId, interval);

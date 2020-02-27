@@ -69,7 +69,7 @@ export async function getLatestNodeVersion() {
     }
 }
 
-export async function fetchMiningRewards(auth: string | null, nodeId: number, interval: string = "week") {
+export async function fetchMiningRewards(auth: string | null, nodeId: number, interval = "week") {
     const url = `${config.apiURL}/user/node/miningrewards/${nodeId}`;
 
     try {

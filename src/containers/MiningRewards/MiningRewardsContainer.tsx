@@ -12,7 +12,7 @@ interface IMiningRewardsProps {
     nodeId: number;
 }
 
-export const MiningRewardsContainer = ({ nodeId }: IMiningRewardsProps): ReactElement => {
+export const MiningRewardsContainer = ({nodeId}: IMiningRewardsProps): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
     const [toolTip, setToolTip] = useState({rewardAmount: "0", updatedAt: new Date().toString()});
     const [selectedInterval, setSelectedInterval] = useState<string>("Week");
@@ -43,10 +43,12 @@ export const MiningRewardsContainer = ({ nodeId }: IMiningRewardsProps): ReactEl
                 selectedInterval={selectedInterval}
                 onIntervalClick={e => setSelectedInterval(e)}
                 date={toolTip.updatedAt}
-                values={[{
-                    value: `${formatTokens(toolTip.rewardAmount)} FIL`,
-                    icon: <i className="material-icons">account_balance_wallet</i>
-                }]}
+                values={[
+                    {
+                        value: `${formatTokens(toolTip.rewardAmount)} FIL`,
+                        icon: <i className="material-icons">account_balance_wallet</i>,
+                    },
+                ]}
             />
 
             <MiningRewardsChart data={miningRewards.data} onMouseMove={updateTooltip} />

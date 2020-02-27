@@ -18,7 +18,7 @@ import {
     getGeneralInfo,
     getBalanceInfo,
     getNodeVersion,
-    getMiningRewards
+    getMiningRewards,
 } from "./NodeSlice";
 import {logOutUser} from "../Register/UserSlice";
 
@@ -59,30 +59,29 @@ export const DashboardContainer = (): ReactElement => {
                 selectedNodeIndex={selectedNodeIndex}
             />
 
-            {
-                nodeList.length > 0 ?
-                    <>
-                        <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
-                            <div className="column left">
-                                <CurrentBalanceContainer balance={state.node.nodeBalance} />
-                                <MiningRewardsContainer nodeId={nodeList[selectedNodeIndex].id} />
-                            </div>
-                            <div className="column right">
-                                <Uptime />
-                                <DiskSpace />
-                            </div>
+            {nodeList.length > 0 ? (
+                <>
+                    <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
+                        <div className="column left">
+                            <CurrentBalanceContainer balance={state.node.nodeBalance} />
+                            <MiningRewardsContainer nodeId={nodeList[selectedNodeIndex].id} />
                         </div>
+                        <div className="column right">
+                            <Uptime />
+                            <DiskSpace />
+                        </div>
+                    </div>
 
-                        <div className={classNames("tables", {hidden: areElementsHidden})}>
-                            <div className="column left">
-                                <DealsContainer />
-                            </div>
-                            <div className="column right">
-                                <PledgedCollateralContainer />
-                            </div>
+                    <div className={classNames("tables", {hidden: areElementsHidden})}>
+                        <div className="column left">
+                            <DealsContainer />
                         </div>
-                    </> : null
-            }
+                        <div className="column right">
+                            <PledgedCollateralContainer />
+                        </div>
+                    </div>
+                </>
+            ) : null}
         </div>
     );
 };
