@@ -1,11 +1,11 @@
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React from "react";
 
-import {DiskSpaceProps} from "./DiskSpaceContainer";
+import {DiskSpaceDataProps} from "./DiskSpaceContainer";
 import {ChartWrapper} from "../../components/ChartWrapper";
 
 type DiskSpaceChartProps = {
-    data: DiskSpaceProps[];
+    data: DiskSpaceDataProps[];
     onMouseMove: (e: any) => void;
 };
 

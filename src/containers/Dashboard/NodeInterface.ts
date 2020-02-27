@@ -5,6 +5,7 @@ export interface INodeState {
     address: string;
     name: string;
     description: string;
+    hasEnabledNotifications: boolean;
     createdAt: string;
     updatedAt: string;
     userId: number;
@@ -16,7 +17,6 @@ export interface INodeInfoState {
     numberOfSectors: number;
     minerPower: number;
     totalPower: number;
-    walletAddress: string;
     createdAt: string;
     updatedAt: string;
 }

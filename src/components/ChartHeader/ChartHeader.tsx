@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useState} from "react";
 import Moment from "react-moment";
 
 interface IChartHeaderProps {
@@ -7,7 +7,22 @@ interface IChartHeaderProps {
     onIntervalClick: (e: string) => void;
 }
 
-export const ChartHeader = ({date, values, onIntervalClick}: IChartHeaderProps): ReactElement => {
+export const ChartHeader: React.FC<IChartHeaderProps> = ({
+    date,
+    values,
+    onIntervalClick,
+}: IChartHeaderProps): ReactElement => {
+    const [selectedInterval, setSelectedInterval] = useState<string>("year");
+
+    const handleIntervalClick = (interval: string): void => {
+        onIntervalClick(interval);
+        setSelectedInterval(interval);
+    };
+    const handleClass = (spanValue: string): string => {
+        if (spanValue === selectedInterval) return "selected";
+        else return "";
+    };
+
     return (
         <div className="lower row-spaced chart-header">
             <div className="row wrapped">
@@ -31,22 +46,18 @@ export const ChartHeader = ({date, values, onIntervalClick}: IChartHeaderProps):
             </div>
 
             <div className="row time">
-                <span 
-                    onClick={() => onIntervalClick("day")}
-                    className=""
-                >Day</span>
-                <span 
-                    onClick={() => onIntervalClick("week")}
-                    className="selected"
-                >Week</span>
-                <span
-                    onClick={() => onIntervalClick("month")}
-                    className=""
-                >Month</span>
-                <span
-                    onClick={() => onIntervalClick("year")}
-                    className=""
-                >Year</span>
+                <span onClick={() => handleIntervalClick("day")} className={handleClass("day")}>
+                    Day
+                </span>
+                <span onClick={() => handleIntervalClick("week")} className={handleClass("week")}>
+                    Week
+                </span>
+                <span onClick={() => handleIntervalClick("month")} className={handleClass("month")}>
+                    Month
+                </span>
+                <span onClick={() => handleIntervalClick("year")} className={handleClass("year")}>
+                    Year
+                </span>
             </div>
         </div>
     );

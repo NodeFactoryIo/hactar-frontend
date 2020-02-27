@@ -34,7 +34,7 @@ export const BalanceHistoryContainer = (): ReactElement => {
             </div>
 
             <ChartHeader
-                onIntervalClick={()=>{}}
+                onIntervalClick={() => {}}
                 date={toolTip.date}
                 values={[{value: toolTip.balance, icon: <i className="material-icons">account_balance_wallet</i>}]}
             />

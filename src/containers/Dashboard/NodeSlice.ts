@@ -79,7 +79,6 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
                 numberOfSectors: nodeInfoResponse.data.numberOfSectors,
                 minerPower: nodeInfoResponse.data.minerPower,
                 totalPower: nodeInfoResponse.data.totalPower,
-                walletAddress: nodeInfoResponse.data.walletAddress,
                 createdAt: nodeInfoResponse.data.createdAt,
                 updatedAt: nodeInfoResponse.data.updatedAt,
             }),

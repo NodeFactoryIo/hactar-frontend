@@ -23,6 +23,11 @@ export const DashboardContainer = (): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const nodeList = state.node.nodeList;
 
+    const onNodeSelect = (index: number) => {
+        setSelectedNodeIndex(index);
+        setFetchingNodeStatus(false);
+    };
+
     useEffect(() => {
         if (!fetchingNodeList) {
             setFetchingNodeList(true);
@@ -46,7 +51,7 @@ export const DashboardContainer = (): ReactElement => {
             <GeneralInfo
                 setElementsHidden={setElementsHidden}
                 areElementsHidden={areElementsHidden}
-                setSelectedNodeIndex={setSelectedNodeIndex}
+                setSelectedNodeIndex={onNodeSelect}
                 selectedNodeIndex={selectedNodeIndex}
             />
 
@@ -57,7 +62,7 @@ export const DashboardContainer = (): ReactElement => {
                 </div>
                 <div className="column right">
                     <Uptime />
-                    <DiskSpace />
+                    <DiskSpace selectedNodeIndex={selectedNodeIndex} />
                 </div>
             </div>
 

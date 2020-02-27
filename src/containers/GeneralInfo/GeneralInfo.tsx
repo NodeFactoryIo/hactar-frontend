@@ -11,7 +11,7 @@ import {formatBytes} from "../../app/utils";
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
     areElementsHidden: boolean;
-    setSelectedNodeIndex: Dispatch<SetStateAction<number>>;
+    setSelectedNodeIndex: (index: number) => void;
     selectedNodeIndex: number;
 }
 
