@@ -2,7 +2,7 @@ import React, {ReactElement, useState} from "react";
 import Moment from "react-moment";
 
 interface IChartHeaderProps {
-    date: string;
+    date?: string;
     values: {icon: ReactElement; value: string}[];
     onIntervalClick: (e: string) => void;
 }
