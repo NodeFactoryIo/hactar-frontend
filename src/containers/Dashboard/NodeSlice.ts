@@ -10,13 +10,26 @@ import {
 } from "./DashboardApi";
 import {INodeState, INodeInfoState, INodeDiskState, INodeBalance, IMiningReward} from "./NodeInterface";
 
+interface IDataEntity {
+    data: any;
+    isLoading: boolean;
+    error: string;
+}
+
+const defaultEntityProperties = {
+    isLoading: true,
+    error: "",
+};
+
 interface IState {
     nodeList: Array<INodeState>;
     nodeInfo: INodeInfoState | null;
     nodeDiskInfo: Array<INodeDiskState>;
     nodeBalance: INodeBalance | null;
     latestNodeVersion: string | null;
-    miningRewards: Array<IMiningReward>;
+    miningRewards: IDataEntity & {
+        data: Array<IMiningReward>,
+    },
 }
 const initialState: IState = {
     nodeList: [],
@@ -24,7 +37,10 @@ const initialState: IState = {
     nodeDiskInfo: [],
     nodeBalance: null,
     latestNodeVersion: null,
-    miningRewards: [],
+    miningRewards: {
+        ...defaultEntityProperties,
+        data: [],
+    },
 };
 
 const nodeSlice = createSlice({
@@ -47,8 +63,13 @@ const nodeSlice = createSlice({
         storeLatestNodeVersion(state: IState, action: PayloadAction<string>): void {
             state.latestNodeVersion = action.payload;
         },
-        storeMiningRewards(state: IState, action: PayloadAction<Array<IMiningReward>>): void {
-            state.miningRewards = action.payload;
+        storeMiningRewardsSuccess(state: IState, action: PayloadAction<Array<IMiningReward>>): void {
+            state.miningRewards.data = action.payload;
+            state.miningRewards.isLoading = false;
+            state.miningRewards.error = "";
+        },
+        storeMiningRewardsError(state: IState, action: PayloadAction<string>): void {
+            state.miningRewards.error = action.payload;
         },
     },
 });
@@ -60,7 +81,8 @@ export const {
     storeDiskInfo,
     storeBalanceInfo,
     storeLatestNodeVersion,
-    storeMiningRewards,
+    storeMiningRewardsSuccess,
+    storeMiningRewardsError,
 } = nodeSlice.actions;
 export default nodeSlice.reducer;
 
@@ -150,9 +172,9 @@ export const getMiningRewards = (nodeId: number): AppThunk => async (dispatch, g
         const token = getState().user.token;
         const response = await fetchMiningRewards(token, nodeId);
         if (response.data) {
-            dispatch(storeMiningRewards(response.data));
+            dispatch(storeMiningRewardsSuccess(response.data));
         }
     } catch (err) {
-        throw err;
+        dispatch(storeMiningRewardsError(err.message));
     }
 };
