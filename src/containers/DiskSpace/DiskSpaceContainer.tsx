@@ -19,6 +19,7 @@ export const DiskSpace = (): ReactElement => {
     ];
 
     const [toolTip, setToolTip] = useState(data[5]);
+    const [selectedInterval, setSelectedInterval] = useState<string>("Week");
 
     const updateTooltip = (e: any): void => {
         if (e.activePayload) {
@@ -33,6 +34,8 @@ export const DiskSpace = (): ReactElement => {
             </div>
 
             <ChartHeader
+                selectedInterval={selectedInterval}
+                onIntervalClick={e => setSelectedInterval(e)}
                 date={toolTip.date}
                 values={[
                     {value: `Free - ${toolTip.free} GB`, icon: <img src={require("../../assets/icons/polygon.svg")} />},
