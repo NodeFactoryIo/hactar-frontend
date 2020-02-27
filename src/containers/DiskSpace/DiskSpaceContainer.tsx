@@ -17,7 +17,6 @@ export type DiskSpaceDataProps = {
 };
 
 export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskSpaceProps): ReactElement => {
-
     const formatDiskData = (diskData: Array<INodeDiskState>): Array<DiskSpaceDataProps> => {
         const formatedData: Array<DiskSpaceDataProps> = [];
         diskData.forEach(e => {
@@ -51,54 +50,51 @@ export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskS
             <div className="upper">
                 <label>disk space</label>
             </div>
-            {
-                toolTip ? (
+            {toolTip ? (
+                    <ChartHeader
+                        onIntervalClick={e => setSelectedInterval(e)}
+                        date={toolTip.date}
+                        values={[
+                            {
+                                value: `Free - ${toolTip.free} GB`,
+                                icon: <img src={require("../../assets/icons/polygon.svg")} />,
+                            },
+                            {
+                                value: `Taken - ${toolTip.taken} GB`,
+                                icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
+                            },
+                        ]}
+                    />
+            ) : nodeDiskInfo && nodeDiskInfo[0] ? (
                 <ChartHeader
                     onIntervalClick={e => setSelectedInterval(e)}
-                    date={toolTip.date}
+                    date={nodeDiskInfo[0].updatedAt}
+                            values={[
+                        {
+                            value: `Free - ${nodeDiskInfo[0].freeSpace} GB`,
+                            icon: <img src={require("../../assets/icons/polygon.svg")} />,
+                                },
+                        {
+                            value: `Taken - ${nodeDiskInfo[0].takenSpace} GB`,
+                            icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
+                                },
+                    ]}
+                />
+                        :
+                        <ChartHeader
+                    onIntervalClick={e => setSelectedInterval(e)}
                     values={[
                         {
-                            value: `Free - ${toolTip.free} GB`,
+                            value: `Free - ${""} GB`,
                             icon: <img src={require("../../assets/icons/polygon.svg")} />,
                         },
                         {
-                            value: `Taken - ${toolTip.taken} GB`,
+                            value: `Taken - ${""} GB`,
                             icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
                         },
                     ]}
                 />
-                ) : (
-                    nodeDiskInfo && nodeDiskInfo[0] ? 
-                        <ChartHeader
-                        onIntervalClick={e => setSelectedInterval(e)}
-                        date={nodeDiskInfo[0].updatedAt}
-                        values={[
-                            {
-                                value: `Free - ${nodeDiskInfo[0].freeSpace} GB`,
-                                icon: <img src={require("../../assets/icons/polygon.svg")} />,
-                            },
-                            {
-                                value: `Taken - ${nodeDiskInfo[0].takenSpace} GB`,
-                                icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
-                            },
-                        ]}
-                        />
-                    :
-                        <ChartHeader
-                            onIntervalClick={e => setSelectedInterval(e)}
-                            values={[
-                                {
-                                    value: `Free - ${""} GB`,
-                                    icon: <img src={require("../../assets/icons/polygon.svg")} />,
-                                },
-                                {
-                                    value: `Taken - ${""} GB`,
-                                    icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
-                                },
-                            ]}
-                        />
-                )
-            }
+            )}
             <DiskSpaceChart data={formatDiskData(nodeDiskInfo)} onMouseMove={updateTooltip} />
         </div>
     );
