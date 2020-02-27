@@ -1,18 +1,19 @@
 import React, {ReactElement, useState, useEffect} from "react";
+import {useSelector, useDispatch} from "react-redux";
+import classNames from "classnames";
+
 import "./dashboard.scss";
 import {TopBar} from "../../components/TopBar/TopBar";
 import {GeneralInfo} from "../GeneralInfo/GeneralInfo";
 import {CurrentBalanceContainer} from "../Balance/CurrentBalanceContainer";
-import {BalanceHistoryContainer} from "../Balance/BalanceHistoryContainer";
+import {MiningRewardsContainer} from "../MiningRewards/MiningRewardsContainer";
 import {Uptime} from "../Uptime/UptimeContainer";
 import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
-import classNames from "classnames";
 import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
-import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {getNodeList, getDiskInfoList, getGeneralInfo, getBalanceInfo, getNodeVersion} from "./NodeSlice";
-import {logOutUser} from "../../containers/Register/UserSlice";
+import {logOutUser} from "../Register/UserSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -53,7 +54,7 @@ export const DashboardContainer = (): ReactElement => {
             <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                 <div className="column left">
                     <CurrentBalanceContainer balance={state.node.nodeBalance} />
-                    <BalanceHistoryContainer />
+                    <MiningRewardsContainer />
                 </div>
                 <div className="column right">
                     <Uptime />
