@@ -32,7 +32,9 @@ export const Uptime = (): ReactElement => {
             </div>
 
             <ChartHeader
-                onIntervalClick={() => {}}
+                onIntervalClick={() => {
+                    console.log("");
+                }}
                 date={toolTip.date}
                 values={[
                     {

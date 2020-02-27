@@ -51,37 +51,37 @@ export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskS
                 <label>disk space</label>
             </div>
             {toolTip ? (
-                    <ChartHeader
-                        onIntervalClick={e => setSelectedInterval(e)}
-                        date={toolTip.date}
-                        values={[
-                            {
-                                value: `Free - ${toolTip.free} GB`,
-                                icon: <img src={require("../../assets/icons/polygon.svg")} />,
-                            },
-                            {
-                                value: `Taken - ${toolTip.taken} GB`,
-                                icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
-                            },
-                        ]}
-                    />
+                <ChartHeader
+                    onIntervalClick={e => setSelectedInterval(e)}
+                    date={toolTip.date}
+                    values={[
+                        {
+                            value: `Free - ${toolTip.free} GB`,
+                            icon: <img src={require("../../assets/icons/polygon.svg")} />,
+                        },
+                        {
+                            value: `Taken - ${toolTip.taken} GB`,
+                            icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
+                        },
+                    ]}
+                />
             ) : nodeDiskInfo && nodeDiskInfo[0] ? (
                 <ChartHeader
                     onIntervalClick={e => setSelectedInterval(e)}
                     date={nodeDiskInfo[0].updatedAt}
-                            values={[
+                    values={[
                         {
                             value: `Free - ${nodeDiskInfo[0].freeSpace} GB`,
                             icon: <img src={require("../../assets/icons/polygon.svg")} />,
-                                },
+                        },
                         {
                             value: `Taken - ${nodeDiskInfo[0].takenSpace} GB`,
                             icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
-                                },
+                        },
                     ]}
                 />
-                        :
-                        <ChartHeader
+            ) : (
+                <ChartHeader
                     onIntervalClick={e => setSelectedInterval(e)}
                     values={[
                         {
