@@ -1,18 +1,18 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React from "react";
 
-import {MiningRewardsProp} from "./MiningRewardsContainer";
 import {ChartWrapper} from "../../components/ChartWrapper";
+import {IMiningReward} from "../Dashboard/NodeInterface";
 
 type MiningRewardChartProps = {
-    data: MiningRewardsProp[];
+    data: IMiningReward[];
     onMouseMove: (e: any) => void;
 };
 
 export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
     public render() {
         const {data, onMouseMove} = this.props;
-        const formattedData = data.map(v => ({date: v.date, amount: parseInt(v.amount)}));
+        const formattedData = data.map(v => ({date: v.updatedAt, amount: parseInt(v.rewardAmount)}));
 
         return (
             <ResponsiveContainer width="100%" height={360}>
