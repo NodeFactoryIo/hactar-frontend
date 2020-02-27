@@ -18,7 +18,7 @@ export const AuthenticatedRoute = ({component: Component, ...rest}: IAuthenticat
         <Route
             {...rest}
             render={props =>
-                token ? (
+                token && localStorage.getItem("token") ? (
                     <Component {...props} />
                 ) : (
                     <Redirect to={{pathname: Routes.LOGIN_ROUTE, state: {from: props.location}}} />
