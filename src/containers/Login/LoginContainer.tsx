@@ -34,7 +34,7 @@ export const LoginContainer = (): ReactElement => {
         <div className="onboarding-container">
             {/* temporary notification */}
             <div className={`temporary-notification ${notificationStatus ? "" : "hidden"}`}>
-                {userState.loginSuccessValue ? "Registration successful" : userState.loginErrorValue}
+                {userState.loginSuccessValue ? "Login successful" : userState.loginErrorValue}
             </div>
             <img
                 className="background-image"
