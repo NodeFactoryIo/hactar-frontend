@@ -15,7 +15,7 @@ interface IMiningRewardsProps {
 export const MiningRewardsContainer = ({nodeId}: IMiningRewardsProps): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
     const [toolTip, setToolTip] = useState({rewardAmount: "0", updatedAt: new Date().toString()});
-    const [selectedInterval, setSelectedInterval] = useState<string>("Week");
+    const [selectedInterval, setSelectedInterval] = useState<string>("week");
     const dispatch = useDispatch();
 
     const updateTooltip = (e: any): void => {
@@ -31,7 +31,7 @@ export const MiningRewardsContainer = ({nodeId}: IMiningRewardsProps): ReactElem
 
     useEffect(() => {
         dispatch(getMiningRewards(nodeId, selectedInterval));
-    }, [selectedInterval]);
+    }, [selectedInterval, nodeId]);
 
     return (
         <div className="container flex-column vertical-margin">

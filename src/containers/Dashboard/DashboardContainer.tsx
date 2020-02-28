@@ -47,7 +47,6 @@ export const DashboardContainer = (): ReactElement => {
             dispatch(getGeneralInfo(nodeList[selectedNodeIndex].id));
             dispatch(getDiskInfoList(nodeList));
             dispatch(getBalanceInfo(nodeList[selectedNodeIndex].id));
-            dispatch(getMiningRewards(nodeList[selectedNodeIndex].id));
             setElementsHidden(false);
         }
     }, [fetchingNodeList, fetchingNodeStatus, selectedNodeIndex, nodeList]);
