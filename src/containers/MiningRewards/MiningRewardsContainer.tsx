@@ -5,7 +5,7 @@ import {MiningRewardsChart} from "./MiningRewardsChart";
 import {ChartHeader} from "../../components/ChartHeader/ChartHeader";
 import {RootState} from "../../app/rootReducer";
 import {formatTokens} from "../../app/utils";
-import {getMiningRewards} from "../Dashboard/NodeSlice";
+import {getMiningRewards} from "./MiningRewardsSlice";
 
 interface IMiningRewardsProps {
     // TODO: this will be replace by different redux statemement (selected nodeID is in state)
@@ -32,6 +32,10 @@ export const MiningRewardsContainer = ({nodeId}: IMiningRewardsProps): ReactElem
     useEffect(() => {
         dispatch(getMiningRewards(nodeId, selectedInterval));
     }, [selectedInterval, nodeId]);
+
+    if (miningRewards.isLoading) {
+        return <div>Loading</div>;
+    }
 
     return (
         <div className="container flex-column vertical-margin">

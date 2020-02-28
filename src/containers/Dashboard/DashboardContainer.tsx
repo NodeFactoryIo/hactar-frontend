@@ -12,14 +12,12 @@ import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {RootState} from "../../app/rootReducer";
 import {
-    getNodeList,
-    getDiskInfoList,
-    getGeneralInfo,
-    getBalanceInfo,
     getNodeVersion,
-    getMiningRewards,
 } from "./NodeSlice";
 import {logOutUser} from "../Register/UserSlice";
+import {getNodeInformation} from "../GeneralInfo/GeneralInfoSlice";
+import {getAllNodes} from "../NodeList/NodeListSlice";
+import {getBalanceInfo} from "../Balance/BalanceSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -28,7 +26,8 @@ export const DashboardContainer = (): ReactElement => {
     const [fetchingNodeStatus, setFetchingNodeStatus] = useState<boolean>(false);
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state);
-    const nodeList = state.node.nodeList;
+    // @ts-ignore
+    const nodeList = state.nodeList.data;
 
     const onNodeSelect = (index: number): void => {
         setSelectedNodeIndex(index);
@@ -38,14 +37,13 @@ export const DashboardContainer = (): ReactElement => {
     useEffect(() => {
         if (!fetchingNodeList) {
             setFetchingNodeList(true);
-            dispatch(getNodeList());
+            dispatch(getAllNodes());
         }
 
         if (!fetchingNodeStatus && nodeList[0] && nodeList[0].id) {
             setFetchingNodeStatus(true);
             dispatch(getNodeVersion());
-            dispatch(getGeneralInfo(nodeList[selectedNodeIndex].id));
-            dispatch(getDiskInfoList(nodeList));
+            dispatch(getNodeInformation(nodeList[selectedNodeIndex].id));
             dispatch(getBalanceInfo(nodeList[selectedNodeIndex].id));
             setElementsHidden(false);
         }
@@ -66,7 +64,7 @@ export const DashboardContainer = (): ReactElement => {
                 <>
                     <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
                         <div className="column left">
-                            <CurrentBalanceContainer balance={state.node.nodeBalance} />
+                            <CurrentBalanceContainer balance={state.node.balance.data} />
                             <MiningRewardsContainer nodeId={nodeList[selectedNodeIndex].id} />
                         </div>
                         <div className="column right">

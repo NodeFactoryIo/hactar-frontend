@@ -21,8 +21,10 @@ export const GeneralInfo = ({
     setSelectedNodeIndex,
     selectedNodeIndex,
 }: IGeneralInfoProps): ReactElement => {
-    const node = useSelector((state: RootState) => state.node);
-    const {nodeInfo, nodeList} = node;
+    const state = useSelector((state: RootState) => state);
+    const nodeInformation = state.node.information.data;
+    const nodeList = state.nodeList.data;
+    const latestNodeVersion = state.node.latestNodeVersion.data;
 
     const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
@@ -58,34 +60,34 @@ export const GeneralInfo = ({
                     <div className="stat">
                         <label>node version</label>
                         <NodeVersion
-                            nodeVersion={nodeInfo && nodeInfo.version}
-                            latestVersion={node.latestNodeVersion}
+                            nodeVersion={nodeInformation && nodeInformation.version}
+                            latestVersion={latestNodeVersion}
                         />
                     </div>
 
                     <div className="stat">
                         <label>node address</label>
-                        <Clipboard copyText={(nodeInfo && nodeInfo.walletAddress) || ""} truncate={true} />
+                        <Clipboard copyText={(nodeInformation && nodeInformation.walletAddress) || ""} truncate={true} />
                     </div>
 
                     <div className="stat">
                         <label>miner power</label>
-                        <p>{nodeInfo && formatBytes(nodeInfo.minerPower)}</p>
+                        <p>{nodeInformation && formatBytes(nodeInformation.minerPower)}</p>
                     </div>
 
                     <div className="stat">
                         <label>total power</label>
-                        <p>{nodeInfo && formatBytes(nodeInfo.totalPower)}</p>
+                        <p>{nodeInformation && formatBytes(nodeInformation.totalPower)}</p>
                     </div>
 
                     <div className="stat">
                         <label>sector size</label>
-                        <p>{nodeInfo && nodeInfo.sectorSize}</p>
+                        <p>{nodeInformation && nodeInformation.sectorSize}</p>
                     </div>
 
                     <div className="stat">
                         <label>number of sectors</label>
-                        <p>{nodeInfo && nodeInfo.numberOfSectors}</p>
+                        <p>{nodeInformation && nodeInformation.numberOfSectors}</p>
                     </div>
                 </div>
             </div>
