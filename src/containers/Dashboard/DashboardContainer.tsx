@@ -20,6 +20,7 @@ import {
     getMiningRewards,
 } from "./NodeSlice";
 import {logOutUser} from "../Register/UserSlice";
+import {showConfirmationDialog} from "../../app/ModalRenderer/ModalSlice";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -54,6 +55,22 @@ export const DashboardContainer = (): ReactElement => {
 
     return (
         <div className="dashboard-container">
+            <div
+                onClick={() =>
+                    dispatch(
+                        showConfirmationDialog({
+                            title: "Naslov",
+                            confirmationButtonLabel: "test",
+                            onConfirmation: () => {
+                                console.log("confirmation");
+                            },
+                            children: <p>test</p>,
+                        }),
+                    )
+                }
+            >
+                TEST
+            </div>
             <TopBar logOut={() => dispatch(logOutUser())} email="johndoe@nodefactory.io" />
 
             <GeneralInfo

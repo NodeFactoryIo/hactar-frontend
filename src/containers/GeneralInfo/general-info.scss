@@ -6,7 +6,18 @@
   }
 
   .node-options i {
-    color: $secondary;
+    color: $regular;
+    cursor: pointer;
+    user-select: none;
+    &:hover {
+      color: $accented-hovered;
+    }
+    &:focus {
+      color: $regular-focused;
+    }
+    &:active {
+      color: $regular-pressed;
+    }
   }
 
   .general-info-stats {

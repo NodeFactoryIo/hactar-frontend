@@ -1,12 +1,13 @@
 import React, {ReactElement, Dispatch, SetStateAction} from "react";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {NodeVersion} from "../Dashboard/NodeVersion/NodeVersion";
 import {formatBytes} from "../../app/utils";
+import {showConfirmationDialog} from "../../app/ModalRenderer/ModalSlice";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -21,6 +22,7 @@ export const GeneralInfo = ({
     setSelectedNodeIndex,
     selectedNodeIndex,
 }: IGeneralInfoProps): ReactElement => {
+    const dispatch = useDispatch();
     const node = useSelector((state: RootState) => state.node);
     const {nodeInfo, nodeList} = node;
 
@@ -51,6 +53,13 @@ export const GeneralInfo = ({
                     <div className="node-options">
                         <i className="material-icons">notifications_none</i>
                         <i className="material-icons">more_vert</i>
+
+                        {/* onClick={(): void => {dispatch(showConfirmationDialog({
+                                 title: "Edit node",
+                                 onConfirmation: ()=>{console.log("click")},
+                                 confirmationButtonLabel: "SAVE",
+                                 children: <div>TEST</div>
+                             }))}} */}
                     </div>
                 </div>
 
