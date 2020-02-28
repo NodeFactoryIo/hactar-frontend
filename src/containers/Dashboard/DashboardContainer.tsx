@@ -11,11 +11,8 @@ import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {RootState} from "../../app/rootReducer";
-import {
-    getNodeVersion,
-} from "./NodeSlice";
 import {logOutUser} from "../Register/UserSlice";
-import {getNodeInformation} from "../GeneralInfo/GeneralInfoSlice";
+import {getAvailableNodeVersion, getNodeInformation} from "../GeneralInfo/GeneralInfoSlice";
 import {getAllNodes} from "../NodeList/NodeListSlice";
 import {getBalanceInfo} from "../Balance/BalanceSlice";
 
@@ -42,7 +39,7 @@ export const DashboardContainer = (): ReactElement => {
 
         if (!fetchingNodeStatus && nodeList[0] && nodeList[0].id) {
             setFetchingNodeStatus(true);
-            dispatch(getNodeVersion());
+            dispatch(getAvailableNodeVersion());
             dispatch(getNodeInformation(nodeList[selectedNodeIndex].id));
             dispatch(getBalanceInfo(nodeList[selectedNodeIndex].id));
             setElementsHidden(false);

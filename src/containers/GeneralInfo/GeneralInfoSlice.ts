@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
 import {
+    getLatestNodeVersion,
     getMinerInfo,
 } from "../Dashboard/DashboardApi";
 import {INodeInfoState} from "../Dashboard/NodeInterface";
@@ -16,25 +17,34 @@ const defaultEntityProperties = {
     error: "",
 };
 
-const initialState: IDataEntity = {
+interface IState extends IDataEntity {
+    latestAvailableVersion: null | string,
+}
+
+const initialState: IState = {
     ...defaultEntityProperties,
     data: {},
+    latestAvailableVersion: null,
 };
 
 const generalInfoSlice = createSlice({
     name: "information",
     initialState,
     reducers: {
-        storeNodeInformation(state: IDataEntity, action: PayloadAction<INodeInfoState>): void {
+        storeNodeInformation(state: IState, action: PayloadAction<INodeInfoState>): void {
             state.data = action.payload;
             state.isLoading = false;
             state.error = "";
+        },
+        storeLatestNodeVersion(state: IState, action: PayloadAction<string>): void {
+            state.latestAvailableVersion = action.payload;
         },
     },
 });
 
 export const {
     storeNodeInformation,
+    storeLatestNodeVersion,
 } = generalInfoSlice.actions;
 export default generalInfoSlice.reducer;
 
@@ -54,6 +64,19 @@ export const getNodeInformation = (nodeId: number): AppThunk => async (dispatch,
                 updatedAt: nodeInfoResponse.data.updatedAt,
             }),
         );
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const getAvailableNodeVersion = (): AppThunk => async (dispatch): Promise<void> => {
+    try {
+        const response = await getLatestNodeVersion();
+        if (response.data) {
+            if (response.data.length > 0 && response.data[0].name) {
+                dispatch(storeLatestNodeVersion(response.data[0].name.substring(1)));
+            }
+        }
     } catch (err) {
         throw err;
     }

@@ -24,7 +24,7 @@ export const GeneralInfo = ({
     const state = useSelector((state: RootState) => state);
     const nodeInformation = state.node.information.data;
     const nodeList = state.nodeList.data;
-    const latestNodeVersion = state.node.latestNodeVersion.data;
+    const latestNodeVersion = state.node.information.latestAvailableVersion;
 
     const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
