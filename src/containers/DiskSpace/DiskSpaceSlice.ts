@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
 import {
     getDiskDetails,
-} from "../Dashboard/DashboardApi";
+} from "../Dashboard/Api";
 import {INodeDiskState} from "../Dashboard/NodeInterface";
 
 interface IDataEntity {

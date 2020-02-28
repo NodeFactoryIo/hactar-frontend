@@ -3,7 +3,7 @@ import {AppThunk} from "../../app/store";
 import {
     getDiskDetails,
     getNodes,
-} from "../Dashboard/DashboardApi";
+} from "../Dashboard/Api";
 import {INodeDiskStateResponse, INodeState} from "../Dashboard/NodeInterface";
 import {storeSelectedNode} from "../Dashboard/NodeSlice";
 

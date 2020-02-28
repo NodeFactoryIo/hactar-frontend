@@ -3,7 +3,7 @@ import {AppThunk} from "../../app/store";
 import {
     getLatestNodeVersion,
     getMinerInfo,
-} from "../Dashboard/DashboardApi";
+} from "../Dashboard/Api";
 import {INodeInfoState} from "../Dashboard/NodeInterface";
 
 interface IDataEntity {

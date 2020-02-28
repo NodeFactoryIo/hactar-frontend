@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
 import {
     fetchMiningRewards,
-} from "../Dashboard/DashboardApi";
+} from "../Dashboard/Api";
 import {IMiningReward} from "../Dashboard/NodeInterface";
 
 interface IDataEntity {
