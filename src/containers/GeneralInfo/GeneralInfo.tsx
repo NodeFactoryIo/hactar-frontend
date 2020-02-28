@@ -62,34 +62,34 @@ export const GeneralInfo = ({
                     <div className="stat">
                         <label>node version</label>
                         <NodeVersion
-                            nodeVersion={nodeInformation && nodeInformation.data.version}
+                            nodeVersion={nodeInformation.data.version}
                             latestVersion={latestNodeVersion}
                         />
                     </div>
 
                     <div className="stat">
                         <label>node address</label>
-                        <Clipboard copyText={(nodeInformation && nodeInformation.data.walletAddress) || ""} truncate={true} />
+                        <Clipboard copyText={(nodeInformation.data.walletAddress) || ""} truncate={true} />
                     </div>
 
                     <div className="stat">
                         <label>miner power</label>
-                        <p>{nodeInformation && formatBytes(nodeInformation.data.minerPower)}</p>
+                        <p>{formatBytes(nodeInformation.data.minerPower)}</p>
                     </div>
 
                     <div className="stat">
                         <label>total power</label>
-                        <p>{nodeInformation && formatBytes(nodeInformation.data.totalPower)}</p>
+                        <p>{formatBytes(nodeInformation.data.totalPower)}</p>
                     </div>
 
                     <div className="stat">
                         <label>sector size</label>
-                        <p>{nodeInformation && nodeInformation.data.sectorSize}</p>
+                        <p>{nodeInformation.data.sectorSize}</p>
                     </div>
 
                     <div className="stat">
                         <label>number of sectors</label>
-                        <p>{nodeInformation && nodeInformation.data.numberOfSectors}</p>
+                        <p>{nodeInformation.data.numberOfSectors}</p>
                     </div>
                 </div>
             </div>

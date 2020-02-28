@@ -41,7 +41,7 @@ export const NodeListContainer = ({
         <div className={classNames("flex-column node-list-container", {hidden: !display})}>
             <div className="upper">
                 <NodeNameTitle
-                    title="Nodes"
+                    title="Your nodes"
                     onClick={onNodeHeaderClick}
                     showArrow={showArrow}
                     arrowOpen={true}

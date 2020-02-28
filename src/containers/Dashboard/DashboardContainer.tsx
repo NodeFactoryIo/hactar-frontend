@@ -19,7 +19,6 @@ import {EmptyList} from "../../components/EmptyList/EmptyList";
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
     const [fetchingNodeList, setFetchingNodeList] = useState<boolean>(false);
-    const [fetchingNodeStatus, setFetchingNodeStatus] = useState<boolean>(false);
     const dispatch = useDispatch();
     const stateNodeList = useSelector((state: RootState) => state.nodeList);
     const selectedNodeId = useSelector((state: RootState) => state.node.selected.selectedNodeId);
@@ -30,14 +29,10 @@ export const DashboardContainer = (): ReactElement => {
         if (!fetchingNodeList) {
             setFetchingNodeList(true);
             dispatch(getAllNodes());
-        }
-
-        if (!fetchingNodeStatus && selectedNodeId) {
-            setFetchingNodeStatus(true);
             dispatch(getAvailableNodeVersion());
             setElementsHidden(false);
         }
-    }, [fetchingNodeList, fetchingNodeStatus, selectedNodeId]);
+    }, [fetchingNodeList, selectedNodeId]);
 
     if (stateNodeList.isLoading) {
         return <div>Loading</div>
