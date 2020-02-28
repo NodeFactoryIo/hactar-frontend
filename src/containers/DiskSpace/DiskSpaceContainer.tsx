@@ -5,6 +5,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {getDiskInfo} from "../Dashboard/NodeSlice";
 import {INodeDiskState} from "../Dashboard/NodeInterface";
+import {formatToGb} from "../../app/utils";
 
 export interface IDiskSpaceProps {
     selectedNodeIndex: number;
@@ -20,10 +21,10 @@ export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskS
     const formatDiskData = (diskData: Array<INodeDiskState>): Array<DiskSpaceDataProps> => {
         const formatedData: Array<DiskSpaceDataProps> = [];
         diskData.forEach(e => {
-            formatedData.push({
+            formatedData.unshift({
                 date: e.updatedAt,
-                free: Math.round(e.freeSpace / 1000000000),
-                taken: Math.round(e.takenSpace / 1000000000),
+                free: formatToGb(e.freeSpace),
+                taken: formatToGb(e.takenSpace),
             });
         });
         return formatedData;
@@ -33,7 +34,7 @@ export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskS
     const {nodeDiskInfo, nodeList} = state.node;
     const dispatch = useDispatch();
 
-    const [toolTip, setToolTip] = useState(formatDiskData(nodeDiskInfo)[0]);
+    const [toolTip, setToolTip] = useState<DiskSpaceDataProps>(formatDiskData(nodeDiskInfo)[0]);
     const [selectedInterval, setSelectedInterval] = useState("year");
 
     const updateTooltip = (e: any): void => {
@@ -60,19 +61,22 @@ export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskS
             </div>
             {toolTip ? (
                 <ChartHeader
-                    onIntervalClick={e => setSelectedInterval(e)}
+                    selectedInterval={selectedInterval}
+                    onIntervalClick={(e): void => setSelectedInterval(e)}
                     date={toolTip.date}
                     values={tooltipValues(toolTip.free, toolTip.taken)}
                 />
             ) : nodeDiskInfo && nodeDiskInfo[0] ? (
                 <ChartHeader
-                    onIntervalClick={e => setSelectedInterval(e)}
+                    selectedInterval={selectedInterval}
+                    onIntervalClick={(e): void => setSelectedInterval(e)}
                     date={nodeDiskInfo[0].updatedAt}
-                    values={tooltipValues(nodeDiskInfo[0].freeSpace, nodeDiskInfo[0].takenSpace)}
+                    values={tooltipValues(
+                        formatToGb(nodeDiskInfo[0].freeSpace),
+                        formatToGb(nodeDiskInfo[0].takenSpace),
+                    )}
                 />
-            ) : (
-                <ChartHeader onIntervalClick={e => setSelectedInterval(e)} values={tooltipValues(0, 0)} />
-            )}
+            ) : null}
             <DiskSpaceChart data={formatDiskData(nodeDiskInfo)} onMouseMove={updateTooltip} />
         </div>
     );

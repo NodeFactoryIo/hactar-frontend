@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import classNames from "classnames";
 
 interface IInputContainerProps extends React.HTMLProps<HTMLInputElement> {
@@ -6,7 +6,7 @@ interface IInputContainerProps extends React.HTMLProps<HTMLInputElement> {
     error?: string;
 }
 
-export const Input = (props: IInputContainerProps) => {
+export const Input = (props: IInputContainerProps): ReactElement => {
     const {icon, error} = props;
     let iconElement = null;
     if (icon) {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {Table as RTable, Column, Index, AutoSizer} from "react-virtualized";
 
 interface ITableProps {
@@ -6,8 +6,8 @@ interface ITableProps {
     columns: any[];
 }
 
-export const Table = ({data, columns}: ITableProps) => {
-    const getRowClassName = ({index}: Index) => {
+export const Table = ({data, columns}: ITableProps): ReactElement => {
+    const getRowClassName = ({index}: Index): string => {
         const className = "table-custom-row";
         if (index < 0) {
             return "";
@@ -19,7 +19,7 @@ export const Table = ({data, columns}: ITableProps) => {
     return (
         <div className="table-wrapper">
             <AutoSizer disableHeight>
-                {({width}) => (
+                {({width}): ReactElement => (
                     <RTable
                         headerClassName="table-custom-header"
                         rowClassName={getRowClassName}
@@ -29,7 +29,7 @@ export const Table = ({data, columns}: ITableProps) => {
                         headerHeight={80}
                         rowHeight={56}
                         rowCount={data.length}
-                        rowGetter={({index}) => data[index]}
+                        rowGetter={({index}): Record<string, any> => data[index]}
                     >
                         {columns.map((column, index) => (
                             <Column

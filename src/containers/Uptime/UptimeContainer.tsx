@@ -18,6 +18,7 @@ export const Uptime = (): ReactElement => {
     ];
 
     const [toolTip, setToolTip] = useState(data[5]);
+    const [selectedInterval, setSelectedInterval] = useState<string>("Week");
 
     const updateTooltip = (e: any): void => {
         if (e.activePayload) {
@@ -32,9 +33,8 @@ export const Uptime = (): ReactElement => {
             </div>
 
             <ChartHeader
-                onIntervalClick={() => {
-                    console.log("");
-                }}
+                selectedInterval={selectedInterval}
+                onIntervalClick={(e): void => setSelectedInterval(e)}
                 date={toolTip.date}
                 values={[
                     {

@@ -1,7 +1,32 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes, getMinerInfo, getDiskDetails, getBalance, getLatestNodeVersion} from "./DashboardApi";
-import {INodeState, INodeInfoState, INodeDiskState, INodeBalance} from "./NodeInterface";
+import {
+    getNodes,
+    getMinerInfo,
+    getDiskDetails,
+    getBalance,
+    getLatestNodeVersion,
+    fetchMiningRewards,
+} from "./DashboardApi";
+import {
+    INodeState,
+    INodeInfoState,
+    INodeDiskState,
+    INodeBalance,
+    IMiningReward,
+    INodeDiskStateResponse,
+} from "./NodeInterface";
+
+interface IDataEntity {
+    data: any;
+    isLoading: boolean;
+    error: string;
+}
+
+const defaultEntityProperties = {
+    isLoading: true,
+    error: "",
+};
 
 interface IState {
     nodeList: Array<INodeState>;
@@ -10,6 +35,9 @@ interface IState {
     nodeDiskInfo: Array<INodeDiskState>;
     nodeBalance: INodeBalance | null;
     latestNodeVersion: string | null;
+    miningRewards: IDataEntity & {
+        data: Array<IMiningReward>;
+    };
 }
 const initialState: IState = {
     nodeList: [],
@@ -18,6 +46,10 @@ const initialState: IState = {
     nodeDiskInfo: [],
     nodeBalance: null,
     latestNodeVersion: null,
+    miningRewards: {
+        ...defaultEntityProperties,
+        data: [],
+    },
 };
 
 const nodeSlice = createSlice({
@@ -43,6 +75,14 @@ const nodeSlice = createSlice({
         storeLatestNodeVersion(state: IState, action: PayloadAction<string>): void {
             state.latestNodeVersion = action.payload;
         },
+        storeMiningRewardsSuccess(state: IState, action: PayloadAction<Array<IMiningReward>>): void {
+            state.miningRewards.data = action.payload;
+            state.miningRewards.isLoading = false;
+            state.miningRewards.error = "";
+        },
+        storeMiningRewardsError(state: IState, action: PayloadAction<string>): void {
+            state.miningRewards.error = action.payload;
+        },
     },
 });
 
@@ -54,10 +94,12 @@ export const {
     storeDiskInfo,
     storeBalanceInfo,
     storeLatestNodeVersion,
+    storeMiningRewardsSuccess,
+    storeMiningRewardsError,
 } = nodeSlice.actions;
 export default nodeSlice.reducer;
 
-export const getNodeList = (): AppThunk => async (dispatch, getState) => {
+export const getNodeList = (): AppThunk => async (dispatch, getState): Promise<void> => {
     try {
         const token = getState().user.token;
         const nodeListResponse = await getNodes(token);
@@ -67,7 +109,7 @@ export const getNodeList = (): AppThunk => async (dispatch, getState) => {
     }
 };
 
-export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, getState) => {
+export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, getState): Promise<void> => {
     try {
         const token = getState().user.token;
         const nodeInfoResponse = await getMinerInfo(token, nodeId);
@@ -88,20 +130,13 @@ export const getGeneralInfo = (nodeId: number): AppThunk => async (dispatch, get
     }
 };
 
-export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async (dispatch, getState) => {
+export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async (dispatch, getState): Promise<void> => {
     try {
         const token = getState().user.token;
         const diskDetailsList: Array<INodeDiskState> = [];
         for (let index = 0; index < nodeList.length; index++) {
-            const response: any = await getDiskDetails(token, nodeList[index].id, "year");
-            diskDetailsList.push({
-                id: response.data[0].id,
-                freeSpace: response.data[0].freeSpace,
-                takenSpace: response.data[0].takenSpace,
-                createdAt: response.data[0].createdAt,
-                updatedAt: response.data[0].updatedAt,
-                nodeId: response.data[0].nodeId,
-            });
+            const response: INodeDiskStateResponse = await getDiskDetails(token, nodeList[index].id, "year");
+            diskDetailsList.push(response.data[0]);
         }
         dispatch(storeDiskInfoList(diskDetailsList));
     } catch (err) {
@@ -109,7 +144,10 @@ export const getDiskInfoList = (nodeList: Array<INodeState>): AppThunk => async 
     }
 };
 
-export const getDiskInfo = (nodeId: number, interval: string): AppThunk => async (dispatch, getState) => {
+export const getDiskInfo = (nodeId: number, interval: string): AppThunk => async (
+    dispatch,
+    getState,
+): Promise<void> => {
     try {
         const token = getState().user.token;
         const response = await getDiskDetails(token, nodeId, interval);
@@ -119,7 +157,7 @@ export const getDiskInfo = (nodeId: number, interval: string): AppThunk => async
     }
 };
 
-export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, getState) => {
+export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, getState): Promise<void> => {
     try {
         const token = getState().user.token;
         const response = await getBalance(token, nodeId);
@@ -136,7 +174,7 @@ export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, get
     }
 };
 
-export const getNodeVersion = (): AppThunk => async dispatch => {
+export const getNodeVersion = (): AppThunk => async (dispatch): Promise<void> => {
     try {
         const response = await getLatestNodeVersion();
         if (response.data) {
@@ -146,5 +184,20 @@ export const getNodeVersion = (): AppThunk => async dispatch => {
         }
     } catch (err) {
         throw err;
+    }
+};
+
+export const getMiningRewards = (nodeId: number, interval = "Week"): AppThunk => async (
+    dispatch,
+    getState,
+): Promise<void> => {
+    try {
+        const token = getState().user.token;
+        const response = await fetchMiningRewards(token, nodeId, interval);
+        if (response.data) {
+            dispatch(storeMiningRewardsSuccess(response.data));
+        }
+    } catch (err) {
+        dispatch(storeMiningRewardsError(err.message));
     }
 };

@@ -14,7 +14,6 @@ const setInitialToken = (): string | null => {
                 return token;
             }
         } catch (e) {
-            console.error(e);
             localStorage.clear();
         }
 
@@ -85,13 +84,13 @@ export const {
 } = userSlice.actions;
 export default userSlice.reducer;
 
-export const logOutUser = (): AppThunk => dispatch => {
+export const logOutUser = (): AppThunk => (dispatch): void => {
     localStorage.removeItem("token");
     dispatch(resetUserState());
     dispatch(resetNodeState());
 };
 
-export const submitUserRegistration = (data: IUser): AppThunk => async dispatch => {
+export const submitUserRegistration = (data: IUser): AppThunk => async (dispatch): Promise<void> => {
     try {
         dispatch(registerStart());
         const {email, password} = data;
@@ -106,7 +105,7 @@ export const submitUserRegistration = (data: IUser): AppThunk => async dispatch 
     }
 };
 
-export const submitUserLogin = (data: IUser): AppThunk => async dispatch => {
+export const submitUserLogin = (data: IUser): AppThunk => async (dispatch): Promise<void> => {
     try {
         dispatch(loginStart());
         const {email, password} = data;

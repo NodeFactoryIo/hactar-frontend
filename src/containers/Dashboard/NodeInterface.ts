@@ -35,3 +35,21 @@ export interface INodeBalance {
     balanceChangePerc: string;
     balanceChange: number;
 }
+
+export interface IMiningReward {
+    cid: string;
+    id: number;
+    rewardAmount: string;
+    updatedAt: string;
+    createdAt: string;
+    nodeId: number;
+}
+
+export interface INodeDiskStateResponse {
+    data: Array<INodeDiskState>;
+    status: number;
+    statusText: string;
+    headers: object;
+    config: object;
+    request: object;
+}

@@ -23,7 +23,7 @@ export const DealsContainer = (): ReactElement => {
         },
     ];
 
-    const statusCellRenderer = ({cellData}: TableCellProps) => {
+    const statusCellRenderer = ({cellData}: TableCellProps): ReactElement => {
         return <span className={cellData}>{cellData}</span>;
     };
 

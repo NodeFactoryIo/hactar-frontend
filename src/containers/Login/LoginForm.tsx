@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, ReactElement} from "react";
 import {Input} from "../../components/Input/Input";
 import {Button} from "../../components/Button/Button";
 import {useForm, Controller} from "react-hook-form";
@@ -12,7 +12,7 @@ export interface ILoginFormData {
     password: string;
 }
 
-export const LoginForm = (props: ILoginFormProps) => {
+export const LoginForm = (props: ILoginFormProps): ReactElement => {
     const {register, handleSubmit, errors, control} = useForm<ILoginFormData>();
 
     const onSubmit = handleSubmit((submitData: ILoginFormData) => {

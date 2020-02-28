@@ -16,7 +16,7 @@ export class ChartWrapper<P extends IChartWrapper> extends Component<P> {
         return this.props.children;
     }
 
-    protected formatXAxis(value: string) {
+    protected formatXAxis(value: string): string {
         return moment(value).format("DD MMM");
     }
 }
