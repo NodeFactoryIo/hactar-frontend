@@ -1,7 +1,25 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getNodes, getMinerInfo, getDiskDetails, getBalance, getLatestNodeVersion} from "./DashboardApi";
-import {INodeState, INodeInfoState, INodeDiskState, INodeBalance} from "./NodeInterface";
+import {
+    getNodes,
+    getMinerInfo,
+    getDiskDetails,
+    getBalance,
+    getLatestNodeVersion,
+    fetchMiningRewards,
+} from "./DashboardApi";
+import {INodeState, INodeInfoState, INodeDiskState, INodeBalance, IMiningReward} from "./NodeInterface";
+
+interface IDataEntity {
+    data: any;
+    isLoading: boolean;
+    error: string;
+}
+
+const defaultEntityProperties = {
+    isLoading: true,
+    error: "",
+};
 
 interface IState {
     nodeList: Array<INodeState>;
@@ -9,6 +27,9 @@ interface IState {
     nodeDiskInfo: Array<INodeDiskState>;
     nodeBalance: INodeBalance | null;
     latestNodeVersion: string | null;
+    miningRewards: IDataEntity & {
+        data: Array<IMiningReward>;
+    };
 }
 const initialState: IState = {
     nodeList: [],
@@ -16,6 +37,10 @@ const initialState: IState = {
     nodeDiskInfo: [],
     nodeBalance: null,
     latestNodeVersion: null,
+    miningRewards: {
+        ...defaultEntityProperties,
+        data: [],
+    },
 };
 
 const nodeSlice = createSlice({
@@ -38,6 +63,14 @@ const nodeSlice = createSlice({
         storeLatestNodeVersion(state: IState, action: PayloadAction<string>): void {
             state.latestNodeVersion = action.payload;
         },
+        storeMiningRewardsSuccess(state: IState, action: PayloadAction<Array<IMiningReward>>): void {
+            state.miningRewards.data = action.payload;
+            state.miningRewards.isLoading = false;
+            state.miningRewards.error = "";
+        },
+        storeMiningRewardsError(state: IState, action: PayloadAction<string>): void {
+            state.miningRewards.error = action.payload;
+        },
     },
 });
 
@@ -48,6 +81,8 @@ export const {
     storeDiskInfo,
     storeBalanceInfo,
     storeLatestNodeVersion,
+    storeMiningRewardsSuccess,
+    storeMiningRewardsError,
 } = nodeSlice.actions;
 export default nodeSlice.reducer;
 
@@ -129,5 +164,17 @@ export const getNodeVersion = (): AppThunk => async dispatch => {
         }
     } catch (err) {
         throw err;
+    }
+};
+
+export const getMiningRewards = (nodeId: number, interval = "Week"): AppThunk => async (dispatch, getState) => {
+    try {
+        const token = getState().user.token;
+        const response = await fetchMiningRewards(token, nodeId, interval);
+        if (response.data) {
+            dispatch(storeMiningRewardsSuccess(response.data));
+        }
+    } catch (err) {
+        dispatch(storeMiningRewardsError(err.message));
     }
 };

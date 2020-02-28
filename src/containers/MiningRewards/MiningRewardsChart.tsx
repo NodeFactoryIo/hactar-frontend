@@ -1,18 +1,19 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React from "react";
 
-import {BalanceProps} from "./BalanceHistoryContainer";
 import {ChartWrapper} from "../../components/ChartWrapper";
+import {IMiningReward} from "../Dashboard/NodeInterface";
+import {formatTokens} from "../../app/utils";
 
-type BalanceChartProps = {
-    data: BalanceProps[];
+type MiningRewardChartProps = {
+    data: IMiningReward[];
     onMouseMove: (e: any) => void;
 };
 
-export class BalanceChart extends ChartWrapper<BalanceChartProps> {
+export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
     public render() {
         const {data, onMouseMove} = this.props;
-        const formattedData = data.map(v => ({date: v.date, balance: parseInt(v.balance)}));
+        const formattedData = data.map(v => ({date: v.updatedAt, amount: parseFloat(formatTokens(v.rewardAmount))}));
 
         return (
             <ResponsiveContainer width="100%" height={360}>
@@ -27,7 +28,7 @@ export class BalanceChart extends ChartWrapper<BalanceChartProps> {
                     <YAxis orientation="right" />
                     <CartesianGrid strokeDasharray="6 6" stroke="#363C4D" />
                     <Tooltip content={() => null} />
-                    <Area type="monotone" strokeWidth={2} dataKey="balance" stroke="#EECA1C" fill="url(#colorPv)" />
+                    <Area type="monotone" strokeWidth={2} dataKey="amount" stroke="#EECA1C" fill="url(#colorPv)" />
                 </AreaChart>
             </ResponsiveContainer>
         );
