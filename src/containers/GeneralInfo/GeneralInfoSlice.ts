@@ -4,7 +4,7 @@ import {
     getLatestNodeVersion,
     getMinerInfo,
 } from "../../app/Api";
-import {INodeInfoState} from "../Dashboard/NodeInterface";
+import {INodeInfoState} from "../../@types/ReduxStates";
 
 interface IDataEntity {
     data: any;

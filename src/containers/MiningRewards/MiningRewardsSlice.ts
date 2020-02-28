@@ -3,7 +3,7 @@ import {AppThunk} from "../../app/store";
 import {
     fetchMiningRewards,
 } from "../../app/Api";
-import {IMiningReward} from "../Dashboard/NodeInterface";
+import {IMiningReward} from "../../@types/ReduxStates";
 
 interface IDataEntity {
     data: any;

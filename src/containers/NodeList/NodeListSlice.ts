@@ -4,7 +4,7 @@ import {
     getDiskDetails,
     getNodes,
 } from "../../app/Api";
-import {INodeDiskStateResponse, INodeState} from "../Dashboard/NodeInterface";
+import {INodeDiskStateResponse, INodeState} from "../../@types/ReduxStates";
 import {storeSelectedNode} from "../Dashboard/NodeSlice";
 
 interface IDataEntity {

@@ -3,7 +3,7 @@ import {AppThunk} from "../../app/store";
 import {
     getDiskDetails,
 } from "../../app/Api";
-import {INodeDiskState} from "../Dashboard/NodeInterface";
+import {INodeDiskState} from "../../@types/ReduxStates";
 
 interface IDataEntity {
     data: any;

@@ -4,7 +4,7 @@ import {DiskSpaceChart} from "./DiskSpaceChart";
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {getDiskInfo} from "./DiskSpaceSlice";
-import {INodeDiskState} from "../Dashboard/NodeInterface";
+import {INodeDiskState} from "../../@types/ReduxStates";
 import {formatToGb} from "../../app/utils";
 
 export type DiskSpaceDataProps = {

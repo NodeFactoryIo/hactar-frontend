@@ -3,7 +3,7 @@ import {AppThunk} from "../../app/store";
 import {
     getBalance,
 } from "../../app/Api";
-import {INodeBalance} from "../Dashboard/NodeInterface";
+import {INodeBalance} from "../../@types/ReduxStates";
 
 interface IDataEntity {
     data: any;
