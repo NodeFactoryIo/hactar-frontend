@@ -12,25 +12,19 @@ import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {RootState} from "../../app/rootReducer";
 import {logOutUser} from "../Register/UserSlice";
-import {getAvailableNodeVersion, getNodeInformation} from "../GeneralInfo/GeneralInfoSlice";
+import {getAvailableNodeVersion} from "../GeneralInfo/GeneralInfoSlice";
 import {getAllNodes} from "../NodeList/NodeListSlice";
-import {getBalanceInfo} from "../Balance/BalanceSlice";
+import {EmptyList} from "../../components/EmptyList/EmptyList";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
-    const [selectedNodeIndex, setSelectedNodeIndex] = useState<number>(0);
     const [fetchingNodeList, setFetchingNodeList] = useState<boolean>(false);
     const [fetchingNodeStatus, setFetchingNodeStatus] = useState<boolean>(false);
     const dispatch = useDispatch();
-    const state = useSelector((state: RootState) => state);
+    const stateNodeList = useSelector((state: RootState) => state.nodeList);
     const selectedNodeId = useSelector((state: RootState) => state.node.selected.selectedNodeId);
     // @ts-ignore
-    const nodeList = state.nodeList.data;
-
-    const onNodeSelect = (index: number): void => {
-        setSelectedNodeIndex(index);
-        setFetchingNodeStatus(false);
-    };
+    const nodeList = stateNodeList.data;
 
     useEffect(() => {
         if (!fetchingNodeList) {
@@ -41,46 +35,51 @@ export const DashboardContainer = (): ReactElement => {
         if (!fetchingNodeStatus && selectedNodeId) {
             setFetchingNodeStatus(true);
             dispatch(getAvailableNodeVersion());
-            dispatch(getNodeInformation(selectedNodeId));
-            dispatch(getBalanceInfo(selectedNodeId));
             setElementsHidden(false);
         }
     }, [fetchingNodeList, fetchingNodeStatus, selectedNodeId]);
+
+    if (stateNodeList.isLoading) {
+        return <div>Loading</div>
+    }
 
     return (
         <div className="dashboard-container">
             <TopBar logOut={() => dispatch(logOutUser())} email="johndoe@nodefactory.io" />
 
-            <GeneralInfo
-                setElementsHidden={setElementsHidden}
-                areElementsHidden={areElementsHidden}
-                setSelectedNodeIndex={onNodeSelect}
-                selectedNodeIndex={selectedNodeIndex}
-            />
-
-            {nodeList.length > 0 ? (
+            {(!stateNodeList.isLoading && !selectedNodeId && stateNodeList.data.length === 0)
+            ? <EmptyList message="No nodes are added" /> :
                 <>
-                    <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
-                        <div className="column left">
-                            <CurrentBalanceContainer balance={state.node.balance.data} />
-                            <MiningRewardsContainer nodeId={nodeList[selectedNodeIndex].id} />
-                        </div>
-                        <div className="column right">
-                            <Uptime />
-                            <DiskSpace selectedNodeIndex={selectedNodeIndex} />
-                        </div>
-                    </div>
+                    <GeneralInfo
+                        setElementsHidden={setElementsHidden}
+                        areElementsHidden={areElementsHidden}
+                    />
 
-                    <div className={classNames("tables", {hidden: areElementsHidden})}>
-                        <div className="column left">
-                            <DealsContainer />
-                        </div>
-                        <div className="column right">
-                            <PledgedCollateralContainer />
-                        </div>
-                    </div>
+                    {nodeList.length > 0 ? (
+                        <>
+                            <div className={classNames("splitted-row", {hidden: areElementsHidden})}>
+                                <div className="column left">
+                                    <CurrentBalanceContainer />
+                                    <MiningRewardsContainer />
+                                </div>
+                                <div className="column right">
+                                    <Uptime />
+                                    <DiskSpace />
+                                </div>
+                            </div>
+
+                            <div className={classNames("tables", {hidden: areElementsHidden})}>
+                                <div className="column left">
+                                    <DealsContainer />
+                                </div>
+                                <div className="column right">
+                                    <PledgedCollateralContainer />
+                                </div>
+                            </div>
+                        </>
+                    ) : null}
                 </>
-            ) : null}
+            }
         </div>
     );
 };

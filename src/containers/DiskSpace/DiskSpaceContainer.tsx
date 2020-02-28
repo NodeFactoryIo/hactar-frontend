@@ -7,17 +7,13 @@ import {getDiskInfo} from "./DiskSpaceSlice";
 import {INodeDiskState} from "../Dashboard/NodeInterface";
 import {formatToGb} from "../../app/utils";
 
-export interface IDiskSpaceProps {
-    selectedNodeIndex: number;
-}
-
 export type DiskSpaceDataProps = {
     date: string;
     free: number;
     taken: number;
 };
 
-export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskSpaceProps): ReactElement => {
+export const DiskSpace: React.FC = (): ReactElement => {
     const formatDiskData = (diskData: Array<INodeDiskState>): Array<DiskSpaceDataProps> => {
         const formatedData: Array<DiskSpaceDataProps> = [];
         diskData.forEach(e => {
@@ -31,6 +27,7 @@ export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskS
     };
 
     const state = useSelector((state: RootState) => state);
+    const selectedNodeId =  state.node.selected.selectedNodeId;
     const diskInformation = state.node.diskSpace.data;
     const nodeList = state.nodeList.data;
     const dispatch = useDispatch();
@@ -52,8 +49,10 @@ export const DiskSpace: React.FC<IDiskSpaceProps> = ({selectedNodeIndex}: IDiskS
     };
 
     useEffect(() => {
-        if (nodeList[selectedNodeIndex]) dispatch(getDiskInfo(nodeList[selectedNodeIndex].id, selectedInterval));
-    }, [selectedInterval, selectedNodeIndex, nodeList]);
+        if (selectedNodeId) {
+            dispatch(getDiskInfo(selectedNodeId, selectedInterval));
+        }
+    }, [selectedInterval, selectedNodeId, nodeList]);
 
     if (diskInformation.isLoading) {
         return <div>Loading</div>;

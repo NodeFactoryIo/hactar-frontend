@@ -1,4 +1,4 @@
-import React, {ReactElement, Dispatch, SetStateAction} from "react";
+import React, {ReactElement, Dispatch, SetStateAction, useEffect} from "react";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,49 +7,48 @@ import {Clipboard} from "../../components/Clipboard/Clipboard";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {NodeVersion} from "../Dashboard/NodeVersion/NodeVersion";
 import {formatBytes} from "../../app/utils";
-import {storeSelectedNode} from "../Dashboard/NodeSlice";
+import {getNodeInformation} from "./GeneralInfoSlice";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
     areElementsHidden: boolean;
-    setSelectedNodeIndex: (index: number) => void;
-    selectedNodeIndex: number;
 }
 
 export const GeneralInfo = ({
     setElementsHidden,
     areElementsHidden,
-    setSelectedNodeIndex,
-    selectedNodeIndex,
 }: IGeneralInfoProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
-    const nodeInformation = state.node.information.data;
-    const nodeList = state.nodeList.data;
-    const latestNodeVersion = state.node.information.latestAvailableVersion;
+    const nodeInformation = state.node.information;
+    const latestNodeVersion = nodeInformation.latestAvailableVersion;
+    const selectedNodeId = state.node.selected.selectedNodeId;
     const dispatch = useDispatch();
 
     const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
     };
 
-    const onNodeClick = (index: number): void => {
-        setSelectedNodeIndex(index);
-        dispatch(storeSelectedNode(nodeList[index].id));
-    };
+    useEffect(() => {
+        if (selectedNodeId) {
+            dispatch(getNodeInformation(selectedNodeId));
+        }
+    }, [selectedNodeId]);
+
+    if (nodeInformation.isLoading) {
+        return <div>Loading</div>;
+    }
 
     return (
         <div className="container flex-column vertical-margin general-info">
             <NodeListContainer
                 display={areElementsHidden}
-                selectedNode={selectedNodeIndex}
                 onNodeHeaderClick={onNodeHeaderClick}
-                onNodeClick={onNodeClick}
             />
 
             <div className={classNames({hidden: areElementsHidden})}>
                 <div className="row-spaced upper">
                     <NodeNameTitle
-                        title={`Node ${nodeList[selectedNodeIndex] && nodeList[selectedNodeIndex].id}`}
+                        title={`Node ${selectedNodeId}`}
                         onClick={onNodeHeaderClick}
                         arrowOpen={false}
                     />
@@ -63,34 +62,34 @@ export const GeneralInfo = ({
                     <div className="stat">
                         <label>node version</label>
                         <NodeVersion
-                            nodeVersion={nodeInformation && nodeInformation.version}
+                            nodeVersion={nodeInformation && nodeInformation.data.version}
                             latestVersion={latestNodeVersion}
                         />
                     </div>
 
                     <div className="stat">
                         <label>node address</label>
-                        <Clipboard copyText={(nodeInformation && nodeInformation.walletAddress) || ""} truncate={true} />
+                        <Clipboard copyText={(nodeInformation && nodeInformation.data.walletAddress) || ""} truncate={true} />
                     </div>
 
                     <div className="stat">
                         <label>miner power</label>
-                        <p>{nodeInformation && formatBytes(nodeInformation.minerPower)}</p>
+                        <p>{nodeInformation && formatBytes(nodeInformation.data.minerPower)}</p>
                     </div>
 
                     <div className="stat">
                         <label>total power</label>
-                        <p>{nodeInformation && formatBytes(nodeInformation.totalPower)}</p>
+                        <p>{nodeInformation && formatBytes(nodeInformation.data.totalPower)}</p>
                     </div>
 
                     <div className="stat">
                         <label>sector size</label>
-                        <p>{nodeInformation && nodeInformation.sectorSize}</p>
+                        <p>{nodeInformation && nodeInformation.data.sectorSize}</p>
                     </div>
 
                     <div className="stat">
                         <label>number of sectors</label>
-                        <p>{nodeInformation && nodeInformation.numberOfSectors}</p>
+                        <p>{nodeInformation && nodeInformation.data.numberOfSectors}</p>
                     </div>
                 </div>
             </div>
