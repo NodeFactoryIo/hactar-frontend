@@ -1,7 +1,6 @@
 import React, {ReactElement, useState, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import classNames from "classnames";
-
 import "./dashboard.scss";
 import {TopBar} from "../../components/TopBar/TopBar";
 import {GeneralInfo} from "../GeneralInfo/GeneralInfo";
@@ -31,6 +30,11 @@ export const DashboardContainer = (): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const nodeList = state.node.nodeList;
 
+    const onNodeSelect = (index: number): void => {
+        setSelectedNodeIndex(index);
+        setFetchingNodeStatus(false);
+    };
+
     useEffect(() => {
         if (!fetchingNodeList) {
             setFetchingNodeList(true);
@@ -55,7 +59,7 @@ export const DashboardContainer = (): ReactElement => {
             <GeneralInfo
                 setElementsHidden={setElementsHidden}
                 areElementsHidden={areElementsHidden}
-                setSelectedNodeIndex={setSelectedNodeIndex}
+                setSelectedNodeIndex={onNodeSelect}
                 selectedNodeIndex={selectedNodeIndex}
             />
 
@@ -68,7 +72,7 @@ export const DashboardContainer = (): ReactElement => {
                         </div>
                         <div className="column right">
                             <Uptime />
-                            <DiskSpace />
+                            <DiskSpace selectedNodeIndex={selectedNodeIndex} />
                         </div>
                     </div>
 

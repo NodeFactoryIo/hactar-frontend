@@ -34,7 +34,7 @@ export const Uptime = (): ReactElement => {
 
             <ChartHeader
                 selectedInterval={selectedInterval}
-                onIntervalClick={e => setSelectedInterval(e)}
+                onIntervalClick={(e): void => setSelectedInterval(e)}
                 date={toolTip.date}
                 values={[
                     {

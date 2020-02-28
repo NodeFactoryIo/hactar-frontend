@@ -41,7 +41,7 @@ export const MiningRewardsContainer = ({nodeId}: IMiningRewardsProps): ReactElem
 
             <ChartHeader
                 selectedInterval={selectedInterval}
-                onIntervalClick={e => setSelectedInterval(e)}
+                onIntervalClick={(e): void => setSelectedInterval(e)}
                 date={toolTip.updatedAt}
                 values={[
                     {

@@ -11,7 +11,7 @@ import {formatBytes} from "../../app/utils";
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
     areElementsHidden: boolean;
-    setSelectedNodeIndex: Dispatch<SetStateAction<number>>;
+    setSelectedNodeIndex: (index: number) => void;
     selectedNodeIndex: number;
 }
 
@@ -85,7 +85,7 @@ export const GeneralInfo = ({
 
                     <div className="stat">
                         <label>number of sectors</label>
-                        <p>{nodeInfo && nodeInfo.sectorSize}</p>
+                        <p>{nodeInfo && nodeInfo.numberOfSectors}</p>
                     </div>
                 </div>
             </div>

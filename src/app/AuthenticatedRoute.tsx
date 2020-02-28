@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {Route, Redirect} from "react-router-dom";
 import {useSelector} from "react-redux";
 
@@ -10,14 +10,14 @@ export interface IAuthenticatedRouteProps {
     component: any;
 }
 
-export const AuthenticatedRoute = ({component: Component, ...rest}: IAuthenticatedRouteProps) => {
+export const AuthenticatedRoute = ({component: Component, ...rest}: IAuthenticatedRouteProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const token = state.user.token;
 
     return (
         <Route
             {...rest}
-            render={props =>
+            render={(props): ReactElement =>
                 token ? (
                     <Component {...props} />
                 ) : (

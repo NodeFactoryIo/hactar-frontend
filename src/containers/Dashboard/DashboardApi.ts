@@ -18,14 +18,14 @@ export async function getNodes(auth: string | null) {
     }
 }
 
-export async function getDiskDetails(auth: string | null, nodeId: number) {
+export async function getDiskDetails(auth: string | null, nodeId: number, interval: string) {
     const url = `${config.apiURL}/user/node/diskinformation/${nodeId}`;
 
     try {
         const response = await axios.get(url, {
             headers: getHeaders(auth),
             params: {
-                filter: "year",
+                filter: interval,
             },
         });
         return response;

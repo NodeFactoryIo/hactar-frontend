@@ -1,5 +1,5 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import React from "react";
+import React, {ReactElement} from "react";
 
 import {ChartWrapper} from "../../components/ChartWrapper";
 import {IMiningReward} from "../Dashboard/NodeInterface";
@@ -11,7 +11,7 @@ type MiningRewardChartProps = {
 };
 
 export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
-    public render() {
+    public render(): ReactElement {
         const {data, onMouseMove} = this.props;
         const formattedData = data.map(v => ({date: v.updatedAt, amount: parseFloat(formatTokens(v.rewardAmount))}));
 
@@ -24,10 +24,10 @@ export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
                             <stop offset="95%" stopColor="rgba(238, 202, 28)" stopOpacity={0} />
                         </linearGradient>
                     </defs>
-                    <XAxis dataKey="date" tickFormatter={v => super.formatXAxis(v)} />
+                    <XAxis dataKey="date" tickFormatter={(v): string => super.formatXAxis(v)} />
                     <YAxis orientation="right" />
                     <CartesianGrid strokeDasharray="6 6" stroke="#363C4D" />
-                    <Tooltip content={() => null} />
+                    <Tooltip content={(): null => null} />
                     <Area type="monotone" strokeWidth={2} dataKey="amount" stroke="#EECA1C" fill="url(#colorPv)" />
                 </AreaChart>
             </ResponsiveContainer>

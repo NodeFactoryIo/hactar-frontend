@@ -28,3 +28,10 @@ export const formatTokens = (amount: string, decimalPoints = 4): string => {
     // TODO: Should round better last decimal
     return whole + "." + fraction.substring(0, decimalPoints);
 };
+
+export const formatToGb = (amount: number): number => {
+    const oneGb = BigInt(1000000000);
+    const value = BigInt(amount);
+    const numberValue = parseInt((value / oneGb).toString());
+    return numberValue;
+};

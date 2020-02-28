@@ -6,19 +6,18 @@ interface IChartHeaderProps {
     date: string;
     values: {icon: ReactElement; value: string}[];
     onIntervalClick: (e: string) => void;
-    selectedInterval: string;
+    selectedInterval?: string;
 }
 
 export const ChartHeader = ({date, values, onIntervalClick, selectedInterval}: IChartHeaderProps): ReactElement => {
-    const renderInterval = (interval: string) => (
+    const renderInterval = (interval: string): ReactElement => (
         <span
-            className={classNames({selected: selectedInterval === interval})}
-            onClick={() => onIntervalClick(interval)}
+            className={classNames({selected: selectedInterval === interval}, "capitalize")}
+            onClick={(): void => onIntervalClick(interval)}
         >
             {interval}
         </span>
     );
-
     return (
         <div className="lower row-spaced chart-header">
             <div className="row wrapped">
@@ -42,10 +41,10 @@ export const ChartHeader = ({date, values, onIntervalClick, selectedInterval}: I
             </div>
 
             <div className="row time">
-                {renderInterval("Day")}
-                {renderInterval("Week")}
-                {renderInterval("Month")}
-                {renderInterval("Year")}
+                {renderInterval("day")}
+                {renderInterval("week")}
+                {renderInterval("month")}
+                {renderInterval("year")}
             </div>
         </div>
     );

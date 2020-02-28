@@ -12,7 +12,7 @@ export const TopBar: React.FunctionComponent<ITopBarProps> = (props: ITopBarProp
     return (
         <>
             <div
-                onClick={() => {
+                onClick={(): void => {
                     setShowDropdown(false);
                 }}
                 className={classNames("dropdown-screen", {hidden: !showDropdown})}

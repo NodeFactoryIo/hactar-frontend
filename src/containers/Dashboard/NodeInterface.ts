@@ -5,16 +5,18 @@ export interface INodeState {
     address: string;
     name: string;
     description: string;
+    hasEnabledNotifications: boolean;
     createdAt: string;
     updatedAt: string;
     userId: number;
 }
 export interface INodeInfoState {
     version: string;
+    walletAddress: string;
     sectorSize: number;
+    numberOfSectors: number;
     minerPower: number;
     totalPower: number;
-    walletAddress: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -41,4 +43,13 @@ export interface IMiningReward {
     updatedAt: string;
     createdAt: string;
     nodeId: number;
+}
+
+export interface INodeDiskStateResponse {
+    data: Array<INodeDiskState>;
+    status: number;
+    statusText: string;
+    headers: object;
+    config: object;
+    request: object;
 }
