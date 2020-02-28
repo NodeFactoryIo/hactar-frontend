@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
 import {
     getBalance,
-} from "../Dashboard/Api";
+} from "../../app/Api";
 import {INodeBalance} from "../Dashboard/NodeInterface";
 
 interface IDataEntity {

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {config} from "../../app/config";
+import {config} from "./config";
 
 const getHeaders = (auth: string | null): object => {
     return {authorization: auth};
