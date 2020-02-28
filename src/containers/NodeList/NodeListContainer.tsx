@@ -52,7 +52,7 @@ export const NodeListContainer = ({
                             Node {node.nodeId}
                         </p>
                         <p>
-                            {formatBytes(node.freeSpace)} / {formatBytes(node.takenSpace)}
+                            {formatBytes(node.diskDetails.freeSpace)} / {formatBytes(node.diskDetails.takenSpace)}
                         </p>
                         {/* TODO - online status */}
                         {/* <p className={node.online ? "yellow" : "status"}>
