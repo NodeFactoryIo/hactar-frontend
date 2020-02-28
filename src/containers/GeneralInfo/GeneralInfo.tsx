@@ -1,12 +1,13 @@
 import React, {ReactElement, Dispatch, SetStateAction} from "react";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {NodeVersion} from "../Dashboard/NodeVersion/NodeVersion";
 import {formatBytes} from "../../app/utils";
+import {storeSelectedNode} from "../Dashboard/NodeSlice";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ export const GeneralInfo = ({
     const nodeInformation = state.node.information.data;
     const nodeList = state.nodeList.data;
     const latestNodeVersion = state.node.information.latestAvailableVersion;
+    const dispatch = useDispatch();
 
     const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
@@ -32,6 +34,7 @@ export const GeneralInfo = ({
 
     const onNodeClick = (index: number): void => {
         setSelectedNodeIndex(index);
+        dispatch(storeSelectedNode(nodeList[index].id));
     };
 
     return (

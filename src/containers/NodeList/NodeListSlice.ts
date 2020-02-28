@@ -5,6 +5,7 @@ import {
     getNodes,
 } from "../Dashboard/DashboardApi";
 import {INodeDiskStateResponse, INodeState} from "../Dashboard/NodeInterface";
+import {storeSelectedNode} from "../Dashboard/NodeSlice";
 
 interface IDataEntity {
     data: any;
@@ -51,6 +52,9 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
             nodeListResponse.data.diskDetails = response.data[0];
         }
         dispatch(storeNodeList(nodeListResponse.data));
+        if (nodeListResponse.data.length > 0) {
+            dispatch(storeSelectedNode(1));
+        }
     } catch (err) {
         throw err;
     }

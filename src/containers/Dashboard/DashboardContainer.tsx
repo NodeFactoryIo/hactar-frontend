@@ -23,6 +23,7 @@ export const DashboardContainer = (): ReactElement => {
     const [fetchingNodeStatus, setFetchingNodeStatus] = useState<boolean>(false);
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state);
+    const selectedNodeId = useSelector((state: RootState) => state.node.selected.selectedNodeId);
     // @ts-ignore
     const nodeList = state.nodeList.data;
 
@@ -37,14 +38,14 @@ export const DashboardContainer = (): ReactElement => {
             dispatch(getAllNodes());
         }
 
-        if (!fetchingNodeStatus && nodeList[0] && nodeList[0].id) {
+        if (!fetchingNodeStatus && selectedNodeId) {
             setFetchingNodeStatus(true);
             dispatch(getAvailableNodeVersion());
-            dispatch(getNodeInformation(nodeList[selectedNodeIndex].id));
-            dispatch(getBalanceInfo(nodeList[selectedNodeIndex].id));
+            dispatch(getNodeInformation(selectedNodeId));
+            dispatch(getBalanceInfo(selectedNodeId));
             setElementsHidden(false);
         }
-    }, [fetchingNodeList, fetchingNodeStatus, selectedNodeIndex, nodeList]);
+    }, [fetchingNodeList, fetchingNodeStatus, selectedNodeId]);
 
     return (
         <div className="dashboard-container">

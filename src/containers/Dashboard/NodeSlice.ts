@@ -1,43 +1,40 @@
-import {createSlice, combineReducers} from "@reduxjs/toolkit";
+import {createSlice, combineReducers, PayloadAction} from "@reduxjs/toolkit";
 
 import generalInfoReducer from '../GeneralInfo/GeneralInfoSlice';
 import balanceReducer from '../Balance/BalanceSlice';
 import miningRewardsReducer from '../MiningRewards/MiningRewardsSlice';
 import diskSpaceReducer from '../DiskSpace/DiskSpaceSlice';
 
-interface IDataEntity {
-    data: any;
-    isLoading: boolean;
-    error: string;
+interface IState {
+    selectedNodeId: null | number;
 }
 
-const defaultEntityProperties = {
-    isLoading: true,
-    error: "",
+const initialState: IState = {
+    selectedNodeId: null,
 };
 
-const initialState: IDataEntity = {
-    ...defaultEntityProperties,
-    data: null,
-};
-
-const nodeSlice = createSlice({
-    name: "node",
+const selectedNodeSlice = createSlice({
+    name: "selected",
     initialState,
     reducers: {
-        resetNodeState: (): IDataEntity => initialState,
+        resetNodeState: (): IState => initialState,
+        storeSelectedNode(state: IState, action: PayloadAction<number>): void {
+            state.selectedNodeId = action.payload;
+        },
     },
 });
 
 export const {
     resetNodeState,
-} = nodeSlice.actions;
+    storeSelectedNode,
+} = selectedNodeSlice.actions;
 
 export default combineReducers({
     information: generalInfoReducer,
     balance: balanceReducer,
     miningRewards: miningRewardsReducer,
     diskSpace: diskSpaceReducer,
+    selected: selectedNodeSlice.reducer,
 });
 
 
