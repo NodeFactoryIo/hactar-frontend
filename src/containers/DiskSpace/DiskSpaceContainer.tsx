@@ -27,7 +27,7 @@ export const DiskSpace: React.FC = (): ReactElement => {
     };
 
     const state = useSelector((state: RootState) => state);
-    const selectedNodeId =  state.node.selected.selectedNodeId;
+    const selectedNodeId = state.node.selected.selectedNodeId;
     const diskInformation = state.node.diskSpace.data;
     const nodeList = state.nodeList.data;
     const dispatch = useDispatch();

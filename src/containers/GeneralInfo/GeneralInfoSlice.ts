@@ -1,9 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {
-    getLatestNodeVersion,
-    getMinerInfo,
-} from "../../app/Api";
+import {getLatestNodeVersion, getMinerInfo} from "../../app/Api";
 import {INodeInfoState} from "../../@types/ReduxStates";
 
 interface IDataEntity {
@@ -18,7 +15,7 @@ const defaultEntityProperties = {
 };
 
 interface IState extends IDataEntity {
-    latestAvailableVersion: null | string,
+    latestAvailableVersion: null | string;
 }
 
 const initialState: IState = {
@@ -42,10 +39,7 @@ const generalInfoSlice = createSlice({
     },
 });
 
-export const {
-    storeNodeInformation,
-    storeLatestNodeVersion,
-} = generalInfoSlice.actions;
+export const {storeNodeInformation, storeLatestNodeVersion} = generalInfoSlice.actions;
 export default generalInfoSlice.reducer;
 
 export const getNodeInformation = (nodeId: number): AppThunk => async (dispatch, getState): Promise<void> => {

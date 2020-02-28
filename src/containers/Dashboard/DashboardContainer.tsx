@@ -35,20 +35,18 @@ export const DashboardContainer = (): ReactElement => {
     }, [fetchingNodeList, selectedNodeId]);
 
     if (stateNodeList.isLoading) {
-        return <div>Loading</div>
+        return <div>Loading</div>;
     }
 
     return (
         <div className="dashboard-container">
             <TopBar logOut={() => dispatch(logOutUser())} email="johndoe@nodefactory.io" />
 
-            {(!stateNodeList.isLoading && !selectedNodeId && stateNodeList.data.length === 0)
-            ? <EmptyList message="No nodes are added" /> :
+            {!stateNodeList.isLoading && !selectedNodeId && stateNodeList.data.length === 0 ? (
+                <EmptyList message="No nodes are added" />
+            ) : (
                 <>
-                    <GeneralInfo
-                        setElementsHidden={setElementsHidden}
-                        areElementsHidden={areElementsHidden}
-                    />
+                    <GeneralInfo setElementsHidden={setElementsHidden} areElementsHidden={areElementsHidden} />
 
                     {nodeList.length > 0 ? (
                         <>
@@ -74,7 +72,7 @@ export const DashboardContainer = (): ReactElement => {
                         </>
                     ) : null}
                 </>
-            }
+            )}
         </div>
     );
 };

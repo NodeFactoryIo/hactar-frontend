@@ -1,9 +1,9 @@
 import {createSlice, combineReducers, PayloadAction} from "@reduxjs/toolkit";
 
-import generalInfoReducer from '../GeneralInfo/GeneralInfoSlice';
-import balanceReducer from '../Balance/BalanceSlice';
-import miningRewardsReducer from '../MiningRewards/MiningRewardsSlice';
-import diskSpaceReducer from '../DiskSpace/DiskSpaceSlice';
+import generalInfoReducer from "../GeneralInfo/GeneralInfoSlice";
+import balanceReducer from "../Balance/BalanceSlice";
+import miningRewardsReducer from "../MiningRewards/MiningRewardsSlice";
+import diskSpaceReducer from "../DiskSpace/DiskSpaceSlice";
 
 interface IState {
     selectedNodeId: null | number;
@@ -24,10 +24,7 @@ const selectedNodeSlice = createSlice({
     },
 });
 
-export const {
-    resetNodeState,
-    storeSelectedNode,
-} = selectedNodeSlice.actions;
+export const {resetNodeState, storeSelectedNode} = selectedNodeSlice.actions;
 
 export default combineReducers({
     information: generalInfoReducer,
@@ -36,5 +33,3 @@ export default combineReducers({
     diskSpace: diskSpaceReducer,
     selected: selectedNodeSlice.reducer,
 });
-
-

@@ -1,8 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {
-    fetchMiningRewards,
-} from "../../app/Api";
+import {fetchMiningRewards} from "../../app/Api";
 import {IMiningReward} from "../../@types/ReduxStates";
 
 interface IDataEntity {
@@ -36,10 +34,7 @@ const miningRewardsSlice = createSlice({
     },
 });
 
-export const {
-    storeMiningRewardsSuccess,
-    storeMiningRewardsError,
-} = miningRewardsSlice.actions;
+export const {storeMiningRewardsSuccess, storeMiningRewardsError} = miningRewardsSlice.actions;
 
 export const getMiningRewards = (nodeId: number, interval = "Week"): AppThunk => async (
     dispatch,

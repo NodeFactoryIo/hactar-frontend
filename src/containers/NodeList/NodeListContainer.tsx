@@ -1,5 +1,4 @@
 import React, {ReactElement, useState, useEffect} from "react";
-import {EmptyList} from "../../components/EmptyList/EmptyList";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
@@ -12,10 +11,7 @@ interface INodeListProps {
     onNodeHeaderClick: () => void;
 }
 
-export const NodeListContainer = ({
-    display,
-    onNodeHeaderClick,
-}: INodeListProps): ReactElement => {
+export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const diskInfoList = state.nodeList.data;
     const [showArrow, setShowArrow] = useState<boolean>(true);
@@ -40,12 +36,7 @@ export const NodeListContainer = ({
     return (
         <div className={classNames("flex-column node-list-container", {hidden: !display})}>
             <div className="upper">
-                <NodeNameTitle
-                    title="Your nodes"
-                    onClick={onNodeHeaderClick}
-                    showArrow={showArrow}
-                    arrowOpen={true}
-                />
+                <NodeNameTitle title="Your nodes" onClick={onNodeHeaderClick} showArrow={showArrow} arrowOpen={true} />
             </div>
 
             <div className="lower row-spaced header">

@@ -14,10 +14,7 @@ interface IGeneralInfoProps {
     areElementsHidden: boolean;
 }
 
-export const GeneralInfo = ({
-    setElementsHidden,
-    areElementsHidden,
-}: IGeneralInfoProps): ReactElement => {
+export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfoProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const nodeInformation = state.node.information;
     const latestNodeVersion = nodeInformation.latestAvailableVersion;
@@ -40,18 +37,11 @@ export const GeneralInfo = ({
 
     return (
         <div className="container flex-column vertical-margin general-info">
-            <NodeListContainer
-                display={areElementsHidden}
-                onNodeHeaderClick={onNodeHeaderClick}
-            />
+            <NodeListContainer display={areElementsHidden} onNodeHeaderClick={onNodeHeaderClick} />
 
             <div className={classNames({hidden: areElementsHidden})}>
                 <div className="row-spaced upper">
-                    <NodeNameTitle
-                        title={`Node ${selectedNodeId}`}
-                        onClick={onNodeHeaderClick}
-                        arrowOpen={false}
-                    />
+                    <NodeNameTitle title={`Node ${selectedNodeId}`} onClick={onNodeHeaderClick} arrowOpen={false} />
                     <div className="node-options">
                         <i className="material-icons">notifications_none</i>
                         <i className="material-icons">more_vert</i>
@@ -61,15 +51,12 @@ export const GeneralInfo = ({
                 <div className="general-info-stats lower">
                     <div className="stat">
                         <label>node version</label>
-                        <NodeVersion
-                            nodeVersion={nodeInformation.data.version}
-                            latestVersion={latestNodeVersion}
-                        />
+                        <NodeVersion nodeVersion={nodeInformation.data.version} latestVersion={latestNodeVersion} />
                     </div>
 
                     <div className="stat">
                         <label>node address</label>
-                        <Clipboard copyText={(nodeInformation.data.walletAddress) || ""} truncate={true} />
+                        <Clipboard copyText={nodeInformation.data.walletAddress || ""} truncate={true} />
                     </div>
 
                     <div className="stat">

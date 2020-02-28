@@ -24,7 +24,7 @@ export async function getNodes(auth: string | null) {
 
 export async function getDiskDetails(auth: string | null, nodeId: number, filter: string) {
     const url = `${config.apiURL}/user/node/diskinformation/${nodeId}`;
-    return makeGetRequest(auth, url, { filter });
+    return makeGetRequest(auth, url, {filter});
 }
 
 export async function getMinerInfo(auth: string | null, nodeId: number) {
@@ -47,5 +47,5 @@ export async function getLatestNodeVersion() {
 
 export async function fetchMiningRewards(auth: string | null, nodeId: number, interval = "week") {
     const url = `${config.apiURL}/user/node/miningrewards/${nodeId}`;
-    return makeGetRequest(auth, url, { filter: interval.toLowerCase() });
+    return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
 }

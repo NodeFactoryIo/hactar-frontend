@@ -1,8 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {
-    getBalance,
-} from "../../app/Api";
+import {getBalance} from "../../app/Api";
 import {INodeBalance} from "../../@types/ReduxStates";
 
 interface IDataEntity {
@@ -33,9 +31,7 @@ const balanceSlice = createSlice({
     },
 });
 
-export const {
-    storeBalanceInfo,
-} = balanceSlice.actions;
+export const {storeBalanceInfo} = balanceSlice.actions;
 
 export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, getState): Promise<void> => {
     try {

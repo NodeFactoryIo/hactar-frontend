@@ -1,9 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {
-    getDiskDetails,
-    getNodes,
-} from "../../app/Api";
+import {getDiskDetails, getNodes} from "../../app/Api";
 import {INodeDiskStateResponse, INodeState} from "../../@types/ReduxStates";
 import {storeSelectedNode} from "../Dashboard/NodeSlice";
 
@@ -35,9 +32,7 @@ const nodeListSlice = createSlice({
     },
 });
 
-export const {
-    storeNodeList,
-} = nodeListSlice.actions;
+export const {storeNodeList} = nodeListSlice.actions;
 export default nodeListSlice.reducer;
 
 export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<void> => {
@@ -48,7 +43,11 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
         // Load disk sizes together
         // TODO: Will be replaced with better route
         for (let index = 0; index < nodeListResponse.data.length; index++) {
-            const response: INodeDiskStateResponse = await getDiskDetails(token, nodeListResponse.data[index].id, "year");
+            const response: INodeDiskStateResponse = await getDiskDetails(
+                token,
+                nodeListResponse.data[index].id,
+                "year",
+            );
             nodeListResponse.data[index].diskDetails = response.data[0];
         }
         dispatch(storeNodeList(nodeListResponse.data));

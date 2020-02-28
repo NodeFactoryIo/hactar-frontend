@@ -1,8 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {
-    getDiskDetails,
-} from "../../app/Api";
+import {getDiskDetails} from "../../app/Api";
 import {INodeDiskState} from "../../@types/ReduxStates";
 
 interface IDataEntity {
@@ -33,9 +31,7 @@ const diskSpaceSlice = createSlice({
     },
 });
 
-export const {
-    storeDiskInformation,
-} = diskSpaceSlice.actions;
+export const {storeDiskInformation} = diskSpaceSlice.actions;
 export default diskSpaceSlice.reducer;
 
 export const getDiskInfo = (nodeId: number, interval: string): AppThunk => async (
