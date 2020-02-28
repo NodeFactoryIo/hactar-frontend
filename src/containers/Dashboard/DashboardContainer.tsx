@@ -21,7 +21,7 @@ export const DashboardContainer = (): ReactElement => {
     const [fetchingNodeList, setFetchingNodeList] = useState<boolean>(false);
     const dispatch = useDispatch();
     const stateNodeList = useSelector((state: RootState) => state.nodeList);
-    const selectedNodeId = useSelector((state: RootState) => state.node.selected.selectedNodeId);
+    const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     // @ts-ignore
     const nodeList = stateNodeList.data;
 

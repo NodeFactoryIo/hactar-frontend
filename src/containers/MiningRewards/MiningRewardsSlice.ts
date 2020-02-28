@@ -51,4 +51,4 @@ export const getMiningRewards = (nodeId: number, interval = "Week"): AppThunk =>
     }
 };
 
-export default miningRewardsSlice.reducer;
+export const miningRewardsReducer = miningRewardsSlice.reducer;

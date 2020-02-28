@@ -50,4 +50,4 @@ export const getBalanceInfo = (nodeId: number): AppThunk => async (dispatch, get
     }
 };
 
-export default balanceSlice.reducer;
+export const balanceReducer = balanceSlice.reducer;

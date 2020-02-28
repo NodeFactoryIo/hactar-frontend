@@ -11,7 +11,7 @@ export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
     const [toolTip, setToolTip] = useState({rewardAmount: "0", updatedAt: new Date().toString()});
     const [selectedInterval, setSelectedInterval] = useState<string>("week");
-    const selectedNodeId = useSelector((state: RootState) => state.node.selected.selectedNodeId);
+    const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     const dispatch = useDispatch();
 
     const updateTooltip = (e: any): void => {

@@ -7,7 +7,7 @@ import {RootState} from "../../app/rootReducer";
 
 export const CurrentBalanceContainer: React.FC = (): ReactElement => {
     const dispatch = useDispatch();
-    const selectedNodeId = useSelector((state: RootState) => state.node.selected.selectedNodeId);
+    const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     const balance = useSelector((state: RootState) => state.node.balance);
 
     useEffect(() => {

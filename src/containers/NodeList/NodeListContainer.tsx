@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {formatBytes} from "../../app/utils";
-import {storeSelectedNode} from "../Dashboard/NodeSlice";
+import {storeSelectedNode} from "../Dashboard/AppSlice";
 
 interface INodeListProps {
     display?: boolean;

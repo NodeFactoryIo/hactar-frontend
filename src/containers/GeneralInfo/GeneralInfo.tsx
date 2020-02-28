@@ -18,7 +18,7 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
     const state = useSelector((state: RootState) => state);
     const nodeInformation = state.node.information;
     const latestNodeVersion = nodeInformation.latestAvailableVersion;
-    const selectedNodeId = state.node.selected.selectedNodeId;
+    const selectedNodeId = state.app.selectedNodeId;
     const dispatch = useDispatch();
 
     const onNodeHeaderClick = (): void => {

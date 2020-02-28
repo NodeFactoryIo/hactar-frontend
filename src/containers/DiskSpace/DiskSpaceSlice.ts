@@ -32,7 +32,7 @@ const diskSpaceSlice = createSlice({
 });
 
 export const {storeDiskInformation} = diskSpaceSlice.actions;
-export default diskSpaceSlice.reducer;
+export const diskSpaceReducer = diskSpaceSlice.reducer;
 
 export const getDiskInfo = (nodeId: number, interval: string): AppThunk => async (
     dispatch,

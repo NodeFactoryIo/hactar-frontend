@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
 import {getDiskDetails, getNodes} from "../../app/Api";
 import {INodeDiskStateResponse, INodeState} from "../../@types/ReduxStates";
-import {storeSelectedNode} from "../Dashboard/NodeSlice";
+import {storeSelectedNode} from "../Dashboard/AppSlice";
 
 interface IDataEntity {
     data: any;
@@ -24,6 +24,7 @@ const nodeListSlice = createSlice({
     name: "information",
     initialState,
     reducers: {
+        resetNodeList: (): IDataEntity => initialState,
         storeNodeList(state: IDataEntity, action: PayloadAction<Array<INodeState>>): void {
             state.data = action.payload;
             state.isLoading = false;
@@ -32,8 +33,8 @@ const nodeListSlice = createSlice({
     },
 });
 
-export const {storeNodeList} = nodeListSlice.actions;
-export default nodeListSlice.reducer;
+export const {resetNodeList, storeNodeList} = nodeListSlice.actions;
+export const nodeListReducer = nodeListSlice.reducer;
 
 export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<void> => {
     try {

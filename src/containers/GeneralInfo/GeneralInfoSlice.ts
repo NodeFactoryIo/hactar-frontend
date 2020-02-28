@@ -40,7 +40,7 @@ const generalInfoSlice = createSlice({
 });
 
 export const {storeNodeInformation, storeLatestNodeVersion} = generalInfoSlice.actions;
-export default generalInfoSlice.reducer;
+export const generalInfoReducer = generalInfoSlice.reducer;
 
 export const getNodeInformation = (nodeId: number): AppThunk => async (dispatch, getState): Promise<void> => {
     try {

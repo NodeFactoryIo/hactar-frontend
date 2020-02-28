@@ -3,7 +3,8 @@ import {AppThunk} from "../../app/store";
 import {registerUser, IUser} from "./RegisterApi";
 import {logInUser} from "../Login/LoginApi";
 import jwt_decode from "jwt-decode";
-import {resetNodeState} from "../Dashboard/NodeSlice";
+import {resetAppState} from "../Dashboard/AppSlice";
+import {resetNodeList} from "../NodeList/NodeListSlice";
 
 const setInitialToken = (): string | null => {
     const token = localStorage.getItem("token");
@@ -82,12 +83,13 @@ export const {
     loginSuccess,
     loginError,
 } = userSlice.actions;
-export default userSlice.reducer;
+export const userReducer = userSlice.reducer;
 
 export const logOutUser = (): AppThunk => (dispatch): void => {
     localStorage.removeItem("token");
     dispatch(resetUserState());
-    dispatch(resetNodeState());
+    dispatch(resetAppState());
+    dispatch(resetNodeList());
 };
 
 export const submitUserRegistration = (data: IUser): AppThunk => async (dispatch): Promise<void> => {
