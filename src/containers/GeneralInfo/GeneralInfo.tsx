@@ -1,4 +1,4 @@
-import React, {ReactElement, Dispatch, SetStateAction} from "react";
+import React, {ReactElement, Dispatch, SetStateAction, useState} from "react";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import classNames from "classnames";
 import {useSelector, useDispatch} from "react-redux";
@@ -8,6 +8,7 @@ import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {NodeVersion} from "../Dashboard/NodeVersion/NodeVersion";
 import {formatBytes} from "../../app/utils";
 import {showConfirmationDialog} from "../../app/ModalRenderer/ModalSlice";
+import {Dropdown} from "../../components/Dropdown/Dropdown";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ export const GeneralInfo = ({
     const dispatch = useDispatch();
     const node = useSelector((state: RootState) => state.node);
     const {nodeInfo, nodeList} = node;
+    const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
@@ -34,7 +36,13 @@ export const GeneralInfo = ({
         setSelectedNodeIndex(index);
     };
 
-    return (
+    return (<>
+        <div
+            onClick={(): void => {
+                setShowDropdown(false);
+            }}
+            className={classNames("dropdown-screen", {hidden: !showDropdown})}
+        />
         <div className="container flex-column vertical-margin general-info">
             <NodeListContainer
                 display={areElementsHidden}
@@ -52,14 +60,32 @@ export const GeneralInfo = ({
                     />
                     <div className="node-options">
                         <i className="material-icons">notifications_none</i>
-                        <i className="material-icons">more_vert</i>
-
-                        {/* onClick={(): void => {dispatch(showConfirmationDialog({
-                                 title: "Edit node",
-                                 onConfirmation: ()=>{console.log("click")},
-                                 confirmationButtonLabel: "SAVE",
-                                 children: <div>TEST</div>
-                             }))}} */}
+                        <i 
+                        onClick={()=>{setShowDropdown(true)}}
+                        className="material-icons">more_vert</i>
+                        <Dropdown
+                            showDropdown={showDropdown}
+                            elements={[
+                                {
+                                    title: "Edit node",
+                                    iconId: "edit",
+                                    onElementClick: (): void => {
+                                        dispatch(showConfirmationDialog({
+                                            title: "Edit node",
+                                            onConfirmation: ()=>{console.log("click")},
+                                            confirmationButtonLabel: "SAVE",
+                                            children: <div>TEST</div>
+                                        }));
+                                        setShowDropdown(false);
+                                    } 
+                                },
+                                {
+                                    title: "Remove node",
+                                    iconId: "delete",
+                                    onElementClick: (): void => {}
+                                }
+                            ]}
+                        />
                     </div>
                 </div>
 
@@ -99,5 +125,5 @@ export const GeneralInfo = ({
                 </div>
             </div>
         </div>
-    );
+    </>);
 };

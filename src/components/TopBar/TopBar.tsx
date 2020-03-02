@@ -36,12 +36,6 @@ export const TopBar: React.FunctionComponent<ITopBarProps> = (props: ITopBarProp
                             },
                         ]}
                     />
-                    {/* <div className={classNames("dropdown", {hidden: !showDropdown})}>
-                        <div onClick={props.logOut} className="item">
-                            <i className="material-icons">exit_to_app</i>
-                            <div>Log out</div>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </>
