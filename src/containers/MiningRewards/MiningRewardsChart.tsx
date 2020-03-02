@@ -2,7 +2,7 @@ import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAx
 import React, {ReactElement} from "react";
 
 import {ChartWrapper} from "../../components/ChartWrapper";
-import {IMiningReward} from "../Dashboard/NodeInterface";
+import {IMiningReward} from "../../@types/ReduxStates";
 import {formatTokens} from "../../app/utils";
 
 type MiningRewardChartProps = {
