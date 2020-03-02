@@ -10,7 +10,7 @@ export const ModalRenderer: React.FC = (): ReactElement | null => {
     const {confirmationDialog} = state.modal;
 
     const handleConfirmation = (): void => {
-        confirmationDialog[0].onConfirmation();
+        if(confirmationDialog[0].onConfirmation) confirmationDialog[0].onConfirmation();
         dispatch(removeConfirmationDialog());
     };
 
@@ -19,6 +19,7 @@ export const ModalRenderer: React.FC = (): ReactElement | null => {
         return (
             <ConfirmationDialogContainer
                 title={confirmationDialog[0].title}
+                isForm={confirmationDialog[0].isForm}
                 confirmationButtonLabel={confirmationDialog[0].confirmationButtonLabel}
                 onConfirmation={handleConfirmation}
                 onCancel={(): void => {

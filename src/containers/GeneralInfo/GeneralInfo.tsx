@@ -10,6 +10,7 @@ import {formatBytes} from "../../app/utils";
 import {showConfirmationDialog} from "../../app/ModalRenderer/ModalSlice";
 import {Dropdown} from "../../components/Dropdown/Dropdown";
 import {getNodeInformation} from "./GeneralInfoSlice";
+import {EditNodeForm, IEditNodeFormData} from "./EditNode/EditNodeForm";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -27,6 +28,11 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
     const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
     };
+
+    // TODO
+    const handleEditNode = () => {
+
+    }
 
     useEffect(() => {
         if (selectedNodeId) {
@@ -65,9 +71,13 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
                                     onElementClick: (): void => {
                                         dispatch(showConfirmationDialog({
                                             title: "Edit node",
-                                            onConfirmation: ()=>{console.log("click")},
+                                            isForm: true,
+                                            onConfirmation: ()=>{},
                                             confirmationButtonLabel: "SAVE",
-                                            children: <div>TEST</div>
+                                            children: <EditNodeForm onSave={(submitData)=>{
+                                                console.log("onSave from EditNodeForm: ");
+                                                console.log(submitData);
+                                                        }} />
                                         }));
                                         setShowDropdown(false);
                                     } 

@@ -1,11 +1,14 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
+import {IEditNodeFormData} from "../../containers/GeneralInfo/EditNode/EditNodeForm";
 
 export interface IConfirmationDialogProps {
     children: any;
     title: string;
-    confirmationButtonLabel: string;
-    onConfirmation: () => void;
+    confirmationButtonLabel?: string;
+    isForm: boolean;
+    onConfirmation?: () => void;
+    onEditNodeSubmit?: (submitData: IEditNodeFormData) => void;
 }
 
 interface IModalState {
