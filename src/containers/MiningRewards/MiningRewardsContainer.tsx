@@ -5,17 +5,13 @@ import {MiningRewardsChart} from "./MiningRewardsChart";
 import {ChartHeader} from "../../components/ChartHeader/ChartHeader";
 import {RootState} from "../../app/rootReducer";
 import {formatTokens} from "../../app/utils";
-import {getMiningRewards} from "../Dashboard/NodeSlice";
+import {getMiningRewards} from "./MiningRewardsSlice";
 
-interface IMiningRewardsProps {
-    // TODO: this will be replace by different redux statemement (selected nodeID is in state)
-    nodeId: number;
-}
-
-export const MiningRewardsContainer = ({nodeId}: IMiningRewardsProps): ReactElement => {
+export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
     const [toolTip, setToolTip] = useState({rewardAmount: "0", updatedAt: new Date().toString()});
-    const [selectedInterval, setSelectedInterval] = useState<string>("Week");
+    const [selectedInterval, setSelectedInterval] = useState<string>("week");
+    const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     const dispatch = useDispatch();
 
     const updateTooltip = (e: any): void => {
@@ -30,8 +26,14 @@ export const MiningRewardsContainer = ({nodeId}: IMiningRewardsProps): ReactElem
     }
 
     useEffect(() => {
-        dispatch(getMiningRewards(nodeId, selectedInterval));
-    }, [selectedInterval]);
+        if (selectedNodeId) {
+            dispatch(getMiningRewards(selectedNodeId, selectedInterval));
+        }
+    }, [selectedInterval, selectedNodeId]);
+
+    if (miningRewards.isLoading) {
+        return <div>Loading</div>;
+    }
 
     return (
         <div className="container flex-column vertical-margin">
