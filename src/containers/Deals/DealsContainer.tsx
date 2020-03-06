@@ -53,11 +53,7 @@ export const DealsContainer = (): ReactElement => {
             </div>
 
             <Table data={deals.data} columns={columns} />
-            <Pagination
-                numberOfRecords={deals.count}
-                pageRecordsLimit={pageRecordsLimit}
-                onPageChange={onPageChange}
-            />
+            <Pagination numberOfRecords={deals.count} pageRecordsLimit={pageRecordsLimit} onPageChange={onPageChange} />
         </div>
     );
 };

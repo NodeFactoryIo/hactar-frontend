@@ -40,11 +40,7 @@ const dealsSlice = createSlice({
     },
 });
 
-const {
-    storeDealsSuccess,
-    storeDealsError,
-    storeDealsCount,
-} = dealsSlice.actions;
+const {storeDealsSuccess, storeDealsError, storeDealsCount} = dealsSlice.actions;
 export const dealsReducer = dealsSlice.reducer;
 
 export const getDeals = (nodeId: number, from: number, to: number): AppThunk => async (
