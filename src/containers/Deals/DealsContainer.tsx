@@ -24,8 +24,6 @@ export const DealsContainer = (): ReactElement => {
         return <div>Loading</div>;
     }
 
-    console.log(deals);
-
     const stateCellRenderer = ({cellData}: TableCellProps): ReactElement => {
         const textualState = DealStatus[cellData];
         return <span className={textualState}>{textualState}</span>;

@@ -31,14 +31,11 @@ const dealsSlice = createSlice({
         storeDealsError(state: IDataEntity, action: PayloadAction<string>): void {
             state.isLoading = false;
             state.error = action.payload;
-        }
+        },
     },
 });
 
-const {
-    storeDealsSuccess,
-    storeDealsError
-} = dealsSlice.actions;
+const {storeDealsSuccess, storeDealsError} = dealsSlice.actions;
 export const dealsReducer = dealsSlice.reducer;
 
 export const getDeals = (nodeId: number, from: number, to: number): AppThunk => async (
