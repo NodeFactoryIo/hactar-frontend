@@ -13,7 +13,12 @@ async function makeGetRequest(token: string | null, url: string, params = {}) {
         });
     } catch (e) {
         console.error("Error while fetching resource... ", e.message);
-        return e;
+        // TODO: better error handling
+        if (e.response && e.response.status === 400) {
+            throw new Error(e.response.data.errors[0].message);
+        } else {
+            throw e;
+        }
     }
 }
 
@@ -48,4 +53,18 @@ export async function getLatestNodeVersion() {
 export async function fetchMiningRewards(auth: string | null, nodeId: number, interval = "week") {
     const url = `${config.apiURL}/user/node/miningrewards/${nodeId}`;
     return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
+}
+
+export async function fetchPastDealsCount(auth: string | null, nodeId: number) {
+    const url = `${config.apiURL}/user/node/pastdeals/${nodeId}/count`;
+    return makeGetRequest(auth, url);
+}
+
+export async function fetchPastDeals(auth: string | null, nodeId: number, from = 0, to = 20) {
+    const url = `${config.apiURL}/user/node/pastdeals/${nodeId}`;
+    return makeGetRequest(auth, url, {
+        from,
+        to,
+        orderBy: "ASC",
+    });
 }

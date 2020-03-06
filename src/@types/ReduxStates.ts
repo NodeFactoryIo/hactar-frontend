@@ -53,3 +53,15 @@ export interface INodeDiskStateResponse {
     config: object;
     request: object;
 }
+
+export interface INodeDeal {
+    id: number;
+    cid: string;
+    state: number;
+    size: string;
+    provider: string;
+    price: string;
+    duration: number;
+    createdAt: string;
+    updatedAt: string;
+}
