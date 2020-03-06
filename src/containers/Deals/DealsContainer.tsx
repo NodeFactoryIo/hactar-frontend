@@ -1,27 +1,29 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {TableCellProps} from "react-virtualized";
 import {Table} from "../../components/Table/Table";
 import {ClipboardTable} from "../../components/Clipboard/Clipboard";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../app/rootReducer";
+import {getDeals} from "./DealsSlice";
 
 export const DealsContainer = (): ReactElement => {
-    const data = [
-        {
-            id: "baf5relasida14dasidadmv129kadn",
-            status: "Rejected",
-            provider: "t01440",
-            size: "254 bytes",
-            price: "0.5",
-            duration: 12,
-        },
-        {
-            id: "jf3ij56lasdak42djapasurmdanddu728",
-            status: "Accepted",
-            provider: "t01440",
-            size: "254 bytes",
-            price: "0.4",
-            duration: 25,
-        },
-    ];
+    const dispatch = useDispatch();
+    const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
+    const deals = useSelector((state: RootState) => state.node.deals);
+    const [fromPage, setFromPage] = useState(0);
+    const [toPage, setToPage] = useState(20);
+
+    useEffect(() => {
+        if (selectedNodeId) {
+            dispatch(getDeals(selectedNodeId, fromPage, toPage));
+        }
+    }, [selectedNodeId]);
+
+    if (deals.isLoading) {
+        return <div>Loading</div>;
+    }
+
+    console.log(deals);
 
     const statusCellRenderer = ({cellData}: TableCellProps): ReactElement => {
         return <span className={cellData}>{cellData}</span>;
@@ -42,7 +44,7 @@ export const DealsContainer = (): ReactElement => {
                 <label>Deals</label>
             </div>
 
-            <Table data={data} columns={columns} />
+            <Table data={deals.data} columns={columns} />
         </div>
     );
 };
