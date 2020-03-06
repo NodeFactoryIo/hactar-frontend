@@ -55,6 +55,11 @@ export async function fetchMiningRewards(auth: string | null, nodeId: number, in
     return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
 }
 
+export async function fetchPastDealsCount(auth: string | null, nodeId: number) {
+    const url = `${config.apiURL}/user/node/pastdeals/${nodeId}/count`;
+    return makeGetRequest(auth, url);
+}
+
 export async function fetchPastDeals(auth: string | null, nodeId: number, from = 0, to = 20) {
     const url = `${config.apiURL}/user/node/pastdeals/${nodeId}`;
     return makeGetRequest(auth, url, {

@@ -3,16 +3,17 @@ import PaginationLib from "react-js-pagination";
 
 interface IPaginationProps {
     numberOfRecords: number;
-    pageRecordsLimit?: number;
-    // onPageChange:
+    pageRecordsLimit: number;
+    onPageChange: (page: number) => void;
 }
 
 export const Pagination = (props: IPaginationProps) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const {numberOfRecords, pageRecordsLimit = 10} = props;
+    const {numberOfRecords, pageRecordsLimit} = props;
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
+        props.onPageChange(page);
     };
 
     return (

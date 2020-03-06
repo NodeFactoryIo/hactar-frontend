@@ -6,19 +6,27 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {getDeals} from "./DealsSlice";
 import {DealStatus} from "../../app/constants";
+import {Pagination} from "../../components/Pagination/Pagination";
 
 export const DealsContainer = (): ReactElement => {
     const dispatch = useDispatch();
     const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     const deals = useSelector((state: RootState) => state.node.deals);
-    const [fromPage, setFromPage] = useState(0);
-    const [toPage, setToPage] = useState(20);
+    const pageRecordsLimit = 6;
+    const [fromRecords, setFromRecords] = useState(0);
+    const [toRecords, setToRecords] = useState(pageRecordsLimit);
 
     useEffect(() => {
         if (selectedNodeId) {
-            dispatch(getDeals(selectedNodeId, fromPage, toPage));
+            dispatch(getDeals(selectedNodeId, fromRecords, toRecords));
         }
-    }, [selectedNodeId]);
+    }, [selectedNodeId, fromRecords, toRecords]);
+
+    const onPageChange = (page: number): void => {
+        const lastToBeRecord = page * pageRecordsLimit;
+        setFromRecords(lastToBeRecord - pageRecordsLimit + 1);
+        setToRecords(lastToBeRecord);
+    };
 
     if (deals.isLoading) {
         return <div>Loading</div>;
@@ -45,6 +53,11 @@ export const DealsContainer = (): ReactElement => {
             </div>
 
             <Table data={deals.data} columns={columns} />
+            <Pagination
+                numberOfRecords={deals.count}
+                pageRecordsLimit={pageRecordsLimit}
+                onPageChange={onPageChange}
+            />
         </div>
     );
 };

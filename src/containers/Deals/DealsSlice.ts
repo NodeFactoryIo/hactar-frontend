@@ -1,12 +1,13 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {fetchPastDeals} from "../../app/Api";
+import {fetchPastDeals, fetchPastDealsCount} from "../../app/Api";
 import {INodeDeal} from "../../@types/ReduxStates";
 
 interface IDataEntity {
     data: any;
     isLoading: boolean;
     error: string;
+    count: number;
 }
 
 const defaultEntityProperties = {
@@ -17,12 +18,16 @@ const defaultEntityProperties = {
 const initialState: IDataEntity = {
     ...defaultEntityProperties,
     data: [],
+    count: 0,
 };
 
 const dealsSlice = createSlice({
     name: "deals",
     initialState,
     reducers: {
+        storeDealsCount(state: IDataEntity, action: PayloadAction<number>): void {
+            state.count = action.payload;
+        },
         storeDealsSuccess(state: IDataEntity, action: PayloadAction<Array<INodeDeal>>): void {
             state.data = action.payload;
             state.isLoading = false;
@@ -35,7 +40,11 @@ const dealsSlice = createSlice({
     },
 });
 
-const {storeDealsSuccess, storeDealsError} = dealsSlice.actions;
+const {
+    storeDealsSuccess,
+    storeDealsError,
+    storeDealsCount,
+} = dealsSlice.actions;
 export const dealsReducer = dealsSlice.reducer;
 
 export const getDeals = (nodeId: number, from: number, to: number): AppThunk => async (
@@ -44,8 +53,12 @@ export const getDeals = (nodeId: number, from: number, to: number): AppThunk => 
 ): Promise<void> => {
     try {
         const token = getState().user.token;
-        const response = await fetchPastDeals(token, nodeId, from, to);
-        dispatch(storeDealsSuccess(response.data));
+        const [recordsCountResponse, dealsResponse] = await Promise.all([
+            await fetchPastDealsCount(token, nodeId),
+            await fetchPastDeals(token, nodeId, from, to),
+        ]);
+        dispatch(storeDealsCount(recordsCountResponse.data));
+        dispatch(storeDealsSuccess(dealsResponse.data));
     } catch (err) {
         dispatch(storeDealsError(err.message));
     }
