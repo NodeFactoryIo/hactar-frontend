@@ -5,6 +5,7 @@ import {ClipboardTable} from "../../components/Clipboard/Clipboard";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {getDeals} from "./DealsSlice";
+import {DealStatus} from "../../app/constants";
 
 export const DealsContainer = (): ReactElement => {
     const dispatch = useDispatch();
@@ -25,13 +26,14 @@ export const DealsContainer = (): ReactElement => {
 
     console.log(deals);
 
-    const statusCellRenderer = ({cellData}: TableCellProps): ReactElement => {
-        return <span className={cellData}>{cellData}</span>;
+    const stateCellRenderer = ({cellData}: TableCellProps): ReactElement => {
+        const textualState = DealStatus[cellData];
+        return <span className={textualState}>{textualState}</span>;
     };
 
     const columns = [
-        {key: "id", label: "ID", renderer: ClipboardTable},
-        {key: "status", renderer: statusCellRenderer},
+        {key: "cid", label: "CID", renderer: ClipboardTable},
+        {key: "state", renderer: stateCellRenderer},
         {key: "provider"},
         {key: "size"},
         {key: "price", label: "Total price (FIL)"},

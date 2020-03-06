@@ -60,6 +60,7 @@ export async function fetchPastDeals(auth: string | null, nodeId: number, from =
     return makeGetRequest(auth, url, {
         from,
         to,
+        orderBy: "ASC"
     });
 }
 

@@ -55,6 +55,7 @@ export interface INodeDiskStateResponse {
 }
 
 export interface INodeDeal {
+    id: number;
     cid: string;
     state: number;
     size: string;
