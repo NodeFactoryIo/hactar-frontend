@@ -71,7 +71,6 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
                                     arrowOpen={false}
                                 />
                         )}
-                        )}
                         <div className="node-options">
                             <i className="material-icons">notifications_none</i>
                             <i

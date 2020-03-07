@@ -21,7 +21,7 @@ export const ModalRenderer: React.FC = (): ReactElement | null => {
                             onCancel={() => dispatch(removeConfirmationDialog())}
                             selectedNodeId={selectedNodeId}
                 />
-                    </ConfirmationDialogContainer>;
+                    </ConfirmationDialogContainer>
                 );
             default:
                 return <></>;
