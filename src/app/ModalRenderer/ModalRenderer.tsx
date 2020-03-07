@@ -2,32 +2,34 @@ import React, {ReactElement, useEffect} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {RootState} from "../rootReducer";
 import {ConfirmationDialogContainer} from "../../components/ConfirmationDialog/ConfirmationDialog";
-import {removeConfirmationDialog} from "./ModalSlice";
+import {removeConfirmationDialog, ModalType} from "./ModalSlice";
+import {EditNodeForm, IEditNodeFormData} from "../../containers/GeneralInfo/EditNode/EditNodeForm";
 
 export const ModalRenderer: React.FC = (): ReactElement | null => {
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state);
     const {confirmationDialog} = state.modal;
 
-    const handleConfirmation = (): void => {
-        if(confirmationDialog[0].onConfirmation) confirmationDialog[0].onConfirmation();
+    const handleEditNode = (submitData: IEditNodeFormData) => {
+        console.log("clicked");
+        console.log(submitData);
         dispatch(removeConfirmationDialog());
-    };
+    }
 
     // useEffect(() => {}, [confirmationDialog]);
-    if (confirmationDialog && confirmationDialog[0])
-        return (
-            <ConfirmationDialogContainer
-                title={confirmationDialog[0].title}
-                isForm={confirmationDialog[0].isForm}
-                confirmationButtonLabel={confirmationDialog[0].confirmationButtonLabel}
-                onConfirmation={handleConfirmation}
-                onCancel={(): void => {
-                    dispatch(removeConfirmationDialog());
-                }}
+            
+    switch (confirmationDialog) {
+        case "EDITNODE" : return <ConfirmationDialogContainer
+                title="Edit node"
+                confirmationButtonLabel="SAVE"
+                showButtons={false}
             >
-                {confirmationDialog[0].children}
+                <EditNodeForm
+                    // onEditNodeSubmit={(submitData) => handleEditNode(submitData)}
+                    onCancel={() => dispatch(removeConfirmationDialog())}
+                />
             </ConfirmationDialogContainer>
-        );
-    else return null;
+        default: return <></>
+    }
+        
 };

@@ -4,56 +4,60 @@ import {Input} from "../../../components/Input/Input";
 import {Button} from "../../../components/Button/Button";
 
 export interface IEditNodeFormData {
-    nodeName: string;
+    name: string;
     description?: string;
 }
 
 interface IEditNodeFormProps {
-    onEditNodeSubmit: (submitData: IEditNodeFormData) => void;
+    // onEditNodeSubmit: (submitData: IEditNodeFormData) => void;
     onCancel: () => void;
 }  
 
-export const EditNodeForm: React.FC<IEditNodeFormProps> = ({onEditNodeSubmit, onCancel}: IEditNodeFormProps): ReactElement => {
+export const EditNodeForm: React.FC<IEditNodeFormProps> = ({onCancel}: IEditNodeFormProps): ReactElement => {
     const {register, handleSubmit, errors, control} = useForm<IEditNodeFormData>();
 
-    const onSubmit = handleSubmit((submitData: IEditNodeFormData) => {
-        onEditNodeSubmit(submitData);
+    const onFormSubmit = handleSubmit((submitData: IEditNodeFormData) => {
+        // onEditNodeSubmit(submitData);
+        
     });
+
+    
 
     useEffect(()=>{
         register(
-            {name: "email"},
+            {name: "name"},
             {
                 required: "Name is required!",
             },
         );
     },[register])
-    return(
-        <form onSubmit={onSubmit}>
+    return(<>
+        <form onSubmit={onFormSubmit}>
             <Controller
-            as={Input}
-            control={control}
-            name="nodeName"
-            type="text"
-            placeholder="Node name"
-            error={errors.nodeName && errors.nodeName.message}
+                as={Input}
+                control={control}
+                name="name"
+                type="text"
+                placeholder="Node name"
+                error={errors.name && errors.name.message}
             />
             <Controller
-            as={Input}
-            control={control}
-            name="description"
-            type="text"
-            placeholder="Description(optional)"
-            error={errors.description && errors.description.message}
+                as={Input}
+                control={control}
+                name="description"
+                type="text"
+                placeholder="Description(optional)"
+                error={errors.description && errors.description.message}
             />
             <div className="row button-container">
                 <Button onClick={onCancel} type="secondary">
                     Cancel
                 </Button>
-                <Button onClick={onSubmit} type="primary">
+                <Button onClick={onFormSubmit} type="primary">
                     SAVE
                 </Button>
             </div>
         </form>
+        </>
     );
 }

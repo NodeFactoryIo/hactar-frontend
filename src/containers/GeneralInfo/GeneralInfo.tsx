@@ -7,10 +7,9 @@ import {Clipboard} from "../../components/Clipboard/Clipboard";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {NodeVersion} from "../Dashboard/NodeVersion/NodeVersion";
 import {formatBytes} from "../../app/utils";
-import {showConfirmationDialog} from "../../app/ModalRenderer/ModalSlice";
+import {showConfirmationDialog, ModalType} from "../../app/ModalRenderer/ModalSlice";
 import {Dropdown} from "../../components/Dropdown/Dropdown";
 import {getNodeInformation} from "./GeneralInfoSlice";
-import {EditNodeForm, IEditNodeFormData} from "./EditNode/EditNodeForm";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -28,11 +27,6 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
     const onNodeHeaderClick = (): void => {
         setElementsHidden(!areElementsHidden);
     };
-
-    // TODO
-    const handleEditNode = () => {
-
-    }
 
     useEffect(() => {
         if (selectedNodeId) {
@@ -69,16 +63,7 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
                                     title: "Edit node",
                                     iconId: "edit",
                                     onElementClick: (): void => {
-                                        dispatch(showConfirmationDialog({
-                                            title: "Edit node",
-                                            isForm: true,
-                                            onConfirmation: ()=>{},
-                                            confirmationButtonLabel: "SAVE",
-                                            children: <EditNodeForm onSave={(submitData)=>{
-                                                console.log("onSave from EditNodeForm: ");
-                                                console.log(submitData);
-                                                        }} />
-                                        }));
+                                        dispatch(showConfirmationDialog(ModalType.EditNode));
                                         setShowDropdown(false);
                                     } 
                                 },
