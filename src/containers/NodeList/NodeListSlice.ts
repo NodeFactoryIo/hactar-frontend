@@ -44,7 +44,7 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
         // Load disk sizes together
         // TODO: Will be replaced with better route
         for (let index = 0; index < nodeListResponse.data.length; index++) {
-            const response: INodeDiskStateResponse = await getDiskDetails(
+            const response: INodeDiskStateResponse | any = await getDiskDetails(
                 token,
                 nodeListResponse.data[index].id,
                 "year",

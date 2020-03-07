@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import {resetAppState} from "../Dashboard/AppSlice";
 import {resetNodeList} from "../NodeList/NodeListSlice";
 
-const setInitialToken = (): string | null => {
+const loadValidToken = (): string | null => {
     const token = localStorage.getItem("token");
     if (token) {
         try {
@@ -37,14 +37,17 @@ const initialState: IUserState = {
     registerErrorValue: null,
     loginSuccessValue: false,
     loginErrorValue: null,
-    token: setInitialToken(),
+    token: loadValidToken(),
 };
 
 const userSlice = createSlice({
     name: "register",
     initialState,
     reducers: {
-        resetUserState: (): IUserState => initialState,
+        resetUserState: (): IUserState => ({
+            ...initialState,
+            token: null,
+        }),
         registerStart(state: IUserState): void {
             state.isLoading = true;
         },
@@ -86,7 +89,7 @@ export const {
 export const userReducer = userSlice.reducer;
 
 export const logOutUser = (): AppThunk => (dispatch): void => {
-    localStorage.removeItem("token");
+    localStorage.clear();
     dispatch(resetUserState());
     dispatch(resetAppState());
     dispatch(resetNodeList());

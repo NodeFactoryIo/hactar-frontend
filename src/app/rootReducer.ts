@@ -7,6 +7,7 @@ import {generalInfoReducer} from "../containers/GeneralInfo/GeneralInfoSlice";
 import {miningRewardsReducer} from "../containers/MiningRewards/MiningRewardsSlice";
 import {appReducer} from "../containers/Dashboard/AppSlice";
 import modalReducer from "./ModalRenderer/ModalSlice";
+import {dealsReducer} from "../containers/Deals/DealsSlice";
 
 const rootReducer = combineReducers({
     user: userReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
         balance: balanceReducer,
         miningRewards: miningRewardsReducer,
         diskSpace: diskSpaceReducer,
+        deals: dealsReducer,
     }),
     modal: modalReducer,
 });

@@ -38,7 +38,7 @@ export const Uptime = (): ReactElement => {
                 date={toolTip.date}
                 values={[
                     {
-                        icon: <img src={require("../../assets/icons/polygon.svg")} />,
+                        icon: <img src={require("../../assets/icons/polygon.svg")} alt="Polygon" />,
                         value: toolTip.value ? "Online" : "Offline",
                     },
                 ]}

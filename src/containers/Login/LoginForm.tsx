@@ -2,6 +2,7 @@ import React, {useEffect, ReactElement} from "react";
 import {Input} from "../../components/Input/Input";
 import {Button} from "../../components/Button/Button";
 import {useForm, Controller} from "react-hook-form";
+import {EmailRegex} from "../../app/constants";
 
 export interface ILoginFormProps {
     onSubmit: (submitData: ILoginFormData) => void;
@@ -23,9 +24,9 @@ export const LoginForm = (props: ILoginFormProps): ReactElement => {
         register(
             {name: "email"},
             {
-                required: "Email required!",
+                required: "Email required.",
                 pattern: {
-                    value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    value: EmailRegex,
                     message: "That's not a valid email adress.",
                 },
             },
@@ -33,10 +34,10 @@ export const LoginForm = (props: ILoginFormProps): ReactElement => {
         register(
             {name: "password"},
             {
-                required: "Password required!",
+                required: "Password required.",
                 minLength: {
                     value: 7,
-                    message: "Password should at least be 7 characters long.",
+                    message: "Password should be at least 7 characters long.",
                 },
             },
         );

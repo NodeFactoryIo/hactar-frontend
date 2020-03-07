@@ -25,7 +25,7 @@ export const Table = ({data, columns}: ITableProps): ReactElement => {
                         rowClassName={getRowClassName}
                         gridClassName="table-custom-grid"
                         width={width}
-                        height={400}
+                        height={420}
                         headerHeight={80}
                         rowHeight={56}
                         rowCount={data.length}

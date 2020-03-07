@@ -1,35 +1,45 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {TableCellProps} from "react-virtualized";
 import {Table} from "../../components/Table/Table";
 import {ClipboardTable} from "../../components/Clipboard/Clipboard";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../app/rootReducer";
+import {getDeals} from "./DealsSlice";
+import {DealStatus} from "../../app/constants";
+import {Pagination} from "../../components/Pagination/Pagination";
 
 export const DealsContainer = (): ReactElement => {
-    const data = [
-        {
-            id: "baf5relasida14dasidadmv129kadn",
-            status: "Rejected",
-            provider: "t01440",
-            size: "254 bytes",
-            price: "0.5",
-            duration: 12,
-        },
-        {
-            id: "jf3ij56lasdak42djapasurmdanddu728",
-            status: "Accepted",
-            provider: "t01440",
-            size: "254 bytes",
-            price: "0.4",
-            duration: 25,
-        },
-    ];
+    const dispatch = useDispatch();
+    const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
+    const deals = useSelector((state: RootState) => state.node.deals);
+    const pageRecordsLimit = 6;
+    const [fromRecords, setFromRecords] = useState(0);
+    const [toRecords, setToRecords] = useState(pageRecordsLimit);
 
-    const statusCellRenderer = ({cellData}: TableCellProps): ReactElement => {
-        return <span className={cellData}>{cellData}</span>;
+    useEffect(() => {
+        if (selectedNodeId) {
+            dispatch(getDeals(selectedNodeId, fromRecords, toRecords));
+        }
+    }, [selectedNodeId, fromRecords, toRecords, dispatch]);
+
+    const onPageChange = (page: number): void => {
+        const lastToBeRecord = page * pageRecordsLimit;
+        setFromRecords(lastToBeRecord - pageRecordsLimit + 1);
+        setToRecords(lastToBeRecord);
+    };
+
+    if (deals.isLoading) {
+        return <div>Loading</div>;
+    }
+
+    const stateCellRenderer = ({cellData}: TableCellProps): ReactElement => {
+        const textualState = DealStatus[cellData];
+        return <span className={textualState}>{textualState}</span>;
     };
 
     const columns = [
-        {key: "id", label: "ID", renderer: ClipboardTable},
-        {key: "status", renderer: statusCellRenderer},
+        {key: "cid", label: "CID", renderer: ClipboardTable},
+        {key: "state", renderer: stateCellRenderer},
         {key: "provider"},
         {key: "size"},
         {key: "price", label: "Total price (FIL)"},
@@ -42,7 +52,8 @@ export const DealsContainer = (): ReactElement => {
                 <label>Deals</label>
             </div>
 
-            <Table data={data} columns={columns} />
+            <Table data={deals.data} columns={columns} />
+            <Pagination numberOfRecords={deals.count} pageRecordsLimit={pageRecordsLimit} onPageChange={onPageChange} />
         </div>
     );
 };
