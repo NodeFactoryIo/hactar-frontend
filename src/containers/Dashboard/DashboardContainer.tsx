@@ -40,7 +40,7 @@ export const DashboardContainer = (): ReactElement => {
 
     return (
         <div className="dashboard-container">
-            <TopBar logOut={() => dispatch(logOutUser())} email="johndoe@nodefactory.io" />
+            <TopBar logOut={() => dispatch(logOutUser())} email="User Account" />
 
             {!stateNodeList.isLoading && !selectedNodeId && stateNodeList.data.length === 0 ? (
                 <EmptyList message="No nodes are added" />
