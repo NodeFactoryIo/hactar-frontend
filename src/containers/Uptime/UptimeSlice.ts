@@ -36,10 +36,7 @@ const uptimeSlice = createSlice({
 
 export const {storeUptimeSuccess, storeUptimeError} = uptimeSlice.actions;
 
-export const getUptime = (nodeId: number, interval = "Week"): AppThunk => async (
-    dispatch,
-    getState,
-): Promise<void> => {
+export const getUptime = (nodeId: number, interval = "Week"): AppThunk => async (dispatch, getState): Promise<void> => {
     try {
         const token = getState().user.token;
         const response = await fetchUptime(token, nodeId, interval);

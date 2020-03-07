@@ -12,7 +12,11 @@ type UptimeChartProps = {
 export class UptimeChart extends ChartWrapper<UptimeChartProps> {
     public render(): ReactElement {
         const {data, onMouseMove} = this.props;
-        const formattedData = data.map(v => ({date: v.updatedAt, online: v.isWorking ? 1 : 0, offline: v.isWorking ? 0 : 1}));
+        const formattedData = data.map(v => ({
+            date: v.updatedAt,
+            online: v.isWorking ? 1 : 0,
+            offline: v.isWorking ? 0 : 1,
+        }));
 
         return (
             <ResponsiveContainer width="100%" height={100}>
