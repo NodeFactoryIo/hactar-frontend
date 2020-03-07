@@ -29,7 +29,7 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
         if (selectedNodeId) {
             dispatch(getNodeInformation(selectedNodeId));
         }
-    }, [selectedNodeId]);
+    }, [selectedNodeId, dispatch]);
 
     if (nodeInformation.isLoading) {
         return <div>Loading</div>;

@@ -29,7 +29,7 @@ export const MiningRewardsContainer = (): ReactElement => {
         if (selectedNodeId) {
             dispatch(getMiningRewards(selectedNodeId, selectedInterval));
         }
-    }, [selectedInterval, selectedNodeId]);
+    }, [selectedInterval, selectedNodeId, dispatch]);
 
     if (miningRewards.isLoading) {
         return <div>Loading</div>;

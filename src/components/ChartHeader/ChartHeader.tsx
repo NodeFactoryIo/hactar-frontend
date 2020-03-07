@@ -22,7 +22,7 @@ export const ChartHeader = ({date, values, onIntervalClick, selectedInterval}: I
         <div className="lower row-spaced chart-header">
             <div className="row wrapped">
                 <div className="row icon-padding">
-                    <img src={require("../../assets/icons/time.svg")} />
+                    <img src={require("../../assets/icons/time.svg")} alt="Time icon" />
                     <p>
                         <Moment format="DD MMM, YYYY">{date}</Moment>
                     </p>
