@@ -1,7 +1,9 @@
 import React, {ReactElement, Dispatch, SetStateAction, useEffect, useState} from "react";
-import {NodeListContainer} from "../NodeList/NodeListContainer";
+import _ from "lodash";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
+
+import {NodeListContainer} from "../NodeList/NodeListContainer";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
@@ -21,6 +23,7 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
     const nodeInformation = state.node.information;
     const latestNodeVersion = nodeInformation.latestAvailableVersion;
     const selectedNodeId = state.app.selectedNodeId;
+    const selectedNode = _.find(state.nodeList.data, (node: any) => node.id === selectedNodeId);
     const dispatch = useDispatch();
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
@@ -52,21 +55,20 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
                 <div className={classNames({hidden: areElementsHidden})}>
                     <div className="row-spaced upper">
                         {/* TODO */}
-                        {selectedNodeId &&
-                        state.nodeList.data[selectedNodeId] &&
-                        state.nodeList.data[selectedNodeId].name &&
-                        state.nodeList.data[selectedNodeId].description ? (
+                        {selectedNode &&
+                        selectedNode.name &&
+                        selectedNode.description ? (
                                 <div>
                                     <NodeNameTitle
-                                    title={state.nodeList.data[selectedNodeId].name}
+                                    title={selectedNode.name}
                                     onClick={onNodeHeaderClick}
                                     arrowOpen={false}
                                 />
-                                    <div>{state.nodeList.data[selectedNodeId].description}</div>
+                                    <div>{selectedNode.description}</div>
                                 </div>
                             ) : (
                                 <NodeNameTitle
-                                    title={`Node ${selectedNodeId}`}
+                                    title={selectedNode.name}
                                     onClick={onNodeHeaderClick}
                                     arrowOpen={false}
                                 />

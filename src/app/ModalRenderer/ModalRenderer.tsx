@@ -15,7 +15,7 @@ export const ModalRenderer: React.FC = (): ReactElement | null => {
             return (
                 <ConfirmationDialogContainer title="Edit node" showButtons={false}>
                     <EditNodeForm
-                        onCancel={() => dispatch(removeConfirmationDialog())}
+                        onSubmit={() => dispatch(removeConfirmationDialog())}
                     />
                 </ConfirmationDialogContainer>
             );

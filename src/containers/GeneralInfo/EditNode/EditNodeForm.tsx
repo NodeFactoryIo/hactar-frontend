@@ -1,10 +1,12 @@
 import React, {ReactElement, useEffect} from "react";
 import {useForm, Controller} from "react-hook-form";
+import {useDispatch, useSelector} from "react-redux";
+import _ from "lodash";
+
 import {Input} from "../../../components/Input/Input";
 import {Button} from "../../../components/Button/Button";
-import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../app/rootReducer";
-import {submitEditNode, removeConfirmationDialog} from "../../../app/ModalRenderer/ModalSlice";
+import {submitEditNode} from "../../NodeList/NodeListSlice";
 
 export interface IEditNodeFormData {
     name: string;
@@ -12,19 +14,20 @@ export interface IEditNodeFormData {
 }
 
 interface IEditNodeFormProps {
-    onCancel: () => void;
+    onSubmit: () => void;
 }
 
 export const EditNodeForm: React.FC<IEditNodeFormProps> = ({
-    onCancel,
+   onSubmit,
 }: IEditNodeFormProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const {data} = state.nodeList;
+    const selectedNode = _.find(data, (node: any) => node.id === state.app.selectedNodeId);
 
     const {register, handleSubmit, errors, control} = useForm<IEditNodeFormData>({
         defaultValues: {
-            name: data[state.app.selectedNodeId!].name || "",
-            description: data[state.app.selectedNodeId!].description || "",
+            name: selectedNode.name,
+            description: selectedNode.description || "",
         },
     });
 
@@ -32,16 +35,18 @@ export const EditNodeForm: React.FC<IEditNodeFormProps> = ({
 
     const onFormSubmit = handleSubmit((submitData: IEditNodeFormData) => {
         dispatch(submitEditNode(state.app.selectedNodeId!, submitData));
-        dispatch(removeConfirmationDialog());
+        onSubmit();
     });
+
     useEffect(() => {
         register(
             {name: "name"},
             {
-                required: "Name is required!",
+                required: "Name is required.",
             },
         );
     }, [register]);
+
     return (
         <>
             <form onSubmit={onFormSubmit}>
@@ -58,11 +63,12 @@ export const EditNodeForm: React.FC<IEditNodeFormProps> = ({
                     control={control}
                     name="description"
                     type="text"
-                    placeholder="Description(optional)"
+                    placeholder="Description (optional)"
                     error={errors.description && errors.description.message}
                 />
+
                 <div className="row button-container">
-                    <Button onClick={onCancel} type="secondary">
+                    <Button onClick={onSubmit} type="secondary">
                         Cancel
                     </Button>
                     <Button onClick={onFormSubmit} type="primary">
