@@ -49,3 +49,16 @@ export async function fetchMiningRewards(auth: string | null, nodeId: number, in
     const url = `${config.apiURL}/user/node/miningrewards/${nodeId}`;
     return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
 }
+
+export async function editNode(token: string | null, nodeId: string) {
+    const url = `${config.apiURL}/user/node/${nodeId}`;
+
+    try {
+        return await axios.put(url, {
+            headers: getHeaders(token)
+        });
+    } catch (e) {
+        console.error("Error while fetching resource... ", e.message);
+        return e;
+    }
+}

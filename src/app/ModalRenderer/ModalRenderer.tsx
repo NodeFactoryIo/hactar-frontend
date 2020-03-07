@@ -8,28 +8,25 @@ import {EditNodeForm, IEditNodeFormData} from "../../containers/GeneralInfo/Edit
 export const ModalRenderer: React.FC = (): ReactElement | null => {
     const dispatch = useDispatch();
     const state = useSelector((state: RootState) => state);
-    const {confirmationDialog} = state.modal;
-
-    const handleEditNode = (submitData: IEditNodeFormData) => {
-        console.log("clicked");
-        console.log(submitData);
-        dispatch(removeConfirmationDialog());
-    }
+    const {selectedNodeId} = state.app;
+    const {type} = state.modal;
 
     // useEffect(() => {}, [confirmationDialog]);
-            
-    switch (confirmationDialog) {
-        case "EDITNODE" : return <ConfirmationDialogContainer
-                title="Edit node"
-                confirmationButtonLabel="SAVE"
-                showButtons={false}
-            >
-                <EditNodeForm
-                    // onEditNodeSubmit={(submitData) => handleEditNode(submitData)}
-                    onCancel={() => dispatch(removeConfirmationDialog())}
-                />
-            </ConfirmationDialogContainer>
-        default: return <></>
-    }
+    if (selectedNodeId) {
+        switch (type) {
+            case ModalType.EditNode : return <ConfirmationDialogContainer
+                    title="Edit node"
+                    confirmationButtonLabel="SAVE"
+                    showButtons={false}
+                >
+                    <EditNodeForm
+                        // onEditNodeSubmit={(submitData) => handleEditNode(submitData)}
+                        onCancel={() => dispatch(removeConfirmationDialog())}
+                        selectedNodeId={selectedNodeId}
+                    />
+                </ConfirmationDialogContainer>
+            default: return <></>
+        }
+    } else return <></>
         
 };

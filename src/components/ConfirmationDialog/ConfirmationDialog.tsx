@@ -27,7 +27,7 @@ export const ConfirmationDialogContainer: React.FC<React.PropsWithChildren<IConf
                         Cancel
                     </Button>
                     <Button onClick={props.onConfirmation} type="primary">
-                        ConfDialog{props.confirmationButtonLabel}
+                        {props.confirmationButtonLabel}
                     </Button>
                 </div>
             </div>
