@@ -13,15 +13,12 @@ export interface IEditNodeFormData {
 
 interface IEditNodeFormProps {
     onCancel: () => void;
-    selectedNodeId: number;
 }
 
 export const EditNodeForm: React.FC<IEditNodeFormProps> = ({
     onCancel,
-    selectedNodeId,
 }: IEditNodeFormProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
-    const id = state.app.selectedNodeId;
     const {data} = state.nodeList;
 
     const {register, handleSubmit, errors, control} = useForm<IEditNodeFormData>({
@@ -34,7 +31,7 @@ export const EditNodeForm: React.FC<IEditNodeFormProps> = ({
     const dispatch = useDispatch();
 
     const onFormSubmit = handleSubmit((submitData: IEditNodeFormData) => {
-        dispatch(submitEditNode(selectedNodeId, submitData));
+        dispatch(submitEditNode(state.app.selectedNodeId!, submitData));
         dispatch(removeConfirmationDialog());
     });
     useEffect(() => {
@@ -44,7 +41,7 @@ export const EditNodeForm: React.FC<IEditNodeFormProps> = ({
                 required: "Name is required!",
             },
         );
-    }, [register, id]);
+    }, [register]);
     return (
         <>
             <form onSubmit={onFormSubmit}>
