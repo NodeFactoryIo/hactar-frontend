@@ -25,14 +25,12 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
 
     return (
         <div className="row-spaced upper">
-            <div>
-                <NodeNameTitle
-                    title={selectedNode.name}
-                    onClick={props.onNodeHeaderClick}
-                    arrowOpen={false}
-                />
-                <div>{selectedNode.description}</div>
-            </div>
+            <NodeNameTitle
+                title={selectedNode.name}
+                description={selectedNode.description}
+                onClick={props.onNodeHeaderClick}
+                arrowOpen={false}
+            />
 
             <div className="node-options">
                 <i className="material-icons">notifications_none</i>
