@@ -17,9 +17,14 @@ export const LoginContainer = (): ReactElement => {
     const dispatch = useDispatch();
     const userState = useSelector((state: RootState) => state.user);
 
+    if (userState.token) {
+        history.push(Routes.DASHBOARD_ROUTE);
+    }
+
     const handleSignIn = (submitData: ILoginFormData): void => {
         dispatch(submitUserLogin(submitData));
     };
+
     useEffect(() => {
         if (userState.loginSuccessValue) {
             setNotificationStatus(true);
@@ -30,6 +35,7 @@ export const LoginContainer = (): ReactElement => {
             setTimeout(setNotificationStatus, 4000, false);
         }
     }, [userState]);
+
     return (
         <div className="onboarding-container">
             {/* temporary notification */}

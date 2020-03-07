@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import {resetAppState} from "../Dashboard/AppSlice";
 import {resetNodeList} from "../NodeList/NodeListSlice";
 
-const setInitialToken = (): string | null => {
+const loadValidToken = (): string | null => {
     const token = localStorage.getItem("token");
     if (token) {
         try {
@@ -37,7 +37,7 @@ const initialState: IUserState = {
     registerErrorValue: null,
     loginSuccessValue: false,
     loginErrorValue: null,
-    token: setInitialToken(),
+    token: loadValidToken(),
 };
 
 const userSlice = createSlice({
