@@ -66,3 +66,10 @@ export interface INodeDeal {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface INodeUptime {
+    id: number;
+    isWorking: boolean;
+    createdAt: string;
+    updatedAt: string;
+}

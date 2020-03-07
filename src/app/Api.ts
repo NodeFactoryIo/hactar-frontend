@@ -86,3 +86,8 @@ export async function fetchPastDeals(auth: string | null, nodeId: number, from =
         orderBy: "ASC",
     });
 }
+
+export async function fetchUptime(auth: string | null, nodeId: number, interval = "week") {
+    const url = `${config.apiURL}/user/node/uptime/${nodeId}`;
+    return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
+}

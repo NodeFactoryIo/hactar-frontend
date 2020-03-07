@@ -1,6 +1,9 @@
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {ChartHeader} from "../../components/ChartHeader/ChartHeader";
 import {UptimeChart} from "./UptimeChart";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../app/rootReducer";
+import {getUptime} from "./UptimeSlice";
 
 export type UptimeProps = {
     date: string;
@@ -19,12 +22,20 @@ export const Uptime = (): ReactElement => {
 
     const [toolTip, setToolTip] = useState(data[5]);
     const [selectedInterval, setSelectedInterval] = useState<string>("Week");
+    const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
+    const dispatch = useDispatch();
 
     const updateTooltip = (e: any): void => {
         if (e.activePayload) {
             setToolTip(data[e.activeTooltipIndex]);
         }
     };
+
+    useEffect(() => {
+        if (selectedNodeId) {
+            dispatch(getUptime(selectedNodeId, selectedInterval));
+        }
+    }, [selectedInterval, selectedNodeId, dispatch]);
 
     return (
         <div className="container flex-column">
