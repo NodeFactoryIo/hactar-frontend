@@ -14,7 +14,7 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
         if (selectedNodeId) {
             dispatch(getBalanceInfo(selectedNodeId));
         }
-    }, [selectedNodeId]);
+    }, [selectedNodeId, dispatch]);
 
     if (balance.isLoading) {
         return (

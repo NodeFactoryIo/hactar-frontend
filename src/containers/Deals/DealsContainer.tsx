@@ -20,7 +20,7 @@ export const DealsContainer = (): ReactElement => {
         if (selectedNodeId) {
             dispatch(getDeals(selectedNodeId, fromRecords, toRecords));
         }
-    }, [selectedNodeId, fromRecords, toRecords]);
+    }, [selectedNodeId, fromRecords, toRecords, dispatch]);
 
     const onPageChange = (page: number): void => {
         const lastToBeRecord = page * pageRecordsLimit;

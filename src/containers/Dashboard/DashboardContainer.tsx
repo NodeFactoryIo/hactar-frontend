@@ -32,7 +32,7 @@ export const DashboardContainer = (): ReactElement => {
             dispatch(getAvailableNodeVersion());
             setElementsHidden(false);
         }
-    }, [fetchingNodeList, selectedNodeId]);
+    }, [fetchingNodeList, selectedNodeId, dispatch]);
 
     if (stateNodeList.isLoading) {
         return <div>Loading</div>;

@@ -52,7 +52,7 @@ export const DiskSpace: React.FC = (): ReactElement => {
         if (selectedNodeId) {
             dispatch(getDiskInfo(selectedNodeId, selectedInterval));
         }
-    }, [selectedInterval, selectedNodeId, nodeList]);
+    }, [selectedInterval, selectedNodeId, nodeList, dispatch]);
 
     if (diskInformation.isLoading) {
         return <div>Loading</div>;
