@@ -1,6 +1,5 @@
 import React from "react";
 import {Button} from "../Button/Button";
-// import {IConfirmationDialogProps} from "../../app/ModalRenderer/ModalSlice";
 import classNames from "classnames";
 
 interface IConfirmationDialogProps {

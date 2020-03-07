@@ -1,17 +1,14 @@
 import React, {ReactElement, Dispatch, SetStateAction, useEffect, useState} from "react";
-import _ from "lodash";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
 
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
-import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {NodeVersion} from "../Dashboard/NodeVersion/NodeVersion";
 import {formatBytes} from "../../app/utils";
-import {showConfirmationDialog, ModalType} from "../../app/ModalRenderer/ModalSlice";
-import {Dropdown} from "../../components/Dropdown/Dropdown";
 import {getNodeInformation} from "./GeneralInfoSlice";
+import {GeneralInfoActions} from "./GeneralInfoActions";
 
 interface IGeneralInfoProps {
     setElementsHidden: Dispatch<SetStateAction<boolean>>;
@@ -23,7 +20,6 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
     const nodeInformation = state.node.information;
     const latestNodeVersion = nodeInformation.latestAvailableVersion;
     const selectedNodeId = state.app.selectedNodeId;
-    const selectedNode = _.find(state.nodeList.data, (node: any) => node.id === selectedNodeId);
     const dispatch = useDispatch();
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
@@ -53,56 +49,11 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
                 <NodeListContainer display={areElementsHidden} onNodeHeaderClick={onNodeHeaderClick} />
 
                 <div className={classNames({hidden: areElementsHidden})}>
-                    <div className="row-spaced upper">
-                        {/* TODO */}
-                        {selectedNode &&
-                        selectedNode.name &&
-                        selectedNode.description ? (
-                                <div>
-                                    <NodeNameTitle
-                                    title={selectedNode.name}
-                                    onClick={onNodeHeaderClick}
-                                    arrowOpen={false}
-                                />
-                                    <div>{selectedNode.description}</div>
-                                </div>
-                            ) : (
-                                <NodeNameTitle
-                                    title={selectedNode.name}
-                                    onClick={onNodeHeaderClick}
-                                    arrowOpen={false}
-                                />
-                        )}
-                        <div className="node-options">
-                            <i className="material-icons">notifications_none</i>
-                            <i
-                                onClick={() => {
-                                    setShowDropdown(true);
-                                }}
-                                className="material-icons"
-                            >
-                                more_vert
-                            </i>
-                            <Dropdown
-                                showDropdown={showDropdown}
-                                elements={[
-                                    {
-                                        title: "Edit node",
-                                        iconId: "edit",
-                                        onElementClick: (): void => {
-                                            dispatch(showConfirmationDialog(ModalType.EditNode));
-                                            setShowDropdown(false);
-                                        },
-                                    },
-                                    {
-                                        title: "Remove node",
-                                        iconId: "delete",
-                                        onElementClick: (): void => {},
-                                    },
-                                ]}
-                            />
-                        </div>
-                    </div>
+                    <GeneralInfoActions
+                        onNodeHeaderClick={onNodeHeaderClick}
+                        setShowDropdown={setShowDropdown}
+                        showDropdown={showDropdown}
+                    />
 
                     <div className="general-info-stats lower">
                         <div className="stat">

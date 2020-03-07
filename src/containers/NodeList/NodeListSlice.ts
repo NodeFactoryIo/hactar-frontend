@@ -81,6 +81,7 @@ export const submitEditNode = (nodeId: number, submitData: IEditNodeFormData): A
                 if (nodeList[index].id === selectedNodeId) {
                     updatedNodeList.splice(index, 1, response.data);
                     updatedNodeList[index].diskDetails = nodeList[index].diskDetails;
+                    break;
                 }
             }
             dispatch(storeNodeListSuccess(updatedNodeList));
