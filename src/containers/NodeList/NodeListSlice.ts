@@ -29,7 +29,7 @@ const nodeListSlice = createSlice({
         storeNodeListSuccess(state: IDataEntity, action: PayloadAction<Array<INodeState>>): void {
             const nodesWithCompleteInfo = action.payload.map((node, index) => ({
                 ...node,
-                name: node.name || `Node ${index+1}`,
+                name: node.name || `Node ${index + 1}`,
             }));
             state.data = nodesWithCompleteInfo;
             state.isLoading = false;

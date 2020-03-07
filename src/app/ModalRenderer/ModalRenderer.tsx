@@ -14,9 +14,7 @@ export const ModalRenderer: React.FC = (): ReactElement | null => {
         case ModalType.EditNode:
             return (
                 <ConfirmationDialogContainer title="Edit node" showButtons={false}>
-                    <EditNodeForm
-                        onSubmit={() => dispatch(removeConfirmationDialog())}
-                    />
+                    <EditNodeForm onSubmit={() => dispatch(removeConfirmationDialog())} />
                 </ConfirmationDialogContainer>
             );
         default:

@@ -17,9 +17,7 @@ interface IEditNodeFormProps {
     onSubmit: () => void;
 }
 
-export const EditNodeForm: React.FC<IEditNodeFormProps> = ({
-   onSubmit,
-}: IEditNodeFormProps): ReactElement => {
+export const EditNodeForm: React.FC<IEditNodeFormProps> = ({onSubmit}: IEditNodeFormProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const {data} = state.nodeList;
     const selectedNode = _.find(data, (node: any) => node.id === state.app.selectedNodeId);

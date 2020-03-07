@@ -28,9 +28,7 @@ export const NodeNameTitle: React.FunctionComponent<INodeNameTitle> = (props: IN
                 </div>
             </div>
 
-            <span className='node-name-description'>
-                {props.description}
-            </span>
+            <span className="node-name-description">{props.description}</span>
         </div>
     );
 };

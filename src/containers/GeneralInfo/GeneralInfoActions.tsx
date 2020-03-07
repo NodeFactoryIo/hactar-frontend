@@ -34,10 +34,7 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
 
             <div className="node-options">
                 <i className="material-icons">notifications_none</i>
-                <i
-                    onClick={() => props.setShowDropdown(true)}
-                    className="material-icons"
-                >
+                <i onClick={() => props.setShowDropdown(true)} className="material-icons">
                     more_vert
                 </i>
                 <Dropdown
@@ -51,7 +48,9 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
                         {
                             title: "Remove node",
                             iconId: "delete",
-                            onElementClick: (): void => {},
+                            onElementClick: (): void => {
+                                console.log("clicked delete");
+                            },
                         },
                     ]}
                 />
