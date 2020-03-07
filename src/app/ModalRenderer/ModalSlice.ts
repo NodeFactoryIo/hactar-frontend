@@ -1,8 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
 import {editNode} from "../Api";
-import {getNodes} from "../../app/Api";
-import {getNodeInformation} from "../../containers/GeneralInfo/GeneralInfoSlice";
+import {IEditNodeFormData} from "../../containers/GeneralInfo/EditNode/EditNodeForm";
+import {storeNodeList} from "../../containers/NodeList/NodeListSlice";
+import {INodeState} from "../../@types/ReduxStates";
 
 export enum ModalType {
     EditNode,
@@ -12,7 +13,7 @@ export interface IModalState {
     type: ModalType | null;
 }
 const initialState: IModalState = {
-    type: null
+    type: null,
 };
 
 const modalSlice = createSlice({
@@ -23,22 +24,31 @@ const modalSlice = createSlice({
             state.type = action.payload;
         },
         removeConfirmationDialog(state: IModalState) {
-            state.type = null
+            state.type = null;
         },
     },
 });
 
-
-export const submitEditNode = (nodeId: number): AppThunk => async (dispatch, getState): Promise<void> => {
+export const submitEditNode = (nodeId: number, submitData: IEditNodeFormData): AppThunk => async (
+    dispatch,
+    getState,
+): Promise<void> => {
     try {
         const token = getState().user.token;
-        const nodeListResponse = await getNodes(token);
+        const nodeList: Array<INodeState> = getState().nodeList.data;
+        const selectedNodeId = getState().app.selectedNodeId;
+        const response = await editNode(token, nodeId, submitData);
 
-        const response = await editNode(token, nodeId.toString());
-        console.log(response);
-
-        if (response.status === 201) dispatch(getNodeInformation(nodeId));
-        
+        if (response.data) {
+            const updatedNodeList: Array<INodeState> = nodeList.slice();
+            for (let index = 0; index < nodeList.length; index++) {
+                if (nodeList[index].id === selectedNodeId) {
+                    updatedNodeList.splice(index, 1, response.data);
+                    updatedNodeList[index].diskDetails = nodeList[index].diskDetails;
+                }
+            }
+            dispatch(storeNodeList(updatedNodeList));
+        }
     } catch (err) {
         throw err;
     }

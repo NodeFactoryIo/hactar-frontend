@@ -1,5 +1,6 @@
 import axios from "axios";
 import {config} from "./config";
+import {IEditNodeFormData} from "../containers/GeneralInfo/EditNode/EditNodeForm";
 
 const getHeaders = (auth: string | null): object => {
     return {authorization: auth};
@@ -50,13 +51,18 @@ export async function fetchMiningRewards(auth: string | null, nodeId: number, in
     return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
 }
 
-export async function editNode(token: string | null, nodeId: string) {
+export async function editNode(token: string | null, nodeId: number, submitData: IEditNodeFormData) {
     const url = `${config.apiURL}/user/node/${nodeId}`;
 
     try {
-        return await axios.put(url, {
-            headers: getHeaders(token)
-        });
+        return await axios.put(
+            url,
+            {
+                name: submitData.name,
+                description: submitData.description,
+            },
+            {headers: getHeaders(token)},
+        );
     } catch (e) {
         console.error("Error while fetching resource... ", e.message);
         return e;

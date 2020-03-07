@@ -9,6 +9,7 @@ export interface INodeState {
     createdAt: string;
     updatedAt: string;
     userId: number;
+    diskDetails: INodeDiskState;
 }
 export interface INodeInfoState {
     version: string;
