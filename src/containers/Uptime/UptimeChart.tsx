@@ -1,18 +1,18 @@
 import {Bar, BarChart, ResponsiveContainer, Tooltip, XAxis} from "recharts";
 import React, {ReactElement} from "react";
 
-import {UptimeProps} from "./UptimeContainer";
 import {ChartWrapper} from "../../components/ChartWrapper";
+import {INodeUptime} from "../../@types/ReduxStates";
 
 type UptimeChartProps = {
-    data: UptimeProps[];
+    data: INodeUptime[];
     onMouseMove: (e: any) => void;
 };
 
 export class UptimeChart extends ChartWrapper<UptimeChartProps> {
     public render(): ReactElement {
         const {data, onMouseMove} = this.props;
-        const formattedData = data.map(v => ({date: v.date, online: v.value ? 1 : 0, offline: v.value ? 0 : 1}));
+        const formattedData = data.map(v => ({date: v.updatedAt, online: v.isWorking ? 1 : 0, offline: v.isWorking ? 0 : 1}));
 
         return (
             <ResponsiveContainer width="100%" height={100}>
