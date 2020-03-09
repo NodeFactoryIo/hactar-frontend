@@ -1,5 +1,6 @@
 import axios from "axios";
 import {config} from "./config";
+import {IEditNodeFormData} from "../containers/GeneralInfo/EditNode/EditNodeForm";
 
 const getHeaders = (auth: string | null): object => {
     return {authorization: auth};
@@ -55,6 +56,23 @@ export async function fetchMiningRewards(auth: string | null, nodeId: number, in
     return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
 }
 
+export async function editNode(token: string | null, nodeId: number, submitData: IEditNodeFormData) {
+    const url = `${config.apiURL}/user/node/${nodeId}`;
+
+    try {
+        return await axios.put(
+            url,
+            {
+                name: submitData.name,
+                description: submitData.description,
+            },
+            {headers: getHeaders(token)},
+        );
+    } catch (e) {
+        console.error("Error while fetching resource... ", e.message);
+        return e;
+    }
+}
 export async function fetchPastDealsCount(auth: string | null, nodeId: number) {
     const url = `${config.apiURL}/user/node/pastdeals/${nodeId}/count`;
     return makeGetRequest(auth, url);
@@ -67,4 +85,9 @@ export async function fetchPastDeals(auth: string | null, nodeId: number, from =
         to,
         orderBy: "ASC",
     });
+}
+
+export async function fetchUptime(auth: string | null, nodeId: number, interval = "week") {
+    const url = `${config.apiURL}/user/node/uptime/${nodeId}`;
+    return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
 }

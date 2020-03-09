@@ -1,16 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Provider} from "react-redux";
-
 import store from "./app/store";
 import "./style/index.scss";
 import * as serviceWorker from "./serviceWorker";
+import {ModalRenderer} from "./app/ModalRenderer/ModalRenderer";
 
 const render = (): void => {
     const App = require("./app/App").default;
 
     ReactDOM.render(
         <Provider store={store}>
+            <ModalRenderer />
             <App />
         </Provider>,
         document.getElementById("root"),

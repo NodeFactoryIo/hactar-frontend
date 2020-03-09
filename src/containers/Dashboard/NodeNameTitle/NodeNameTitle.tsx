@@ -6,6 +6,7 @@ export interface INodeNameTitle {
     onClick: () => void;
     showArrow?: boolean;
     arrowOpen: boolean;
+    description?: string;
 }
 
 export const NodeNameTitle: React.FunctionComponent<INodeNameTitle> = (props: INodeNameTitle): React.ReactElement => {
@@ -19,11 +20,15 @@ export const NodeNameTitle: React.FunctionComponent<INodeNameTitle> = (props: IN
     };
 
     return (
-        <div onClick={props.onClick} className={`node-name-title ${isActive(props.showArrow)}`}>
-            <h3>{props.title}</h3>
-            <div className={classNames({hidden: props.showArrow})}>
-                <i className="material-icons">{`arrow_drop_${handleArrow(props.arrowOpen)}`}</i>
+        <div>
+            <div onClick={props.onClick} className={`node-name-title ${isActive(props.showArrow)}`}>
+                <h3>{props.title}</h3>
+                <div className={classNames({hidden: props.showArrow})}>
+                    <i className="material-icons">{`arrow_drop_${handleArrow(props.arrowOpen)}`}</i>
+                </div>
             </div>
+
+            <span className="node-name-description">{props.description}</span>
         </div>
     );
 };

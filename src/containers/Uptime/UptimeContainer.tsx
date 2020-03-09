@@ -1,30 +1,28 @@
-import React, {ReactElement, useState} from "react";
+import React, {ReactElement, useEffect, useState} from "react";
 import {ChartHeader} from "../../components/ChartHeader/ChartHeader";
 import {UptimeChart} from "./UptimeChart";
-
-export type UptimeProps = {
-    date: string;
-    value: boolean;
-};
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../app/rootReducer";
+import {getUptime} from "./UptimeSlice";
 
 export const Uptime = (): ReactElement => {
-    const data: UptimeProps[] = [
-        {date: "2020-01-23T14:43:42.856Z", value: true},
-        {date: "2020-01-24T14:43:42.856Z", value: true},
-        {date: "2020-01-25T14:43:42.856Z", value: false},
-        {date: "2020-01-26T14:43:42.856Z", value: true},
-        {date: "2020-01-27T14:43:42.856Z", value: false},
-        {date: "2020-01-28T14:43:42.856Z", value: true},
-    ];
-
-    const [toolTip, setToolTip] = useState(data[5]);
-    const [selectedInterval, setSelectedInterval] = useState<string>("Week");
+    const uptime = useSelector((state: RootState) => state.node.uptime);
+    const [toolTip, setToolTip] = useState({isWorking: true, updatedAt: new Date().toString()});
+    const [selectedInterval, setSelectedInterval] = useState<string>("week");
+    const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
+    const dispatch = useDispatch();
 
     const updateTooltip = (e: any): void => {
         if (e.activePayload) {
-            setToolTip(data[e.activeTooltipIndex]);
+            setToolTip(uptime.data[e.activeTooltipIndex]);
         }
     };
+
+    useEffect(() => {
+        if (selectedNodeId) {
+            dispatch(getUptime(selectedNodeId, selectedInterval));
+        }
+    }, [selectedInterval, selectedNodeId, dispatch]);
 
     return (
         <div className="container flex-column">
@@ -35,16 +33,16 @@ export const Uptime = (): ReactElement => {
             <ChartHeader
                 selectedInterval={selectedInterval}
                 onIntervalClick={(e): void => setSelectedInterval(e)}
-                date={toolTip.date}
+                date={toolTip.updatedAt}
                 values={[
                     {
                         icon: <img src={require("../../assets/icons/polygon.svg")} alt="Polygon" />,
-                        value: toolTip.value ? "Online" : "Offline",
+                        value: toolTip.isWorking ? "Online" : "Offline",
                     },
                 ]}
             />
 
-            <UptimeChart data={data} onMouseMove={updateTooltip} />
+            <UptimeChart data={uptime.data} onMouseMove={updateTooltip} />
         </div>
     );
 };

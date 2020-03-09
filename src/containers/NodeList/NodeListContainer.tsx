@@ -48,7 +48,7 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
             {diskInfoList.map((node: any, index: number) => (
                 <div key={index} className="node-list lower row-spaced">
                     <p className={`node-name ${isNodeSelected(index)}`} onClick={(): void => onNodeClick(index)}>
-                        Node {node.nodeId}
+                        {node.name}
                     </p>
                     <p>
                         {formatBytes(node.diskDetails.freeSpace)} / {formatBytes(node.diskDetails.takenSpace)}

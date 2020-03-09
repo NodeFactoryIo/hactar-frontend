@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import classNames from "classnames";
+import {Dropdown} from "../../components/Dropdown/Dropdown";
 
 export interface ITopBarProps {
     email: string;
@@ -23,12 +24,18 @@ export const TopBar: React.FunctionComponent<ITopBarProps> = (props: ITopBarProp
                 <div onClick={(): void => setShowDropdown(true)} className="bar-element">
                     {props.email}
                     <i className="material-icons">arrow_drop_down</i>
-                    <div className={classNames("dropdown", {hidden: !showDropdown})}>
-                        <div onClick={props.logOut} className="item">
-                            <i className="material-icons">exit_to_app</i>
-                            <div>Log out</div>
-                        </div>
-                    </div>
+                    <Dropdown
+                        showDropdown={showDropdown}
+                        elements={[
+                            {
+                                title: "Log out",
+                                iconId: "exit_to_app",
+                                onElementClick: (): void => {
+                                    props.logOut();
+                                },
+                            },
+                        ]}
+                    />
                 </div>
             </div>
         </>

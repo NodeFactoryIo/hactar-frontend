@@ -9,6 +9,7 @@ export interface INodeState {
     createdAt: string;
     updatedAt: string;
     userId: number;
+    diskDetails: INodeDiskState;
 }
 export interface INodeInfoState {
     version: string;
@@ -62,6 +63,13 @@ export interface INodeDeal {
     provider: string;
     price: string;
     duration: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface INodeUptime {
+    id: number;
+    isWorking: boolean;
     createdAt: string;
     updatedAt: string;
 }
