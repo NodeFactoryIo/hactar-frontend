@@ -2,7 +2,6 @@ import React, {ReactElement, useEffect} from "react";
 import {useForm, Controller} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
-
 import {Input} from "../../../components/Input/Input";
 import {Button} from "../../../components/Button/Button";
 import {RootState} from "../../../app/rootReducer";
@@ -32,7 +31,6 @@ export const EditNodeForm: React.FC<IEditNodeFormProps> = ({onSubmit}: IEditNode
     const dispatch = useDispatch();
 
     const onFormSubmit = handleSubmit((submitData: IEditNodeFormData) => {
-        console.log(submitData);
         dispatch(submitEditNode(state.app.selectedNodeId!, submitData));
         onSubmit();
     });

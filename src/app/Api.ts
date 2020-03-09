@@ -76,18 +76,11 @@ export async function fetchUptime(auth: string | null, nodeId: number, interval 
 
 export async function makePutRequest(token: string | null, nodeId: number, params = {}) {
     const url = `${config.apiURL}/user/node/${nodeId}`;
-    
+
     try {
-        return await axios.put(
-            url,
-            params,
-            {headers: getHeaders(token)},
-        );
+        return await axios.put(url, params, {headers: getHeaders(token)});
     } catch (e) {
         console.error("Error while fetching resource... ", e.message);
         return e;
     }
-
 }
-
-

@@ -3,6 +3,8 @@ import {Input} from "../../components/Input/Input";
 import {Button} from "../../components/Button/Button";
 import {useForm, Controller} from "react-hook-form";
 import {EmailRegex} from "../../app/constants";
+import Email from "@material-ui/icons/NotificationsNone";
+import Lock from "@material-ui/icons/Lock";
 
 export interface IRegisterFormProps {
     onSubmit: (submitData: IRegisterFormData) => void;
@@ -58,7 +60,7 @@ export const RegisterForm = (props: IRegisterFormProps): React.ReactElement => {
                 name="email"
                 type="text"
                 placeholder="Email"
-                icon="email"
+                icon={<Email />}
                 error={errors.email && errors.email.message}
             />
             <Controller
@@ -67,7 +69,7 @@ export const RegisterForm = (props: IRegisterFormProps): React.ReactElement => {
                 name="password"
                 type="password"
                 placeholder="Password"
-                icon="lock"
+                icon={<Lock />}
                 error={errors.password && errors.password.message}
             />
             <Controller
@@ -76,7 +78,7 @@ export const RegisterForm = (props: IRegisterFormProps): React.ReactElement => {
                 name="repeatPassword"
                 type="password"
                 placeholder="Repeat password"
-                icon="lock"
+                icon={<Lock />}
                 error={errors.repeatPassword && errors.repeatPassword.message}
             />
             <Button type="primary">Sign up</Button>

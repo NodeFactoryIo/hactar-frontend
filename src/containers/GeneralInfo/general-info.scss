@@ -8,6 +8,17 @@
   .node-options .MuiSvgIcon-root {
     cursor: pointer;
     user-select: none;
+    color: $regular;
+    &:hover {
+      color: $accented-hovered;
+    }
+    &:focus {
+      color: $regular-focused;
+    }
+    &:active {
+      color: $regular-pressed;
+    }
+    
     &.notifications_active{
       color: $primary;
       &:hover {
@@ -19,19 +30,9 @@
       &:active {
         color: $primary-pressed;
       }
-    }&.notifications_none{
-      color: $regular;
-      &:hover {
-        color: $accented-hovered;
-      }
-      &:focus {
-        color: $regular-focused;
-      }
-      &:active {
-        color: $regular-pressed;
-      }
     }
   }
+  
 
   .general-info-stats {
     background: $elevation;

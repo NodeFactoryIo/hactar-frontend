@@ -3,6 +3,8 @@ import {Input} from "../../components/Input/Input";
 import {Button} from "../../components/Button/Button";
 import {useForm, Controller} from "react-hook-form";
 import {EmailRegex} from "../../app/constants";
+import Email from "@material-ui/icons/NotificationsNone";
+import Lock from "@material-ui/icons/Lock";
 
 export interface ILoginFormProps {
     onSubmit: (submitData: ILoginFormData) => void;
@@ -51,7 +53,7 @@ export const LoginForm = (props: ILoginFormProps): ReactElement => {
                 name="email"
                 type="text"
                 placeholder="Email"
-                icon="email"
+                icon={<Email />}
                 error={errors.email && errors.email.message}
             />
             <Controller
@@ -60,7 +62,7 @@ export const LoginForm = (props: ILoginFormProps): ReactElement => {
                 name="password"
                 type="password"
                 placeholder="Password"
-                icon="lock"
+                icon={<Lock />}
                 error={errors.password && errors.password.message}
             />
             <Button type="primary">Login</Button>

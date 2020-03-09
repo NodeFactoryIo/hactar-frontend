@@ -7,6 +7,9 @@ import {RootState} from "../../app/rootReducer";
 import {Dropdown} from "../../components/Dropdown/Dropdown";
 import {NotificationBell} from "../GeneralInfo/NotificationBell/NotificationBell";
 import {submitEditNode} from "../NodeList/NodeListSlice";
+import MoreVert from "@material-ui/icons/MoreVert";
+import Edit from "@material-ui/icons/Edit";
+import Delete from "@material-ui/icons/Delete";
 
 interface IGeneralInfoActionsProps {
     onNodeHeaderClick: () => void;
@@ -35,22 +38,27 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
 
             <div className="node-options">
                 <NotificationBell
-                onClick={()=> dispatch(submitEditNode(selectedNode.id, {hasEnabledNotifications: (!selectedNode.hasEnabledNotifications).toString()}))}
-                hasEnabledNotifications={selectedNode.hasEnabledNotifications} />
-                <i onClick={() => props.setShowDropdown(true)} className="material-icons">
-                    more_vert
-                </i>
+                    onClick={() =>
+                        dispatch(
+                            submitEditNode(selectedNode.id, {
+                                hasEnabledNotifications: (!selectedNode.hasEnabledNotifications).toString(),
+                            }),
+                        )
+                    }
+                    hasEnabledNotifications={selectedNode.hasEnabledNotifications}
+                />
+                <MoreVert onClick={() => props.setShowDropdown(true)} />
                 <Dropdown
                     showDropdown={props.showDropdown}
                     elements={[
                         {
                             title: "Edit node",
-                            iconId: "edit",
+                            iconId: <Edit />,
                             onElementClick: onEditNodeClick,
                         },
                         {
                             title: "Remove node",
-                            iconId: "delete",
+                            iconId: <Delete />,
                             onElementClick: (): void => {
                                 console.log("clicked delete");
                             },

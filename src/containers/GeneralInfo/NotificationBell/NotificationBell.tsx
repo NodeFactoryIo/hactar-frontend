@@ -8,7 +8,8 @@ export interface INotificationBell {
 }
 
 export const NotificationBell: React.FunctionComponent<INotificationBell> = ({
-    hasEnabledNotifications, onClick
+    hasEnabledNotifications,
+    onClick,
 }: INotificationBell): React.ReactElement => {
     return hasEnabledNotifications ? (
         <NotificationsActive onClick={onClick} className="notifications_active" />
