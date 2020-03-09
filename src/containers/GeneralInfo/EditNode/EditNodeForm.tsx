@@ -32,6 +32,7 @@ export const EditNodeForm: React.FC<IEditNodeFormProps> = ({onSubmit}: IEditNode
     const dispatch = useDispatch();
 
     const onFormSubmit = handleSubmit((submitData: IEditNodeFormData) => {
+        console.log(submitData);
         dispatch(submitEditNode(state.app.selectedNodeId!, submitData));
         onSubmit();
     });

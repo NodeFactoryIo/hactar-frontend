@@ -4,14 +4,15 @@ import NotificationsNone from "@material-ui/icons/NotificationsNone";
 
 export interface INotificationBell {
     hasEnabledNotifications: boolean;
+    onClick?: () => void;
 }
 
 export const NotificationBell: React.FunctionComponent<INotificationBell> = ({
-    hasEnabledNotifications,
+    hasEnabledNotifications, onClick
 }: INotificationBell): React.ReactElement => {
     return hasEnabledNotifications ? (
-        <NotificationsActive className="notifications_active" />
+        <NotificationsActive onClick={onClick} className="notifications_active" />
     ) : (
-        <NotificationsNone className="notifications_none" />
+        <NotificationsNone onClick={onClick} className="notifications_none" />
     );
 };
