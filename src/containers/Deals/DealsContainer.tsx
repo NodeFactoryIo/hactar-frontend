@@ -47,7 +47,7 @@ export const DealsContainer = (): ReactElement => {
     ];
 
     return (
-        <div className="container flex-column">
+        <div className="container flex-column stretch">
             <div className="upper">
                 <label>Deals</label>
             </div>

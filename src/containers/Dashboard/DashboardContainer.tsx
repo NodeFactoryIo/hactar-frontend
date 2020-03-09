@@ -62,12 +62,7 @@ export const DashboardContainer = (): ReactElement => {
                             </div>
 
                             <div className={classNames("tables", {hidden: areElementsHidden})}>
-                                <div className="column left">
-                                    <DealsContainer />
-                                </div>
-                                <div className="column right">
-                                    <PledgedCollateralContainer />
-                                </div>
+                                <DealsContainer />
                             </div>
                         </>
                     ) : null}
