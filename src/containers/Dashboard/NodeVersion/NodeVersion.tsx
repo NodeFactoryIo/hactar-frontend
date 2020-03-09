@@ -12,7 +12,11 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
 }: INodeVersion): React.ReactElement => {
     const isUpdateAvailable = (): boolean => {
         if (latestVersion && nodeVersion) {
-            return latestVersion !== nodeVersion;
+            let nodeVersionToCheck = nodeVersion;
+            if (nodeVersionToCheck.indexOf('+git')) {
+                nodeVersionToCheck = nodeVersion.substr(0, nodeVersion.indexOf('+git'));
+            }
+            return latestVersion !== nodeVersionToCheck;
         } else return false;
     };
 
