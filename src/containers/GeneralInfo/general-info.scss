@@ -5,18 +5,31 @@
     color: $accented;
   }
 
-  .node-options i {
-    color: $regular;
+  .node-options .MuiSvgIcon-root {
     cursor: pointer;
     user-select: none;
-    &:hover {
-      color: $accented-hovered;
-    }
-    &:focus {
-      color: $regular-focused;
-    }
-    &:active {
-      color: $regular-pressed;
+    &.notifications_active{
+      color: $primary;
+      &:hover {
+        color: $primary-hovered;
+      }
+      &:focus {
+        color: $primary-focused;
+      }
+      &:active {
+        color: $primary-pressed;
+      }
+    }&.notifications_none{
+      color: $regular;
+      &:hover {
+        color: $accented-hovered;
+      }
+      &:focus {
+        color: $regular-focused;
+      }
+      &:active {
+        color: $regular-pressed;
+      }
     }
   }
 

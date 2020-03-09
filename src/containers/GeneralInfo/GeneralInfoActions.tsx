@@ -1,11 +1,11 @@
 import React, {ReactElement} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
-
 import {ModalType, showConfirmationDialog} from "../../app/ModalRenderer/ModalSlice";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {RootState} from "../../app/rootReducer";
 import {Dropdown} from "../../components/Dropdown/Dropdown";
+import {NotificationBell} from "../GeneralInfo/NotificationBell/NotificationBell";
 
 interface IGeneralInfoActionsProps {
     onNodeHeaderClick: () => void;
@@ -33,7 +33,7 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
             />
 
             <div className="node-options">
-                <i className="material-icons">notifications_none</i>
+                <NotificationBell hasEnabledNotifications={true} />
                 <i onClick={() => props.setShowDropdown(true)} className="material-icons">
                     more_vert
                 </i>
