@@ -28,12 +28,10 @@ input::placeholder {
   display: flex;
   width: 100%;
 
-  .material-icons {
+  .MuiSvgIcon-root {
     position: absolute;
     padding: 12px;
     color: $hint;
-    width: 14px;
-    text-align: center;
   }
 
   &.has-icon input {

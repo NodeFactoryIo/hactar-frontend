@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import classNames from "classnames";
 import {Dropdown} from "../../components/Dropdown/Dropdown";
+import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import ExitToApp from "@material-ui/icons/ExitToApp";
 
 export interface ITopBarProps {
     email: string;
@@ -23,13 +25,13 @@ export const TopBar: React.FunctionComponent<ITopBarProps> = (props: ITopBarProp
 
                 <div onClick={(): void => setShowDropdown(true)} className="bar-element">
                     {props.email}
-                    <i className="material-icons">arrow_drop_down</i>
+                    <ArrowDropDown />
                     <Dropdown
                         showDropdown={showDropdown}
                         elements={[
                             {
                                 title: "Log out",
-                                iconId: "exit_to_app",
+                                iconId: <ExitToApp />,
                                 onElementClick: (): void => {
                                     props.logOut();
                                 },

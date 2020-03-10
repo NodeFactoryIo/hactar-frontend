@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+import Update from "@material-ui/icons/Update";
 
 export interface INodeVersion {
     nodeVersion: string | null;
@@ -20,7 +21,7 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
         return (
             <div className={classNames("row", {alert: isUpdateAvailable()})}>
                 <p>{nodeVersion}</p>
-                <i className={classNames("material-icons", {hidden: !isUpdateAvailable()})}>update</i>
+                {isUpdateAvailable() ? <Update /> : null}
             </div>
         );
     else

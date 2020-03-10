@@ -2,7 +2,6 @@ import React, {ReactElement, useEffect} from "react";
 import {useForm, Controller} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
-
 import {Input} from "../../../components/Input/Input";
 import {Button} from "../../../components/Button/Button";
 import {RootState} from "../../../app/rootReducer";
