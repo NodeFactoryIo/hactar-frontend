@@ -14,14 +14,16 @@ export const ModalRenderer: React.FC = (): ReactElement | null => {
     const {type} = state.modal;
 
     const handleNotificationsSubmit = (): void => {
-        dispatch(submitEditNode(selectedNode.id, {
+        dispatch(
+            submitEditNode(selectedNode.id, {
                 hasEnabledNotifications: !selectedNode.hasEnabledNotifications,
-            }));
+            }),
+        );
         dispatch(removeConfirmationDialog());
-    }
+    };
     const notificationContent = (): string => {
-       return selectedNode.hasEnabledNotifications ? "Disable" : "Allow";
-    }
+        return selectedNode.hasEnabledNotifications ? "Disable" : "Allow";
+    };
 
     switch (type) {
         case ModalType.EditNode:
