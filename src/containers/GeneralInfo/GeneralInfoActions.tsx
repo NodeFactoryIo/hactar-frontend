@@ -26,6 +26,11 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
         props.setShowDropdown(false);
     };
 
+    const onDeleteClick = (): void => {
+        dispatch(showConfirmationDialog(ModalType.DeleteNode));
+        props.setShowDropdown(false);
+    };
+
     return (
         <div className="row-spaced upper">
             <NodeNameTitle
@@ -52,9 +57,7 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
                         {
                             title: "Remove node",
                             iconId: <Delete />,
-                            onElementClick: (): void => {
-                                console.log("clicked delete");
-                            },
+                            onElementClick: onDeleteClick,
                         },
                     ]}
                 />
