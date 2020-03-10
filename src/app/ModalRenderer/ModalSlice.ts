@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export enum ModalType {
     EditNode,
+    Notifications,
 }
 
 export interface IModalState {
