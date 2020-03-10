@@ -1,5 +1,5 @@
-import axios from "axios";
 import {config} from "./config";
+import axios from "axios";
 
 const getHeaders = (auth: string | null): object => {
     return {authorization: auth};
@@ -74,13 +74,16 @@ export async function fetchUptime(auth: string | null, nodeId: number, interval 
     return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
 }
 
-export async function makePutRequest(token: string | null, nodeId: number, params = {}) {
-    const url = `${config.apiURL}/user/node/${nodeId}`;
-
+async function makePutRequest(token: string | null, url: string, params = {}) {
     try {
         return await axios.put(url, params, {headers: getHeaders(token)});
     } catch (e) {
         console.error("Error while fetching resource... ", e.message);
         return e;
     }
+}
+
+export async function nodePut(auth: string | null, nodeId: number, data: any) {
+    const url = `${config.apiURL}/user/node/${nodeId}`;
+    return makePutRequest(auth, url, data);
 }

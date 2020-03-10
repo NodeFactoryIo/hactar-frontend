@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getDiskDetails, getNodes, makePutRequest} from "../../app/Api";
+import {getDiskDetails, getNodes, nodePut} from "../../app/Api";
 import {INodeDiskStateResponse, INodeState} from "../../@types/ReduxStates";
 import {storeSelectedNode} from "../Dashboard/AppSlice";
 
@@ -72,7 +72,7 @@ export const submitEditNode = (nodeId: number, submitData: any): AppThunk => asy
         const token = getState().user.token;
         const nodeList: Array<INodeState> = getState().nodeList.data;
         const selectedNodeId = getState().app.selectedNodeId;
-        const response = await makePutRequest(token, nodeId, submitData);
+        const response = await nodePut(token, nodeId, submitData);
 
         if (response.data) {
             const updatedNodeList: Array<INodeState> = nodeList.slice();

@@ -12,8 +12,8 @@ export const NotificationBell: React.FunctionComponent<INotificationBell> = ({
     onClick,
 }: INotificationBell): React.ReactElement => {
     return hasEnabledNotifications ? (
-        <NotificationsActive onClick={onClick} className="notifications_active" />
+        <NotificationsActive onClick={onClick} className={`active ${onClick ? "" : "no_hover"}`} />
     ) : (
-        <NotificationsNone onClick={onClick} className="notifications_none" />
+        <NotificationsNone onClick={onClick} className={`none ${onClick ? "" : "no_hover"}`} />
     );
 };

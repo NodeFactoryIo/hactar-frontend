@@ -41,7 +41,7 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
                     onClick={() =>
                         dispatch(
                             submitEditNode(selectedNode.id, {
-                                hasEnabledNotifications: (!selectedNode.hasEnabledNotifications).toString(),
+                                hasEnabledNotifications: !selectedNode.hasEnabledNotifications,
                             }),
                         )
                     }
