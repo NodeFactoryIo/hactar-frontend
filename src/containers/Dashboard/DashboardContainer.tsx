@@ -15,6 +15,7 @@ import {logOutUser} from "../Register/UserSlice";
 import {getAvailableNodeVersion} from "../GeneralInfo/GeneralInfoSlice";
 import {getAllNodes} from "../NodeList/NodeListSlice";
 import {EmptyList} from "../../components/EmptyList/EmptyList";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -35,7 +36,11 @@ export const DashboardContainer = (): ReactElement => {
     }, [fetchingNodeList, selectedNodeId, dispatch]);
 
     if (stateNodeList.isLoading) {
-        return <div>Loading</div>;
+        return (
+            <div className="loading-container">
+                <CircularProgress color="inherit" />
+            </div>
+        );
     }
 
     return (

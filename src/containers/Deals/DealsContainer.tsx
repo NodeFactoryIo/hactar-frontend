@@ -7,6 +7,7 @@ import {RootState} from "../../app/rootReducer";
 import {getDeals} from "./DealsSlice";
 import {DealStatus} from "../../app/constants";
 import {Pagination} from "../../components/Pagination/Pagination";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export const DealsContainer = (): ReactElement => {
     const dispatch = useDispatch();
@@ -29,7 +30,11 @@ export const DealsContainer = (): ReactElement => {
     };
 
     if (deals.isLoading) {
-        return <div>Loading</div>;
+        return (
+            <div className="loading-container">
+                <CircularProgress color="inherit" />
+            </div>
+        );
     }
 
     const stateCellRenderer = ({cellData}: TableCellProps): ReactElement => {

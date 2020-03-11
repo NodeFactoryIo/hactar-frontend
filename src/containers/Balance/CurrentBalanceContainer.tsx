@@ -1,7 +1,7 @@
 import React, {ReactElement, useEffect} from "react";
 import "./balance.scss";
 import {useDispatch, useSelector} from "react-redux";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {getBalanceInfo} from "./BalanceSlice";
 import {RootState} from "../../app/rootReducer";
 
@@ -20,7 +20,11 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
         return (
             <div className="container flex-column">
                 <div className="upper">
-                    <label>Loading balance...</label>
+                    <label>
+                        <div className="loading-container">
+                            <CircularProgress color="inherit" />
+                        </div>
+                    </label>
                 </div>
             </div>
         );
