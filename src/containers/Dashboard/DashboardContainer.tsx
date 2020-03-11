@@ -21,6 +21,7 @@ export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
     const [fetchingNodeList, setFetchingNodeList] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const userEmail = useSelector((state: RootState) => state.user.email);
     const stateNodeList = useSelector((state: RootState) => state.nodeList);
     const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     // @ts-ignore
@@ -45,7 +46,7 @@ export const DashboardContainer = (): ReactElement => {
 
     return (
         <div className="dashboard-container">
-            <TopBar logOut={() => dispatch(logOutUser())} email="User Account" />
+            <TopBar logOut={() => dispatch(logOutUser())} email={userEmail} />
 
             {!stateNodeList.isLoading && !selectedNodeId && stateNodeList.data.length === 0 ? (
                 <EmptyList message="No nodes are added" />

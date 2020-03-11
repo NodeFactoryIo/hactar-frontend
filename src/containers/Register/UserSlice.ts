@@ -29,6 +29,7 @@ interface IUserState {
     loginSuccessValue: boolean;
     loginErrorValue: string | null;
     token: string | null;
+    email: string | null;
 }
 
 const initialState: IUserState = {
@@ -38,6 +39,7 @@ const initialState: IUserState = {
     loginSuccessValue: false,
     loginErrorValue: null,
     token: loadValidToken(),
+    email: localStorage.getItem("email"),
 };
 
 const userSlice = createSlice({
@@ -118,6 +120,7 @@ export const submitUserLogin = (data: IUser): AppThunk => async (dispatch): Prom
         if (response.status === 200) {
             dispatch(loginSuccess(response.data.token));
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("email", email);
         } else {
             const responseText = JSON.parse(response.request.responseText);
             dispatch(loginError(responseText.error));

@@ -5,7 +5,7 @@ import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import ExitToApp from "@material-ui/icons/ExitToApp";
 
 export interface ITopBarProps {
-    email: string;
+    email: string | null;
     logOut: () => void;
 }
 
