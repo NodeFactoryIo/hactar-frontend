@@ -1,11 +1,12 @@
 import React from "react";
 import {Button} from "../Button/Button";
 import classNames from "classnames";
+import {removeConfirmationDialog} from "../../app/ModalRenderer/ModalSlice";
+import {useDispatch} from "react-redux";
 
 interface IConfirmationDialogProps {
     title: string;
     children: any;
-    onCancel?: () => void;
     onConfirmation?: () => void;
     showButtons: boolean;
     confirmationButtonLabel?: string;
@@ -14,6 +15,7 @@ interface IConfirmationDialogProps {
 export const ConfirmationDialogContainer: React.FC<React.PropsWithChildren<IConfirmationDialogProps>> = (
     props: IConfirmationDialogProps,
 ) => {
+    const dispatch = useDispatch();
     return (
         <div className="centered confirmation-dialog-screen">
             <div className="flex-column confirmation-dialog-container">
@@ -22,7 +24,7 @@ export const ConfirmationDialogContainer: React.FC<React.PropsWithChildren<IConf
 
                 {props.showButtons ? (
                     <div className={classNames("row", "button-container")}>
-                        <Button onClick={props.onCancel} type="secondary">
+                        <Button onClick={() => dispatch(removeConfirmationDialog())} type="secondary">
                             Cancel
                         </Button>
                         <Button onClick={props.onConfirmation} type="primary">

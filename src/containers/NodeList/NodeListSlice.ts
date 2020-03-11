@@ -3,6 +3,7 @@ import {AppThunk} from "../../app/store";
 import {getDiskDetails, getNodes, nodePut, deleteNode} from "../../app/Api";
 import {INodeDiskStateResponse, INodeState} from "../../@types/ReduxStates";
 import {storeSelectedNode} from "../Dashboard/AppSlice";
+import {resetAppState} from "../../containers/Dashboard/AppSlice";
 
 interface IDataEntity {
     data: any;
@@ -103,6 +104,8 @@ export const submitDeleteNode = (nodeId: number): AppThunk => async (dispatch, g
                 }
             }
             dispatch(storeNodeListSuccess(updatedNodeList));
+            dispatch(resetNodeList());
+            dispatch(resetAppState());
         }
     } catch (err) {
         throw err;

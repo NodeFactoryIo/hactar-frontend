@@ -93,7 +93,7 @@ export async function deleteNode(token: string | null, nodeId: number) {
     try {
         return await axios.delete(url, {headers: getHeaders(token)});
     } catch (e) {
-        console.error("Error while fetching resource... ", e.message);
+        console.error("Error while deleting resource... ", e.message);
         return e;
     }
 }
