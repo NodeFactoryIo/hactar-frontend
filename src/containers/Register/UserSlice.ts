@@ -5,6 +5,7 @@ import {logInUser} from "../Login/LoginApi";
 import jwt_decode from "jwt-decode";
 import {resetAppState} from "../Dashboard/AppSlice";
 import {resetNodeList} from "../NodeList/NodeListSlice";
+import {fetchUserEmail} from "../../app/Api";
 
 const loadValidToken = (): string | null => {
     const token = localStorage.getItem("token");
@@ -39,7 +40,7 @@ const initialState: IUserState = {
     loginSuccessValue: false,
     loginErrorValue: null,
     token: loadValidToken(),
-    email: localStorage.getItem("email"),
+    email: null,
 };
 
 const userSlice = createSlice({
@@ -76,6 +77,9 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.loginErrorValue = action.payload;
         },
+        saveEmail(state: IUserState, action: PayloadAction<string>): void {
+            state.email = action.payload;
+        },
     },
 });
 
@@ -87,6 +91,7 @@ export const {
     loginStart,
     loginSuccess,
     loginError,
+    saveEmail,
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;
 
@@ -120,12 +125,24 @@ export const submitUserLogin = (data: IUser): AppThunk => async (dispatch): Prom
         if (response.status === 200) {
             dispatch(loginSuccess(response.data.token));
             localStorage.setItem("token", response.data.token);
-            localStorage.setItem("email", email);
         } else {
             const responseText = JSON.parse(response.request.responseText);
             dispatch(loginError(responseText.error));
         }
     } catch (err) {
         dispatch(loginError(err.toString()));
+    }
+};
+
+export const getUserEmail = (): AppThunk => async (dispatch, getState): Promise<void> => {
+    try {
+        const token = getState().user.token;
+        const response = await fetchUserEmail(token);
+        if (response.data) {
+            dispatch(saveEmail(response.data.email));
+        }
+        console.log(response);
+    } catch (err) {
+        throw err;
     }
 };

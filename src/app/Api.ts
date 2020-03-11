@@ -74,6 +74,11 @@ export async function fetchUptime(auth: string | null, nodeId: number, interval 
     return makeGetRequest(auth, url, {filter: interval.toLowerCase()});
 }
 
+export async function fetchUserEmail(auth: string | null) {
+    const url = `${config.apiURL}/user/account`;
+    return makeGetRequest(auth, url);
+}
+
 async function makePutRequest(token: string | null, url: string, params = {}) {
     try {
         return await axios.put(url, params, {headers: getHeaders(token)});

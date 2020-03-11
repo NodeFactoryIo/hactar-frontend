@@ -11,7 +11,7 @@ import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 import {DealsContainer} from "../Deals/DealsContainer";
 import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {RootState} from "../../app/rootReducer";
-import {logOutUser} from "../Register/UserSlice";
+import {logOutUser, getUserEmail} from "../Register/UserSlice";
 import {getAvailableNodeVersion} from "../GeneralInfo/GeneralInfoSlice";
 import {getAllNodes} from "../NodeList/NodeListSlice";
 import {EmptyList} from "../../components/EmptyList/EmptyList";
@@ -30,6 +30,7 @@ export const DashboardContainer = (): ReactElement => {
     useEffect(() => {
         if (!fetchingNodeList) {
             setFetchingNodeList(true);
+            dispatch(getUserEmail());
             dispatch(getAllNodes());
             dispatch(getAvailableNodeVersion());
             setElementsHidden(false);
