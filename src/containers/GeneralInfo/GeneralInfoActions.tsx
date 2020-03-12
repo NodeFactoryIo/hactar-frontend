@@ -30,21 +30,23 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
         dispatch(showConfirmationDialog(ModalType.DeleteNode));
         props.setShowDropdown(false);
     };
-
     return (
         <div className="row-spaced upper">
-            <NodeNameTitle
-                title={selectedNode.name}
-                description={selectedNode.description}
-                onClick={props.onNodeHeaderClick}
-                arrowOpen={false}
-            />
-
-            <div className="node-options">
-                <NotificationBell
-                    onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
-                    hasEnabledNotifications={selectedNode.hasEnabledNotifications}
+            {selectedNode ? (
+                <NodeNameTitle
+                    title={selectedNode.name}
+                    description={selectedNode.description}
+                    onClick={props.onNodeHeaderClick}
+                    arrowOpen={false}
                 />
+            ) : null}
+            <div className="node-options">
+                {selectedNode ? (
+                    <NotificationBell
+                        onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
+                        hasEnabledNotifications={selectedNode.hasEnabledNotifications}
+                    />
+                ) : null}
                 <MoreVert onClick={() => props.setShowDropdown(true)} />
                 <Dropdown
                     showDropdown={props.showDropdown}

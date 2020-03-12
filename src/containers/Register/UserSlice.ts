@@ -141,7 +141,6 @@ export const getUserEmail = (): AppThunk => async (dispatch, getState): Promise<
         if (response.data) {
             dispatch(saveEmail(response.data.email));
         }
-        console.log(response);
     } catch (err) {
         throw err;
     }
