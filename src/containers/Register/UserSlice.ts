@@ -5,6 +5,7 @@ import {logInUser} from "../Login/LoginApi";
 import jwt_decode from "jwt-decode";
 import {resetAppState} from "../Dashboard/AppSlice";
 import {resetNodeList} from "../NodeList/NodeListSlice";
+import {fetchUserEmail} from "../../app/Api";
 
 const loadValidToken = (): string | null => {
     const token = localStorage.getItem("token");
@@ -29,6 +30,7 @@ interface IUserState {
     loginSuccessValue: boolean;
     loginErrorValue: string | null;
     token: string | null;
+    email: string | null;
 }
 
 const initialState: IUserState = {
@@ -38,6 +40,7 @@ const initialState: IUserState = {
     loginSuccessValue: false,
     loginErrorValue: null,
     token: loadValidToken(),
+    email: null,
 };
 
 const userSlice = createSlice({
@@ -74,6 +77,9 @@ const userSlice = createSlice({
             state.isLoading = false;
             state.loginErrorValue = action.payload;
         },
+        saveEmail(state: IUserState, action: PayloadAction<string>): void {
+            state.email = action.payload;
+        },
     },
 });
 
@@ -85,6 +91,7 @@ export const {
     loginStart,
     loginSuccess,
     loginError,
+    saveEmail,
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;
 
@@ -124,5 +131,17 @@ export const submitUserLogin = (data: IUser): AppThunk => async (dispatch): Prom
         }
     } catch (err) {
         dispatch(loginError(err.toString()));
+    }
+};
+
+export const getUserEmail = (): AppThunk => async (dispatch, getState): Promise<void> => {
+    try {
+        const token = getState().user.token;
+        const response = await fetchUserEmail(token);
+        if (response.data) {
+            dispatch(saveEmail(response.data.email));
+        }
+    } catch (err) {
+        throw err;
     }
 };

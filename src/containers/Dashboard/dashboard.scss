@@ -96,3 +96,9 @@ body {
   margin-left: 0.75rem;
   font-size: 1.5rem;
 }
+.loading-container{
+  display: flex;
+  justify-content: center;
+  color: $primary;
+  padding: 1rem 0;
+}

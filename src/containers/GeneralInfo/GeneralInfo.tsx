@@ -1,7 +1,7 @@
 import React, {ReactElement, Dispatch, SetStateAction, useEffect, useState} from "react";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
@@ -34,7 +34,11 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
     }, [selectedNodeId, dispatch]);
 
     if (nodeInformation.isLoading) {
-        return <div>Loading</div>;
+        return (
+            <div className="loading-container">
+                <CircularProgress color="inherit" />
+            </div>
+        );
     }
 
     return (
