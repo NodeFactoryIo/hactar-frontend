@@ -93,19 +93,11 @@ export const submitEditNode = (nodeId: number, submitData: any): AppThunk => asy
 export const submitDeleteNode = (nodeId: number): AppThunk => async (dispatch, getState): Promise<void> => {
     try {
         const token = getState().user.token;
-        const nodeList: Array<INodeState> = getState().nodeList.data;
         const response = await deleteNode(token, nodeId);
         if (response.status === 200) {
-            const updatedNodeList: Array<INodeState> = nodeList.slice();
-            for (let index = 0; index < nodeList.length; index++) {
-                if (nodeList[index].id === nodeId) {
-                    updatedNodeList.splice(index, 1);
-                    break;
-                }
-            }
-            dispatch(storeNodeListSuccess(updatedNodeList));
             dispatch(resetNodeList());
             dispatch(resetAppState());
+            dispatch(getAllNodes());
         }
     } catch (err) {
         throw err;

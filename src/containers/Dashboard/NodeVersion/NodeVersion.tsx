@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import Update from "@material-ui/icons/Update";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import {Loading} from "../../../components/Loading/Loading";
 
 export interface INodeVersion {
     nodeVersion: string | null;
@@ -28,9 +28,7 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
     else
         return (
             <div className={"row"}>
-                <div className="loading-container">
-                    <CircularProgress color="inherit" />
-                </div>
+                <Loading />
             </div>
         );
 };
