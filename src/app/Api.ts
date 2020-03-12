@@ -87,3 +87,13 @@ export async function nodePut(auth: string | null, nodeId: number, data: any) {
     const url = `${config.apiURL}/user/node/${nodeId}`;
     return makePutRequest(auth, url, data);
 }
+
+export async function deleteNode(token: string | null, nodeId: number) {
+    const url = `${config.apiURL}/user/node/${nodeId}`;
+    try {
+        return await axios.delete(url, {headers: getHeaders(token)});
+    } catch (e) {
+        console.error("Error while deleting resource... ", e.message);
+        return e;
+    }
+}

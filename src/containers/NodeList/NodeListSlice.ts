@@ -1,8 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppThunk} from "../../app/store";
-import {getDiskDetails, getNodes, nodePut} from "../../app/Api";
+import {getDiskDetails, getNodes, nodePut, deleteNode} from "../../app/Api";
 import {INodeDiskStateResponse, INodeState} from "../../@types/ReduxStates";
 import {storeSelectedNode} from "../Dashboard/AppSlice";
+import {resetAppState} from "../../containers/Dashboard/AppSlice";
 
 interface IDataEntity {
     data: any;
@@ -71,19 +72,40 @@ export const submitEditNode = (nodeId: number, submitData: any): AppThunk => asy
     try {
         const token = getState().user.token;
         const nodeList: Array<INodeState> = getState().nodeList.data;
-        const selectedNodeId = getState().app.selectedNodeId;
         const response = await nodePut(token, nodeId, submitData);
 
         if (response.data) {
             const updatedNodeList: Array<INodeState> = nodeList.slice();
             for (let index = 0; index < nodeList.length; index++) {
-                if (nodeList[index].id === selectedNodeId) {
+                if (nodeList[index].id === nodeId) {
                     updatedNodeList.splice(index, 1, response.data);
                     updatedNodeList[index].diskDetails = nodeList[index].diskDetails;
                     break;
                 }
             }
             dispatch(storeNodeListSuccess(updatedNodeList));
+        }
+    } catch (err) {
+        throw err;
+    }
+};
+
+export const submitDeleteNode = (nodeId: number): AppThunk => async (dispatch, getState): Promise<void> => {
+    try {
+        const token = getState().user.token;
+        const nodeList: Array<INodeState> = getState().nodeList.data;
+        const response = await deleteNode(token, nodeId);
+        if (response.status === 200) {
+            const updatedNodeList: Array<INodeState> = nodeList.slice();
+            for (let index = 0; index < nodeList.length; index++) {
+                if (nodeList[index].id === nodeId) {
+                    updatedNodeList.splice(index, 1);
+                    break;
+                }
+            }
+            dispatch(storeNodeListSuccess(updatedNodeList));
+            dispatch(resetNodeList());
+            dispatch(resetAppState());
         }
     } catch (err) {
         throw err;

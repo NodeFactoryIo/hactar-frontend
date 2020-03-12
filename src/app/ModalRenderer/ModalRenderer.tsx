@@ -5,7 +5,7 @@ import {RootState} from "../rootReducer";
 import {ConfirmationDialogContainer} from "../../components/ConfirmationDialog/ConfirmationDialog";
 import {removeConfirmationDialog, ModalType} from "./ModalSlice";
 import {EditNodeForm} from "../../containers/GeneralInfo/EditNode/EditNodeForm";
-import {submitEditNode} from "../../containers/NodeList/NodeListSlice";
+import {submitEditNode, submitDeleteNode} from "../../containers/NodeList/NodeListSlice";
 
 export const ModalRenderer: React.FC = (): ReactElement | null => {
     const dispatch = useDispatch();
@@ -24,6 +24,10 @@ export const ModalRenderer: React.FC = (): ReactElement | null => {
     const notificationContent = (): string => {
         return selectedNode.hasEnabledNotifications ? "Disable" : "Allow";
     };
+    const handleRemoveNode = (): void => {
+        dispatch(submitDeleteNode(selectedNode.id));
+        dispatch(removeConfirmationDialog());
+    };
 
     switch (type) {
         case ModalType.EditNode:
@@ -39,9 +43,19 @@ export const ModalRenderer: React.FC = (): ReactElement | null => {
                     confirmationButtonLabel={notificationContent()}
                     showButtons={true}
                     onConfirmation={handleNotificationsSubmit}
-                    onCancel={() => dispatch(removeConfirmationDialog())}
                 >
                     {notificationContent()} notifications on your email from {selectedNode.name}?
+                </ConfirmationDialogContainer>
+            );
+        case ModalType.DeleteNode:
+            return (
+                <ConfirmationDialogContainer
+                    title="Remove node"
+                    confirmationButtonLabel="remove"
+                    showButtons={true}
+                    onConfirmation={handleRemoveNode}
+                >
+                    Are you sure you want to remove {selectedNode.name}?
                 </ConfirmationDialogContainer>
             );
         default:
