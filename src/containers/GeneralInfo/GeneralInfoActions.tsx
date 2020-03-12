@@ -6,9 +6,11 @@ import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {RootState} from "../../app/rootReducer";
 import {Dropdown} from "../../components/Dropdown/Dropdown";
 import {NotificationBell} from "../GeneralInfo/NotificationBell/NotificationBell";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 import MoreVert from "@material-ui/icons/MoreVert";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
+import Info from "@material-ui/icons/Info";
 
 interface IGeneralInfoActionsProps {
     onNodeHeaderClick: () => void;
@@ -41,6 +43,9 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
             />
 
             <div className="node-options">
+                <AgeTooltip content={selectedNode.createdAt}>
+                    <Info />
+                </AgeTooltip>
                 <NotificationBell
                     onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
                     hasEnabledNotifications={selectedNode.hasEnabledNotifications}
