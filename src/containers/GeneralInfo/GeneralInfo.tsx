@@ -62,7 +62,7 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
                         </div>
 
                         <div className="stat">
-                            <label>node address</label>
+                            <label>owner address</label>
                             <Clipboard copyText={nodeInformation.data.walletAddress || ""} truncate={true} />
                         </div>
 

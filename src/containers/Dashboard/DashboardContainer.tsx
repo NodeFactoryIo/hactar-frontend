@@ -9,7 +9,6 @@ import {MiningRewardsContainer} from "../MiningRewards/MiningRewardsContainer";
 import {Uptime} from "../Uptime/UptimeContainer";
 import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 import {DealsContainer} from "../Deals/DealsContainer";
-import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {RootState} from "../../app/rootReducer";
 import {logOutUser, getUserEmail} from "../Register/UserSlice";
 import {getAvailableNodeVersion} from "../GeneralInfo/GeneralInfoSlice";
@@ -65,12 +64,7 @@ export const DashboardContainer = (): ReactElement => {
                             </div>
 
                             <div className={classNames("tables", {hidden: areElementsHidden})}>
-                                <div className="column left">
-                                    <DealsContainer />
-                                </div>
-                                <div className="column right">
-                                    <PledgedCollateralContainer />
-                                </div>
+                                <DealsContainer />
                             </div>
                         </>
                     ) : null}
