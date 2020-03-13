@@ -16,7 +16,6 @@ const ageTooltipStyle = makeStyles(() => ({
     tooltip: {
         backgroundColor: "#E1E6F5",
         color: "#242B3D",
-        // height: "4rem"
     },
 }));
 
