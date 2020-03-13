@@ -10,15 +10,17 @@ import {Uptime} from "../Uptime/UptimeContainer";
 import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 import {DealsContainer} from "../Deals/DealsContainer";
 import {RootState} from "../../app/rootReducer";
-import {logOutUser} from "../Register/UserSlice";
+import {logOutUser, getUserEmail} from "../Register/UserSlice";
 import {getAvailableNodeVersion} from "../GeneralInfo/GeneralInfoSlice";
 import {getAllNodes} from "../NodeList/NodeListSlice";
 import {EmptyList} from "../../components/EmptyList/EmptyList";
+import {Loading} from "../../components/Loading/Loading";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
     const [fetchingNodeList, setFetchingNodeList] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const userEmail = useSelector((state: RootState) => state.user.email);
     const stateNodeList = useSelector((state: RootState) => state.nodeList);
     const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     // @ts-ignore
@@ -27,6 +29,7 @@ export const DashboardContainer = (): ReactElement => {
     useEffect(() => {
         if (!fetchingNodeList) {
             setFetchingNodeList(true);
+            dispatch(getUserEmail());
             dispatch(getAllNodes());
             dispatch(getAvailableNodeVersion());
             setElementsHidden(false);
@@ -34,12 +37,12 @@ export const DashboardContainer = (): ReactElement => {
     }, [fetchingNodeList, selectedNodeId, dispatch]);
 
     if (stateNodeList.isLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     return (
         <div className="dashboard-container">
-            <TopBar logOut={() => dispatch(logOutUser())} email="User Account" />
+            <TopBar logOut={() => dispatch(logOutUser())} email={userEmail} />
 
             {!stateNodeList.isLoading && !selectedNodeId && stateNodeList.data.length === 0 ? (
                 <EmptyList message="No nodes are added" />

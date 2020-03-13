@@ -5,6 +5,7 @@ import {RootState} from "../../app/rootReducer";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {formatBytes} from "../../app/utils";
 import {storeSelectedNode} from "../Dashboard/AppSlice";
+import {NotificationBell} from "../GeneralInfo/NotificationBell/NotificationBell";
 
 interface INodeListProps {
     display?: boolean;
@@ -47,16 +48,16 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
 
             {diskInfoList.map((node: any, index: number) => (
                 <div key={index} className="node-list lower row-spaced">
-                    <p className={`node-name ${isNodeSelected(index)}`} onClick={(): void => onNodeClick(index)}>
-                        {node.name}
-                    </p>
+                    <div className="node-options centered">
+                        <p className={`node-name ${isNodeSelected(index)}`} onClick={(): void => onNodeClick(index)}>
+                            {node.name}
+                        </p>
+                        <NotificationBell hasEnabledNotifications={node.hasEnabledNotifications} />
+                    </div>
+
                     <p>
                         {formatBytes(node.diskDetails.freeSpace)} / {formatBytes(node.diskDetails.takenSpace)}
                     </p>
-                    {/* TODO - online status */}
-                    {/* <p className={node.online ? "yellow" : "status"}>
-                    {node.online ? "Online" : "Offline"}
-                    </p> */}
                     <p className="yellow">Online</p>
                 </div>
             ))}

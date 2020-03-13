@@ -1,5 +1,9 @@
 import React, {useState} from "react";
 import PaginationLib from "react-js-pagination";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import FirstPage from "@material-ui/icons/FirstPage";
+import LastPage from "@material-ui/icons/LastPage";
 
 interface IPaginationProps {
     numberOfRecords: number;
@@ -23,10 +27,10 @@ export const Pagination = (props: IPaginationProps) => {
             totalItemsCount={numberOfRecords}
             pageRangeDisplayed={3}
             onChange={handlePageChange}
-            prevPageText={<i className="material-icons">chevron_left</i>}
-            nextPageText={<i className="material-icons">chevron_right</i>}
-            firstPageText={<i className="material-icons">first_page</i>}
-            lastPageText={<i className="material-icons">last_page</i>}
+            prevPageText={<ChevronLeft />}
+            nextPageText={<ChevronRight />}
+            firstPageText={<FirstPage />}
+            lastPageText={<LastPage />}
         />
     );
 };

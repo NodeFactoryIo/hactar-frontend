@@ -1,7 +1,5 @@
 @import-normalize; /* bring in normalize.css styles */
 
-$material-icons-font-path: '~material-icons/iconfont/';
-@import '~material-icons/iconfont/material-icons.scss';
 @import '~react-virtualized/styles.css';
 
 @import './variables.scss';
@@ -21,6 +19,7 @@ $material-icons-font-path: '~material-icons/iconfont/';
 @import "../components/ConfirmationDialog/confirmation-dialog.scss";
 @import "../components/Dropdown/dropdown.scss";
 @import "../components/Pagination/pagination.scss";
+@import "../components//Loading/loading.scss";
 
 @import '../containers/NodeList/node-list.scss';
 @import "../containers/GeneralInfo/general-info.scss";

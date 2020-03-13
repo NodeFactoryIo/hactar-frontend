@@ -1,7 +1,7 @@
 import React, {ReactElement, Dispatch, SetStateAction, useEffect, useState} from "react";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
-
+import {Loading} from "../../components/Loading/Loading";
 import {NodeListContainer} from "../NodeList/NodeListContainer";
 import {RootState} from "../../app/rootReducer";
 import {Clipboard} from "../../components/Clipboard/Clipboard";
@@ -34,7 +34,7 @@ export const GeneralInfo = ({setElementsHidden, areElementsHidden}: IGeneralInfo
     }, [selectedNodeId, dispatch]);
 
     if (nodeInformation.isLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     return (

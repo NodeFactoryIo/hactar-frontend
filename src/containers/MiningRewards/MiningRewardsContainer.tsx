@@ -1,11 +1,12 @@
 import React, {ReactElement, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-
 import {MiningRewardsChart} from "./MiningRewardsChart";
 import {ChartHeader} from "../../components/ChartHeader/ChartHeader";
 import {RootState} from "../../app/rootReducer";
 import {formatTokens} from "../../app/utils";
 import {getMiningRewards} from "./MiningRewardsSlice";
+import AccountBalanceWallet from "@material-ui/icons/AccountBalanceWallet";
+import {Loading} from "../../components/Loading/Loading";
 
 export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
@@ -32,7 +33,7 @@ export const MiningRewardsContainer = (): ReactElement => {
     }, [selectedInterval, selectedNodeId, dispatch]);
 
     if (miningRewards.isLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     return (
@@ -48,7 +49,7 @@ export const MiningRewardsContainer = (): ReactElement => {
                 values={[
                     {
                         value: `${formatTokens(toolTip.rewardAmount)} FIL`,
-                        icon: <i className="material-icons">account_balance_wallet</i>,
+                        icon: <AccountBalanceWallet />,
                     },
                 ]}
             />

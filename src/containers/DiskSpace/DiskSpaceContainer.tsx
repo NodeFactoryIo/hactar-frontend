@@ -6,6 +6,7 @@ import {RootState} from "../../app/rootReducer";
 import {getDiskInfo} from "./DiskSpaceSlice";
 import {INodeDiskState} from "../../@types/ReduxStates";
 import {formatToGb} from "../../app/utils";
+import {Loading} from "../../components/Loading/Loading";
 
 export type DiskSpaceDataProps = {
     date: string;
@@ -55,7 +56,7 @@ export const DiskSpace: React.FC = (): ReactElement => {
     }, [selectedInterval, selectedNodeId, nodeList, dispatch]);
 
     if (diskInformation.isLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     return (

@@ -7,6 +7,7 @@ import {RootState} from "../../app/rootReducer";
 import {getDeals} from "./DealsSlice";
 import {DealStatus} from "../../app/constants";
 import {Pagination} from "../../components/Pagination/Pagination";
+import {Loading} from "../../components/Loading/Loading";
 
 export const DealsContainer = (): ReactElement => {
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export const DealsContainer = (): ReactElement => {
     };
 
     if (deals.isLoading) {
-        return <div>Loading</div>;
+        return <Loading />;
     }
 
     const stateCellRenderer = ({cellData}: TableCellProps): ReactElement => {

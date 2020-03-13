@@ -9,11 +9,11 @@
     color: $accented;
     font-size: 0.89rem;
 
-    .material-icons {
+    .MuiSvgIcon-root {
       color: $primary;
     }
 
-    .material-icons, img {
+    .MuiSvgIcon-root, img {
       margin-right: 0.4rem;
     }
   }

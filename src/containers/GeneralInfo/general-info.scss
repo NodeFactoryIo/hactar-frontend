@@ -5,10 +5,10 @@
     color: $accented;
   }
 
-  .node-options i {
-    color: $regular;
+  .node-options .MuiSvgIcon-root {
     cursor: pointer;
     user-select: none;
+    color: $regular;
     &:hover {
       color: $accented-hovered;
     }
@@ -18,7 +18,56 @@
     &:active {
       color: $regular-pressed;
     }
+    &.none{
+      &.no_hover {
+        cursor: default;
+        &:hover {
+          color: $regular;
+        }
+        &:focus {
+          color: $regular;
+        }
+        &:active {
+          color: $regular;
+        }
+      }
+      &:hover {
+        color: $accented-hovered;
+      }
+      &:focus {
+        color: $regular-focused;
+      }
+      &:active {
+        color: $regular-pressed;
+      }
+    }
+    
+    &.active{
+      color: $primary;
+      &.no_hover {
+        cursor: default;
+        &:hover {
+          color: $primary;
+        }
+        &:focus {
+          color: $primary;
+        }
+        &:active {
+          color: $primary;
+        }
+      }
+      &:hover {
+        color: $primary-hovered;
+      }
+      &:focus {
+        color: $primary-focused;
+      }
+      &:active {
+        color: $primary-pressed;
+      }
+    }
   }
+  
 
   .general-info-stats {
     background: $elevation;

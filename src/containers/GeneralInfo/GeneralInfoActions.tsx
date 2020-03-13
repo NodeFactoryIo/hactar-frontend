@@ -1,11 +1,14 @@
 import React, {ReactElement} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
-
 import {ModalType, showConfirmationDialog} from "../../app/ModalRenderer/ModalSlice";
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {RootState} from "../../app/rootReducer";
 import {Dropdown} from "../../components/Dropdown/Dropdown";
+import {NotificationBell} from "../GeneralInfo/NotificationBell/NotificationBell";
+import MoreVert from "@material-ui/icons/MoreVert";
+import Edit from "@material-ui/icons/Edit";
+import Delete from "@material-ui/icons/Delete";
 
 interface IGeneralInfoActionsProps {
     onNodeHeaderClick: () => void;
@@ -23,34 +26,40 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
         props.setShowDropdown(false);
     };
 
+    const onDeleteClick = (): void => {
+        dispatch(showConfirmationDialog(ModalType.DeleteNode));
+        props.setShowDropdown(false);
+    };
     return (
         <div className="row-spaced upper">
-            <NodeNameTitle
-                title={selectedNode.name}
-                description={selectedNode.description}
-                onClick={props.onNodeHeaderClick}
-                arrowOpen={false}
-            />
-
+            {selectedNode ? (
+                <NodeNameTitle
+                    title={selectedNode.name}
+                    description={selectedNode.description}
+                    onClick={props.onNodeHeaderClick}
+                    arrowOpen={false}
+                />
+            ) : null}
             <div className="node-options">
-                <i className="material-icons">notifications_none</i>
-                <i onClick={() => props.setShowDropdown(true)} className="material-icons">
-                    more_vert
-                </i>
+                {selectedNode ? (
+                    <NotificationBell
+                        onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
+                        hasEnabledNotifications={selectedNode.hasEnabledNotifications}
+                    />
+                ) : null}
+                <MoreVert onClick={() => props.setShowDropdown(true)} />
                 <Dropdown
                     showDropdown={props.showDropdown}
                     elements={[
                         {
                             title: "Edit node",
-                            iconId: "edit",
+                            iconId: <Edit />,
                             onElementClick: onEditNodeClick,
                         },
                         {
                             title: "Remove node",
-                            iconId: "delete",
-                            onElementClick: (): void => {
-                                console.log("clicked delete");
-                            },
+                            iconId: <Delete />,
+                            onElementClick: onDeleteClick,
                         },
                     ]}
                 />

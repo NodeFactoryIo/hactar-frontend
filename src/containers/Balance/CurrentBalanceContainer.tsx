@@ -1,10 +1,9 @@
 import React, {ReactElement, useEffect} from "react";
 import BigNumber from "bignumber.js";
 import {useDispatch, useSelector} from "react-redux";
-
-import "./balance.scss";
 import {getBalanceInfo} from "./BalanceSlice";
 import {RootState} from "../../app/rootReducer";
+import {Loading} from "../../components/Loading/Loading";
 
 export const CurrentBalanceContainer: React.FC = (): ReactElement => {
     const dispatch = useDispatch();
@@ -25,7 +24,9 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
         return (
             <div className="container flex-column">
                 <div className="upper">
-                    <label>Loading balance...</label>
+                    <label>
+                        <Loading />
+                    </label>
                 </div>
             </div>
         );

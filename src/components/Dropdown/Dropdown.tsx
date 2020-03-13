@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 interface IDropdownElement {
     title: string;
-    iconId: string;
+    iconId: JSX.Element;
     onElementClick: () => void;
 }
 
@@ -18,7 +18,7 @@ export const Dropdown: React.FC<IDropdownProps> = (props: IDropdownProps) => {
             {props.elements.map((el, index) => {
                 return (
                     <div key={index} onClick={() => el.onElementClick()} className="item">
-                        <i className="material-icons">{el.iconId}</i>
+                        {el.iconId}
                         <div>{el.title}</div>
                     </div>
                 );
