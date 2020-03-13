@@ -1,8 +1,8 @@
 import {Bar, BarChart, ResponsiveContainer, Tooltip, XAxis} from "recharts";
 import React, {ReactElement} from "react";
-
 import {ChartWrapper} from "../../components/ChartWrapper";
 import {INodeUptime} from "../../@types/ReduxStates";
+import Search from "@material-ui/icons/Search";
 
 type UptimeChartProps = {
     data: INodeUptime[];
@@ -17,8 +17,7 @@ export class UptimeChart extends ChartWrapper<UptimeChartProps> {
             online: v.isWorking ? 1 : 0,
             offline: v.isWorking ? 0 : 1,
         }));
-
-        return (
+        if(formattedData.length) return (
             <ResponsiveContainer width="100%" height={100}>
                 <BarChart data={formattedData} margin={{top: 10, left: 30, bottom: 0}} onMouseMove={onMouseMove}>
                     <XAxis dataKey="date" tickFormatter={(v): string => super.formatXAxis(v)} />
@@ -28,5 +27,9 @@ export class UptimeChart extends ChartWrapper<UptimeChartProps> {
                 </BarChart>
             </ResponsiveContainer>
         );
+        else return <div className="centered flex-column">
+                <Search/>
+                <div>No data for selected interval</div>
+            </div>
     }
 }
