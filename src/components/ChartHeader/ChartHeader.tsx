@@ -23,9 +23,7 @@ export const ChartHeader = ({date, values, onIntervalClick, selectedInterval}: I
             <div className="row wrapped">
                 <div className="row icon-padding">
                     <img src={require("../../assets/icons/time.svg")} alt="Time icon" />
-                    <p>
-                        <Moment format="DD MMM, YYYY">{date}</Moment>
-                    </p>
+                    <p>{date ? <Moment format="DD MMM, YYYY">{date}</Moment> : "-"}</p>
                 </div>
 
                 {values.length > 1 ? <div className="break-row" /> : null}
