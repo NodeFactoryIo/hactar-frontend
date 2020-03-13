@@ -1,5 +1,5 @@
 import React, {ReactElement, useEffect} from "react";
-import BigNumber from "bignumber.js"
+import BigNumber from "bignumber.js";
 import {useDispatch, useSelector} from "react-redux";
 
 import "./balance.scss";

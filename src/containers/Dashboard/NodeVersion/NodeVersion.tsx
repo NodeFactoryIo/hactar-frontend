@@ -13,8 +13,8 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
     const isUpdateAvailable = (): boolean => {
         if (latestVersion && nodeVersion) {
             let nodeVersionToCheck = nodeVersion;
-            if (nodeVersionToCheck.indexOf('+git')) {
-                nodeVersionToCheck = nodeVersion.substr(0, nodeVersion.indexOf('+git'));
+            if (nodeVersionToCheck.indexOf("+git")) {
+                nodeVersionToCheck = nodeVersion.substr(0, nodeVersion.indexOf("+git"));
             }
             return latestVersion !== nodeVersionToCheck;
         } else return false;
