@@ -27,9 +27,9 @@ export const Uptime = (): ReactElement => {
 
     return (
         <div className="container flex-column">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>uptime</label>
-                <AgeTooltip title={uptime.data[0] && uptime.data[0].updatedAt} />
+                <AgeTooltip updatedAt={uptime.data[0] && uptime.data[0].updatedAt} />
             </div>
 
             <ChartHeader

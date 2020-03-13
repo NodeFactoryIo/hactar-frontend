@@ -50,17 +50,9 @@ export const DealsContainer = (): ReactElement => {
 
     return (
         <div className="container flex-column stretch">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>Deals</label>
-                <AgeTooltip title={<>
-                    <div>
-                        {deals.data[0] && deals.data[0].updatedAt}
-                    </div>
-                    <div>
-                    {deals.data[0] && deals.data[0].createdAt}
-                    </div>
-                    </>
-                    } />
+                <AgeTooltip updatedAt={deals.data[0] && deals.data[0].updatedAt} />
             </div>
 
             <Table data={deals.data} columns={columns} />

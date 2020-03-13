@@ -35,9 +35,9 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
 
     return (
         <div className="container flex-column">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>Current balance</label>
-                <AgeTooltip title={balance.data.updatedAt} />
+                <AgeTooltip updatedAt={balance.data.updatedAt} />
             </div>
 
             <div className="lower balance">

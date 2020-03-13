@@ -42,13 +42,15 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
                 />
             ) : null}
             <div className="node-options">
-                {selectedNode ? (<>
-                    <AgeTooltip title={`${selectedNode.createdAt} ${selectedNode.updatedAt}`} />
-                    <NotificationBell
-                        onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
-                        hasEnabledNotifications={selectedNode.hasEnabledNotifications}
-                    />
-                </>) : null}
+                {selectedNode ? (
+                    <>
+                        <AgeTooltip updatedAt={selectedNode.updatedAt} />
+                        <NotificationBell
+                            onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
+                            hasEnabledNotifications={selectedNode.hasEnabledNotifications}
+                        />
+                    </>
+                ) : null}
                 <MoreVert onClick={() => props.setShowDropdown(true)} />
                 <Dropdown
                     showDropdown={props.showDropdown}

@@ -39,9 +39,9 @@ export const MiningRewardsContainer = (): ReactElement => {
 
     return (
         <div className="container flex-column vertical-margin">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>mining rewards history</label>
-                <AgeTooltip title={miningRewards.data[0] && miningRewards.data[0].createdAt} />
+                <AgeTooltip updatedAt={miningRewards.data[0] && miningRewards.data[0].createdAt} />
             </div>
 
             <ChartHeader

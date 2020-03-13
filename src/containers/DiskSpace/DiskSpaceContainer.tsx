@@ -62,9 +62,9 @@ export const DiskSpace: React.FC = (): ReactElement => {
 
     return (
         <div className="container flex-column vertical-margin">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>disk space</label>
-                <AgeTooltip title={diskInformation[0] && diskInformation[0].updatedAt} />
+                <AgeTooltip updatedAt={diskInformation[0] && diskInformation[0].updatedAt} />
             </div>
             {toolTip ? (
                 <ChartHeader
