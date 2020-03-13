@@ -10,7 +10,6 @@ import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 import MoreVert from "@material-ui/icons/MoreVert";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
-import Info from "@material-ui/icons/Info";
 
 interface IGeneralInfoActionsProps {
     onNodeHeaderClick: () => void;
@@ -32,24 +31,24 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
         dispatch(showConfirmationDialog(ModalType.DeleteNode));
         props.setShowDropdown(false);
     };
-
     return (
         <div className="row-spaced upper">
-            <NodeNameTitle
-                title={selectedNode.name}
-                description={selectedNode.description}
-                onClick={props.onNodeHeaderClick}
-                arrowOpen={false}
-            />
-
-            <div className="node-options">
-                <AgeTooltip content={selectedNode.createdAt}>
-                    <Info />
-                </AgeTooltip>
-                <NotificationBell
-                    onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
-                    hasEnabledNotifications={selectedNode.hasEnabledNotifications}
+            {selectedNode ? (
+                <NodeNameTitle
+                    title={selectedNode.name}
+                    description={selectedNode.description}
+                    onClick={props.onNodeHeaderClick}
+                    arrowOpen={false}
                 />
+            ) : null}
+            <div className="node-options">
+                {selectedNode ? (<>
+                    <AgeTooltip title={`${selectedNode.createdAt} ${selectedNode.updatedAt}`} />
+                    <NotificationBell
+                        onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
+                        hasEnabledNotifications={selectedNode.hasEnabledNotifications}
+                    />
+                </>) : null}
                 <MoreVert onClick={() => props.setShowDropdown(true)} />
                 <Dropdown
                     showDropdown={props.showDropdown}

@@ -7,7 +7,8 @@ import {RootState} from "../../app/rootReducer";
 import {getDeals} from "./DealsSlice";
 import {DealStatus} from "../../app/constants";
 import {Pagination} from "../../components/Pagination/Pagination";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import {Loading} from "../../components/Loading/Loading";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export const DealsContainer = (): ReactElement => {
     const dispatch = useDispatch();
@@ -30,11 +31,7 @@ export const DealsContainer = (): ReactElement => {
     };
 
     if (deals.isLoading) {
-        return (
-            <div className="loading-container">
-                <CircularProgress color="inherit" />
-            </div>
-        );
+        return <Loading />;
     }
 
     const stateCellRenderer = ({cellData}: TableCellProps): ReactElement => {
@@ -55,6 +52,15 @@ export const DealsContainer = (): ReactElement => {
         <div className="container flex-column">
             <div className="upper">
                 <label>Deals</label>
+                <AgeTooltip title={<>
+                    <div>
+                        {deals.data[0] && deals.data[0].updatedAt}
+                    </div>
+                    <div>
+                    {deals.data[0] && deals.data[0].createdAt}
+                    </div>
+                    </>
+                    } />
             </div>
 
             <Table data={deals.data} columns={columns} />

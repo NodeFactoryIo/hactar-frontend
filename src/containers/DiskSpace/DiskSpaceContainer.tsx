@@ -6,7 +6,8 @@ import {RootState} from "../../app/rootReducer";
 import {getDiskInfo} from "./DiskSpaceSlice";
 import {INodeDiskState} from "../../@types/ReduxStates";
 import {formatToGb} from "../../app/utils";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import {Loading} from "../../components/Loading/Loading";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export type DiskSpaceDataProps = {
     date: string;
@@ -56,17 +57,14 @@ export const DiskSpace: React.FC = (): ReactElement => {
     }, [selectedInterval, selectedNodeId, nodeList, dispatch]);
 
     if (diskInformation.isLoading) {
-        return (
-            <div className="loading-container">
-                <CircularProgress color="inherit" />
-            </div>
-        );
+        return <Loading />;
     }
 
     return (
         <div className="container flex-column vertical-margin">
             <div className="upper">
                 <label>disk space</label>
+                <AgeTooltip title={diskInformation[0] && diskInformation[0].updatedAt} />
             </div>
             {toolTip ? (
                 <ChartHeader

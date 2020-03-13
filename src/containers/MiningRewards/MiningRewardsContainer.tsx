@@ -6,7 +6,8 @@ import {RootState} from "../../app/rootReducer";
 import {formatTokens} from "../../app/utils";
 import {getMiningRewards} from "./MiningRewardsSlice";
 import AccountBalanceWallet from "@material-ui/icons/AccountBalanceWallet";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import {Loading} from "../../components/Loading/Loading";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
@@ -33,17 +34,14 @@ export const MiningRewardsContainer = (): ReactElement => {
     }, [selectedInterval, selectedNodeId, dispatch]);
 
     if (miningRewards.isLoading) {
-        return (
-            <div className="loading-container">
-                <CircularProgress color="inherit" />
-            </div>
-        );
+        return <Loading />;
     }
 
     return (
         <div className="container flex-column vertical-margin">
             <div className="upper">
                 <label>mining rewards history</label>
+                <AgeTooltip title={miningRewards.data[0] && miningRewards.data[0].createdAt} />
             </div>
 
             <ChartHeader

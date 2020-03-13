@@ -1,9 +1,10 @@
 import React, {ReactElement, useEffect} from "react";
 import "./balance.scss";
 import {useDispatch, useSelector} from "react-redux";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import {getBalanceInfo} from "./BalanceSlice";
 import {RootState} from "../../app/rootReducer";
+import {Loading} from "../../components/Loading/Loading";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export const CurrentBalanceContainer: React.FC = (): ReactElement => {
     const dispatch = useDispatch();
@@ -21,9 +22,7 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
             <div className="container flex-column">
                 <div className="upper">
                     <label>
-                        <div className="loading-container">
-                            <CircularProgress color="inherit" />
-                        </div>
+                        <Loading />
                     </label>
                 </div>
             </div>
@@ -34,6 +33,7 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
         <div className="container flex-column">
             <div className="upper">
                 <label>Current balance</label>
+                <AgeTooltip title={balance.data.updatedAt} />
             </div>
 
             <div className="lower balance">

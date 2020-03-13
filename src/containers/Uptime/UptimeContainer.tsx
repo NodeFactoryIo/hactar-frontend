@@ -4,6 +4,7 @@ import {UptimeChart} from "./UptimeChart";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {getUptime} from "./UptimeSlice";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export const Uptime = (): ReactElement => {
     const uptime = useSelector((state: RootState) => state.node.uptime);
@@ -28,6 +29,7 @@ export const Uptime = (): ReactElement => {
         <div className="container flex-column">
             <div className="upper">
                 <label>uptime</label>
+                <AgeTooltip title={uptime.data[0] && uptime.data[0].updatedAt} />
             </div>
 
             <ChartHeader
