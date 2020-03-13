@@ -1,5 +1,5 @@
 import React, {ReactElement, useEffect} from "react";
-import "./balance.scss";
+import BigNumber from "bignumber.js";
 import {useDispatch, useSelector} from "react-redux";
 import {getBalanceInfo} from "./BalanceSlice";
 import {RootState} from "../../app/rootReducer";
@@ -16,6 +16,10 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
             dispatch(getBalanceInfo(selectedNodeId));
         }
     }, [selectedNodeId, dispatch]);
+
+    const formatBalance = (balance: string): string => {
+        return new BigNumber(balance).toFormat(2);
+    };
 
     if (balance.isLoading) {
         return (
@@ -37,9 +41,9 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
             </div>
 
             <div className="lower balance">
-                <h2>{balance.data.currentBalance} FIL</h2>
+                <h2>{formatBalance(balance.data.currentBalance)} FIL</h2>
                 <p className="yellow">
-                    + {balance.data.balanceChange} FIL ({balance.data.balanceChangePerc})
+                    {formatBalance(balance.data.balanceChange)} FIL ({balance.data.balanceChangePerc})
                 </p>
             </div>
         </div>
