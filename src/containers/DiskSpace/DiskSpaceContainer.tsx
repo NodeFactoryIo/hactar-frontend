@@ -45,8 +45,14 @@ export const DiskSpace: React.FC = (): ReactElement => {
 
     const tooltipValues = (free: number, taken: number): any => {
         return [
-            {value: `Free - ${free} GB`, icon: <img src={require("../../assets/icons/polygon.svg")} />},
-            {value: `Taken - ${taken} GB`, icon: <img src={require("../../assets/icons/polygon-dark.svg")} />},
+            {
+                value: `Free - ${free ? free + " GB" : ""}`,
+                icon: <img src={require("../../assets/icons/polygon.svg")} />,
+            },
+            {
+                value: `Taken - ${taken ? taken + " GB" : ""}`,
+                icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
+            },
         ];
     };
 
@@ -73,17 +79,17 @@ export const DiskSpace: React.FC = (): ReactElement => {
                     date={toolTip.date}
                     values={tooltipValues(toolTip.free, toolTip.taken)}
                 />
-            ) : diskInformation && diskInformation[0] ? (
+            ) : (
                 <ChartHeader
                     selectedInterval={selectedInterval}
                     onIntervalClick={(e): void => setSelectedInterval(e)}
-                    date={diskInformation[0].updatedAt}
+                    date={diskInformation[0] && diskInformation[0].updatedAt}
                     values={tooltipValues(
-                        formatToGb(diskInformation[0].freeSpace),
-                        formatToGb(diskInformation[0].takenSpace),
+                        diskInformation[0] && formatToGb(diskInformation[0].freeSpace),
+                        diskInformation[0] && formatToGb(diskInformation[0].takenSpace),
                     )}
                 />
-            ) : null}
+            )}
             <DiskSpaceChart data={formatDiskData(diskInformation)} onMouseMove={updateTooltip} />
         </div>
     );
