@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import Update from "@material-ui/icons/Update";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import {Loading} from "../../../components/Loading/Loading";
 
 export interface INodeVersion {
     nodeVersion: string | null;
@@ -14,7 +14,11 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
 }: INodeVersion): React.ReactElement => {
     const isUpdateAvailable = (): boolean => {
         if (latestVersion && nodeVersion) {
-            return latestVersion !== nodeVersion;
+            let nodeVersionToCheck = nodeVersion;
+            if (nodeVersionToCheck.indexOf("+git")) {
+                nodeVersionToCheck = nodeVersion.substr(0, nodeVersion.indexOf("+git"));
+            }
+            return latestVersion !== nodeVersionToCheck;
         } else return false;
     };
 
@@ -28,9 +32,7 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
     else
         return (
             <div className={"row"}>
-                <div className="loading-container">
-                    <CircularProgress color="inherit" />
-                </div>
+                <Loading />
             </div>
         );
 };

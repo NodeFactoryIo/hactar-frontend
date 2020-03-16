@@ -9,13 +9,12 @@ import {MiningRewardsContainer} from "../MiningRewards/MiningRewardsContainer";
 import {Uptime} from "../Uptime/UptimeContainer";
 import {DiskSpace} from "../DiskSpace/DiskSpaceContainer";
 import {DealsContainer} from "../Deals/DealsContainer";
-import {PledgedCollateralContainer} from "../PledgedCollateral/PledgedCollateralContainer";
 import {RootState} from "../../app/rootReducer";
 import {logOutUser, getUserEmail} from "../Register/UserSlice";
 import {getAvailableNodeVersion} from "../GeneralInfo/GeneralInfoSlice";
 import {getAllNodes} from "../NodeList/NodeListSlice";
 import {EmptyList} from "../../components/EmptyList/EmptyList";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import {Loading} from "../../components/Loading/Loading";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -38,11 +37,7 @@ export const DashboardContainer = (): ReactElement => {
     }, [fetchingNodeList, selectedNodeId, dispatch]);
 
     if (stateNodeList.isLoading) {
-        return (
-            <div className="loading-container">
-                <CircularProgress color="inherit" />
-            </div>
-        );
+        return <Loading />;
     }
 
     return (
@@ -69,12 +64,7 @@ export const DashboardContainer = (): ReactElement => {
                             </div>
 
                             <div className={classNames("tables", {hidden: areElementsHidden})}>
-                                <div className="column left">
-                                    <DealsContainer />
-                                </div>
-                                <div className="column right">
-                                    <PledgedCollateralContainer />
-                                </div>
+                                <DealsContainer />
                             </div>
                         </>
                     ) : null}
