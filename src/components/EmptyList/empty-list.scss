@@ -1,12 +1,18 @@
 .empty-list {
-  padding: 8rem 0;
-  // height: 10rem;
-
   .MuiSvgIcon-root {
     font-size: 4rem;
   }
 
   h2, .MuiSvgIcon-root {
     color: $technical;
+  }
+  &.diskSpace{
+    padding: 3.5rem 0;
+  }
+  &.miningRewards{
+    padding: 7.25rem 0;
+  }
+  &.nodeList{
+    padding: 8rem 0;
   }
 }
