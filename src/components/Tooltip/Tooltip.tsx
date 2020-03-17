@@ -26,11 +26,11 @@ export const AgeTooltip = (props: IAgeTooltip & Omit<TooltipProps, "children" | 
             title={
                 props.updatedAt ? (
                     <div className="tooltip-container">
-                        <div>This information was updated at: </div>
-                        <Moment format="HH:mm, DD MMM, YYYY">{props.updatedAt}</Moment>
+                        <div>This information was updated</div>
+                        <Moment date={props.updatedAt} fromNow />
                     </div>
                 ) : (
-                    <div className="tooltip-container">No information for that interval</div>
+                    <div className="tooltip-container">Unknown how old is information</div>
                 )
             }
             placement="top"
