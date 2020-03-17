@@ -7,6 +7,7 @@ import {formatTokens} from "../../app/utils";
 import {getMiningRewards} from "./MiningRewardsSlice";
 import AccountBalanceWallet from "@material-ui/icons/AccountBalanceWallet";
 import {Loading} from "../../components/Loading/Loading";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
@@ -38,8 +39,9 @@ export const MiningRewardsContainer = (): ReactElement => {
 
     return (
         <div className="container flex-column vertical-margin">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>mining rewards history</label>
+                <AgeTooltip updatedAt={miningRewards.data[0] && miningRewards.data[0].createdAt} />
             </div>
 
             <ChartHeader
