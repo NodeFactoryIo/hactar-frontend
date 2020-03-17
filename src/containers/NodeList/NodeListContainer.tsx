@@ -16,16 +16,14 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
     const state = useSelector((state: RootState) => state);
     const diskInfoList = state.nodeList.data;
     const [showArrow, setShowArrow] = useState<boolean>(true);
-    const [selectedNodeIndex, setSelectedNodeIndex] = useState<number>(0);
     const dispatch = useDispatch();
 
-    const isNodeSelected = (nodeIndex: number): string => {
-        if (nodeIndex === selectedNodeIndex) return "selected";
+    const isNodeSelected = (selectedNodeIndex: number, listIndex: number): string => {
+        if (selectedNodeIndex === listIndex + 1) return "selected";
         else return "notSelected";
     };
 
     const onNodeClick = (index: number): void => {
-        setSelectedNodeIndex(index);
         dispatch(storeSelectedNode(diskInfoList[index].id));
         onNodeHeaderClick();
     };
@@ -49,7 +47,10 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
             {diskInfoList.map((node: any, index: number) => (
                 <div key={index} className="node-list lower row-spaced">
                     <div className="node-options centered">
-                        <p className={`node-name ${isNodeSelected(index)}`} onClick={(): void => onNodeClick(index)}>
+                        <p
+                            className={`node-name ${isNodeSelected(state.app.selectedNodeId!, index)}`}
+                            onClick={(): void => onNodeClick(index)}
+                        >
                             {node.name}
                         </p>
                         <NotificationBell hasEnabledNotifications={node.hasEnabledNotifications} />

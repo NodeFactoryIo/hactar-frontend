@@ -45,7 +45,6 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
     try {
         const token = getState().user.token;
         const nodeListResponse = await getNodes(token);
-
         // Load disk sizes together
         // TODO: Will be replaced with better route
         for (let index = 0; index < nodeListResponse.data.length; index++) {
@@ -58,7 +57,12 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
         }
         dispatch(storeNodeListSuccess(nodeListResponse.data));
         if (nodeListResponse.data.length > 0) {
-            dispatch(storeSelectedNode(nodeListResponse.data[0].id));
+            if (localStorage.getItem("selectedNode")) {
+                nodeListResponse.data.forEach((node: any) => {
+                    if (JSON.stringify(node.id) === localStorage.getItem("selectedNode"))
+                        dispatch(storeSelectedNode(node.id));
+                });
+            } else dispatch(storeSelectedNode(nodeListResponse.data[0].id));
         }
     } catch (err) {
         throw err;
@@ -95,6 +99,7 @@ export const submitDeleteNode = (nodeId: number): AppThunk => async (dispatch, g
         const token = getState().user.token;
         const response = await deleteNode(token, nodeId);
         if (response.status === 200) {
+            localStorage.removeItem("selectedNode");
             dispatch(resetNodeList());
             dispatch(resetAppState());
             dispatch(getAllNodes());
