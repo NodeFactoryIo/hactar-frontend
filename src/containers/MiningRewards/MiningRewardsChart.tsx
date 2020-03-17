@@ -13,7 +13,7 @@ type MiningRewardChartProps = {
 export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
     public render(): ReactElement {
         const {data, onMouseMove} = this.props;
-        const formattedData = data.map(v => ({date: v.updatedAt, amount: parseFloat(formatTokens(v.rewardAmount))}));
+        const formattedData = data.map(v => ({date: v.updatedAt, amount: parseFloat(formatTokens(v.rewardSum))}));
 
         return (
             <ResponsiveContainer width="100%" height={360}>

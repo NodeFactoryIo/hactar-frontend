@@ -10,7 +10,7 @@ import {Loading} from "../../components/Loading/Loading";
 
 export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
-    const [toolTip, setToolTip] = useState({rewardAmount: "0", updatedAt: new Date().toString()});
+    const [toolTip, setToolTip] = useState({rewardSum: "0", updatedAt: new Date().toString()});
     const [selectedInterval, setSelectedInterval] = useState<string>("week");
     const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ export const MiningRewardsContainer = (): ReactElement => {
     };
 
     // Set tooltip for chart header to display latest value as initial
-    if (!miningRewards.isLoading && toolTip.rewardAmount === "0" && miningRewards.data.length > 0) {
+    if (!miningRewards.isLoading && toolTip.rewardSum === "0" && miningRewards.data.length > 0) {
         setToolTip(miningRewards.data[miningRewards.data.length - 1]);
     }
 
@@ -48,7 +48,7 @@ export const MiningRewardsContainer = (): ReactElement => {
                 date={toolTip.updatedAt}
                 values={[
                     {
-                        value: `${formatTokens(toolTip.rewardAmount)} FIL`,
+                        value: `${formatTokens(toolTip.rewardSum)} FIL`,
                         icon: <AccountBalanceWallet />,
                     },
                 ]}
