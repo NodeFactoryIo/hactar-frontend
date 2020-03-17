@@ -8,6 +8,7 @@ import {getDeals} from "./DealsSlice";
 import {DealStatus} from "../../app/constants";
 import {Pagination} from "../../components/Pagination/Pagination";
 import {Loading} from "../../components/Loading/Loading";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export const DealsContainer = (): ReactElement => {
     const dispatch = useDispatch();
@@ -49,8 +50,9 @@ export const DealsContainer = (): ReactElement => {
 
     return (
         <div className="container flex-column stretch">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>Deals</label>
+                <AgeTooltip updatedAt={deals.data[0] && deals.data[0].updatedAt} />
             </div>
 
             <Table data={deals.data} columns={columns} />

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getBalanceInfo} from "./BalanceSlice";
 import {RootState} from "../../app/rootReducer";
 import {Loading} from "../../components/Loading/Loading";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export const CurrentBalanceContainer: React.FC = (): ReactElement => {
     const dispatch = useDispatch();
@@ -34,8 +35,9 @@ export const CurrentBalanceContainer: React.FC = (): ReactElement => {
 
     return (
         <div className="container flex-column">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>Current balance</label>
+                <AgeTooltip updatedAt={balance.data.updatedAt} />
             </div>
 
             <div className="lower balance">
