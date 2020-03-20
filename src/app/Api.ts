@@ -26,6 +26,10 @@ export async function getNodes(auth: string | null) {
     const url = `${config.apiURL}/user/node`;
     return makeGetRequest(auth, url);
 }
+export async function getNodesDetails(auth: string | null) {
+    const url = `${config.apiURL}/user/nodes/details`;
+    return makeGetRequest(auth, url);
+}
 
 export async function getDiskDetails(auth: string | null, nodeId: number, filter: string) {
     const url = `${config.apiURL}/user/node/diskinformation/${nodeId}`;

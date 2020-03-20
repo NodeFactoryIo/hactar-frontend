@@ -6,6 +6,7 @@ import {Input} from "../../../components/Input/Input";
 import {Button} from "../../../components/Button/Button";
 import {RootState} from "../../../app/rootReducer";
 import {submitEditNode} from "../../NodeList/NodeListSlice";
+import {INodesDetails} from "../../../@types/ReduxStates";
 
 export interface IEditNodeFormData {
     name: string;
@@ -19,12 +20,12 @@ interface IEditNodeFormProps {
 export const EditNodeForm: React.FC<IEditNodeFormProps> = ({onSubmit}: IEditNodeFormProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
     const {data} = state.nodeList;
-    const selectedNode = _.find(data, (node: any) => node.id === state.app.selectedNodeId);
+    const selectedNode = _.find(data, (node: INodesDetails) => node.node.id === state.app.selectedNodeId);
 
     const {register, handleSubmit, errors, control} = useForm<IEditNodeFormData>({
         defaultValues: {
-            name: selectedNode.name,
-            description: selectedNode.description || "",
+            name: selectedNode!.node.name,
+            description: selectedNode!.node.description || "",
         },
     });
 

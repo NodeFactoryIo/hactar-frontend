@@ -10,6 +10,7 @@ import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 import MoreVert from "@material-ui/icons/MoreVert";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
+import {INodesDetails} from "../../@types/ReduxStates";
 
 interface IGeneralInfoActionsProps {
     onNodeHeaderClick: () => void;
@@ -19,7 +20,10 @@ interface IGeneralInfoActionsProps {
 
 export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElement => {
     const state = useSelector((state: RootState) => state);
-    const selectedNode = _.find(state.nodeList.data, (node: any) => node.id === state.app.selectedNodeId);
+    const selectedNode = _.find(
+        state.nodeList.data,
+        (node: INodesDetails) => node.node.id === state.app.selectedNodeId,
+    );
     const dispatch = useDispatch();
 
     const onEditNodeClick = (): void => {
@@ -35,8 +39,8 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
         <div className="row-spaced upper">
             {selectedNode ? (
                 <NodeNameTitle
-                    title={selectedNode.name}
-                    description={selectedNode.description}
+                    title={selectedNode.node.name}
+                    description={selectedNode.node.description}
                     onClick={props.onNodeHeaderClick}
                     arrowOpen={false}
                 />
@@ -44,10 +48,10 @@ export const GeneralInfoActions = (props: IGeneralInfoActionsProps): ReactElemen
             <div className="node-options">
                 {selectedNode ? (
                     <>
-                        <AgeTooltip updatedAt={selectedNode.updatedAt} />
+                        <AgeTooltip updatedAt={selectedNode.node.updatedAt} />
                         <NotificationBell
                             onClick={() => dispatch(showConfirmationDialog(ModalType.Notifications))}
-                            hasEnabledNotifications={selectedNode.hasEnabledNotifications}
+                            hasEnabledNotifications={selectedNode.node.hasEnabledNotifications}
                         />
                     </>
                 ) : null}

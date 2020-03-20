@@ -6,6 +6,7 @@ import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {formatBytes} from "../../app/utils";
 import {storeSelectedNode} from "../Dashboard/AppSlice";
 import {NotificationBell} from "../GeneralInfo/NotificationBell/NotificationBell";
+import {INodesDetails} from "../../@types/ReduxStates";
 
 interface INodeListProps {
     display?: boolean;
@@ -26,7 +27,7 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
 
     const onNodeClick = (index: number): void => {
         setSelectedNodeIndex(index);
-        dispatch(storeSelectedNode(diskInfoList[index].id));
+        dispatch(storeSelectedNode(diskInfoList[index].node.id));
         onNodeHeaderClick();
     };
 
@@ -46,17 +47,18 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
                 <p>Status</p>
             </div>
 
-            {diskInfoList.map((node: any, index: number) => (
+            {diskInfoList.map((node: INodesDetails, index: number) => (
                 <div key={index} className="node-list lower row-spaced">
                     <div className="node-options centered">
                         <p className={`node-name ${isNodeSelected(index)}`} onClick={(): void => onNodeClick(index)}>
-                            {node.name}
+                            {node.node.name}
                         </p>
-                        <NotificationBell hasEnabledNotifications={node.hasEnabledNotifications} />
+                        <NotificationBell hasEnabledNotifications={node.node.hasEnabledNotifications} />
                     </div>
 
                     <p>
-                        {formatBytes(node.diskDetails.freeSpace)} / {formatBytes(node.diskDetails.takenSpace)}
+                        {formatBytes(node.latestDiskInformation.freeSpace)} /{" "}
+                        {formatBytes(node.latestDiskInformation.takenSpace)}
                     </p>
                     <p className="yellow">Online</p>
                 </div>

@@ -1,3 +1,9 @@
+export interface INodesDetails {
+    node: INodeState;
+    latestUptime: INodeUptime;
+    latestDiskInformation: INodeDiskState;
+}
+
 export interface INodeState {
     id: number;
     url: string;
@@ -9,7 +15,7 @@ export interface INodeState {
     createdAt: string;
     updatedAt: string;
     userId: number;
-    diskDetails: INodeDiskState;
+    // diskDetails: INodeDiskState;
 }
 export interface INodeInfoState {
     version: string;
@@ -72,4 +78,5 @@ export interface INodeUptime {
     isWorking: boolean;
     createdAt: string;
     updatedAt: string;
+    nodeId: number;
 }
