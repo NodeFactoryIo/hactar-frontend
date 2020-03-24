@@ -57,12 +57,19 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
         }
         dispatch(storeNodeListSuccess(nodeListResponse.data));
         if (nodeListResponse.data.length > 0) {
-            if (localStorage.getItem("selectedNode")) {
-                nodeListResponse.data.forEach((node: any) => {
-                    if (JSON.stringify(node.id) === localStorage.getItem("selectedNode"))
-                        dispatch(storeSelectedNode(node.id));
-                });
-            } else dispatch(storeSelectedNode(nodeListResponse.data[0].id));
+            let selectedNodeId = nodeListResponse.data[0].id;
+            const savedSelectedNodeId = localStorage.getItem("selectedNode");
+            if (savedSelectedNodeId) {
+                // Check if node still exists
+                for (let i = 0; i < nodeListResponse.data.length; i++) {
+                    const node: INodeState = nodeListResponse.data[i];
+                    if (node.id.toString() === localStorage.getItem("selectedNodeId")) {
+                        selectedNodeId = node.id;
+                        break;
+                    }
+                }
+            }
+            dispatch(storeSelectedNode(selectedNodeId));
         }
     } catch (err) {
         throw err;
@@ -99,7 +106,7 @@ export const submitDeleteNode = (nodeId: number): AppThunk => async (dispatch, g
         const token = getState().user.token;
         const response = await deleteNode(token, nodeId);
         if (response.status === 200) {
-            localStorage.removeItem("selectedNode");
+            localStorage.removeItem("selectedNodeId");
             dispatch(resetNodeList());
             dispatch(resetAppState());
             dispatch(getAllNodes());
