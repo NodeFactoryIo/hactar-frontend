@@ -58,8 +58,8 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
         dispatch(storeNodeListSuccess(nodeListResponse.data));
         if (nodeListResponse.data.length > 0) {
             let selectedNodeId = nodeListResponse.data[0].id;
-            const savedSelectedNodeId = localStorage.getItem("selectedNode");
-            if (savedSelectedNodeId) {
+            const savedSelectedNodeId = localStorage.getItem("selectedNodeId");
+            if (!!savedSelectedNodeId) {
                 // Check if node still exists
                 for (let i = 0; i < nodeListResponse.data.length; i++) {
                     const node: INodeState = nodeListResponse.data[i];

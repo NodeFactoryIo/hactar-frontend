@@ -18,8 +18,8 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
     const [showArrow, setShowArrow] = useState<boolean>(true);
     const dispatch = useDispatch();
 
-    const isNodeSelected = (selectedNodeIndex: number, listIndex: number): string => {
-        if (selectedNodeIndex === listIndex + 1) return "selected";
+    const isNodeSelected = (selectedNodeId: number): string => {
+        if (selectedNodeId === state.app.selectedNodeId) return "selected";
         else return "notSelected";
     };
 
@@ -48,7 +48,7 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
                 <div key={index} className="node-list lower row-spaced">
                     <div className="node-options centered">
                         <p
-                            className={`node-name ${isNodeSelected(state.app.selectedNodeId!, index)}`}
+                            className={`node-name ${isNodeSelected(node.id)}`}
                             onClick={(): void => onNodeClick(index)}
                         >
                             {node.name}
