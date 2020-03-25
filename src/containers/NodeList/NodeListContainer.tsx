@@ -47,10 +47,7 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
             {diskInfoList.map((node: any, index: number) => (
                 <div key={index} className="node-list lower row-spaced">
                     <div className="node-options centered">
-                        <p
-                            className={`node-name ${isNodeSelected(node.id)}`}
-                            onClick={(): void => onNodeClick(index)}
-                        >
+                        <p className={`node-name ${isNodeSelected(node.id)}`} onClick={(): void => onNodeClick(index)}>
                             {node.name}
                         </p>
                         <NotificationBell hasEnabledNotifications={node.hasEnabledNotifications} />
