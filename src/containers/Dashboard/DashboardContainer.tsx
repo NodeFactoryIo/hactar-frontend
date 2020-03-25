@@ -45,7 +45,7 @@ export const DashboardContainer = (): ReactElement => {
             <TopBar logOut={() => dispatch(logOutUser())} email={userEmail} />
 
             {!stateNodeList.isLoading && !selectedNodeId && stateNodeList.data.length === 0 ? (
-                <EmptyList message="No nodes are added" padding="nodeList" />
+                <EmptyList message="No nodes are added" />
             ) : (
                 <>
                     <GeneralInfo setElementsHidden={setElementsHidden} areElementsHidden={areElementsHidden} />
