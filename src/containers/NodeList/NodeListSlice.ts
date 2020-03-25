@@ -45,7 +45,6 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
     try {
         const token = getState().user.token;
         const nodeListResponse = await getNodes(token);
-
         // Load disk sizes together
         // TODO: Will be replaced with better route
         for (let index = 0; index < nodeListResponse.data.length; index++) {
@@ -58,7 +57,19 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
         }
         dispatch(storeNodeListSuccess(nodeListResponse.data));
         if (nodeListResponse.data.length > 0) {
-            dispatch(storeSelectedNode(nodeListResponse.data[0].id));
+            let selectedNodeId = nodeListResponse.data[0].id;
+            const savedSelectedNodeId = localStorage.getItem("selectedNodeId");
+            if (!!savedSelectedNodeId) {
+                // Check if node still exists
+                for (let i = 0; i < nodeListResponse.data.length; i++) {
+                    const node: INodeState = nodeListResponse.data[i];
+                    if (node.id.toString() === localStorage.getItem("selectedNodeId")) {
+                        selectedNodeId = node.id;
+                        break;
+                    }
+                }
+            }
+            dispatch(storeSelectedNode(selectedNodeId));
         }
     } catch (err) {
         throw err;
@@ -95,6 +106,7 @@ export const submitDeleteNode = (nodeId: number): AppThunk => async (dispatch, g
         const token = getState().user.token;
         const response = await deleteNode(token, nodeId);
         if (response.status === 200) {
+            localStorage.removeItem("selectedNodeId");
             dispatch(resetNodeList());
             dispatch(resetAppState());
             dispatch(getAllNodes());
