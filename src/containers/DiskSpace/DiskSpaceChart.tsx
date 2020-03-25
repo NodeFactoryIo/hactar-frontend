@@ -1,6 +1,5 @@
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React, {ReactElement} from "react";
-import {EmptyList} from "../../components/EmptyList/EmptyList";
 import {DiskSpaceDataProps} from "./DiskSpaceContainer";
 import {ChartWrapper} from "../../components/ChartWrapper";
 import {EmptyChartData} from "../../components/EmptyChartData/EmptyChartData";
@@ -15,7 +14,7 @@ export class DiskSpaceChart extends ChartWrapper<DiskSpaceChartProps> {
         const {data, onMouseMove} = this.props;
 
         if (data.length === 0) {
-            return <EmptyChartData />
+            return <EmptyChartData />;
         }
 
         return (

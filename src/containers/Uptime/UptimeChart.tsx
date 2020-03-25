@@ -19,7 +19,7 @@ export class UptimeChart extends ChartWrapper<UptimeChartProps> {
         }));
 
         if (formattedData.length === 0) {
-            return <EmptyChartData />
+            return <EmptyChartData />;
         }
 
         return (

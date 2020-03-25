@@ -16,7 +16,7 @@ export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
         const formattedData = data.map(v => ({date: v.updatedAt, amount: parseFloat(formatTokens(v.rewardSum))}));
 
         if (formattedData.length === 0) {
-            return <EmptyChartData />
+            return <EmptyChartData />;
         }
 
         return (

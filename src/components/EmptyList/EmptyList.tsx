@@ -7,7 +7,7 @@ interface IEmptyListProps {
 
 export const EmptyList = ({message}: IEmptyListProps): ReactElement => {
     return (
-        <div className={`empty-list flex-column centered`}>
+        <div className={"empty-list flex-column centered"}>
             <Search />
             <h2>{message}</h2>
         </div>
