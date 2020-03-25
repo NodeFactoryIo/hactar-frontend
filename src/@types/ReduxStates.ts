@@ -40,7 +40,7 @@ export interface INodeBalance {
 export interface IMiningReward {
     cid: string;
     id: number;
-    rewardAmount: string;
+    rewardSum: string;
     updatedAt: string;
     createdAt: string;
     nodeId: number;

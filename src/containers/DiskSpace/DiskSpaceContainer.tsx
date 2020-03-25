@@ -7,6 +7,7 @@ import {getDiskInfo} from "./DiskSpaceSlice";
 import {INodeDiskState} from "../../@types/ReduxStates";
 import {formatToGb} from "../../app/utils";
 import {Loading} from "../../components/Loading/Loading";
+import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export type DiskSpaceDataProps = {
     date: string;
@@ -67,8 +68,9 @@ export const DiskSpace: React.FC = (): ReactElement => {
 
     return (
         <div className="container flex-column vertical-margin">
-            <div className="upper">
+            <div className="upper row-spaced">
                 <label>disk space</label>
+                <AgeTooltip updatedAt={diskInformation[0] && diskInformation[0].updatedAt} />
             </div>
             {toolTip ? (
                 <ChartHeader
