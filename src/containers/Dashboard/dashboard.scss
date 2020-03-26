@@ -14,6 +14,8 @@ body {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
     color: $regular;
     border-radius: 8px;
+    display: flex;
+    flex: 1;
 
     .upper {
       border-radius: 8px 8px 0 0;
@@ -34,6 +36,9 @@ body {
 
     .column {
       width: 100%;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
 
       @media #{$mq-medium} {
         width: 50%;

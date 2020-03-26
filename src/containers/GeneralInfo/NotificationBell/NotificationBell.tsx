@@ -2,6 +2,7 @@ import React from "react";
 import NotificationsActive from "@material-ui/icons/NotificationsActiveOutlined";
 import NotificationsNone from "@material-ui/icons/NotificationsNone";
 import classNames from "classnames";
+import {Tooltip} from "../../../components/Tooltip/Tooltip";
 
 export interface INotificationBell {
     hasEnabledNotifications: boolean;
@@ -13,8 +14,12 @@ export const NotificationBell: React.FunctionComponent<INotificationBell> = ({
     onClick,
 }: INotificationBell): React.ReactElement => {
     return hasEnabledNotifications ? (
-        <NotificationsActive onClick={onClick} className={classNames({no_hover: !onClick}, "active")} />
+        <Tooltip title="Email notifications are enabled">
+            <NotificationsActive onClick={onClick} className={classNames({no_hover: !onClick}, "active")} />
+        </Tooltip>
     ) : (
-        <NotificationsNone onClick={onClick} className={classNames({no_hover: !onClick}, "none")} />
+        <Tooltip title="Email notifications are disabled">
+            <NotificationsNone onClick={onClick} className={classNames({no_hover: !onClick}, "none")} />
+        </Tooltip>
     );
 };

@@ -5,8 +5,8 @@ import {ModalType, showConfirmationDialog} from "../../app/ModalRenderer/ModalSl
 import {NodeNameTitle} from "../Dashboard/NodeNameTitle/NodeNameTitle";
 import {RootState} from "../../app/rootReducer";
 import {Dropdown} from "../../components/Dropdown/Dropdown";
-import {NotificationBell} from "../GeneralInfo/NotificationBell/NotificationBell";
-import {AgeTooltip} from "../../components/Tooltip/Tooltip";
+import {NotificationBell} from "./NotificationBell/NotificationBell";
+import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
 import MoreVert from "@material-ui/icons/MoreVert";
 import Edit from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";

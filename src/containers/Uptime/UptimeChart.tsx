@@ -1,8 +1,8 @@
 import {Bar, BarChart, ResponsiveContainer, Tooltip, XAxis} from "recharts";
 import React, {ReactElement} from "react";
-
 import {ChartWrapper} from "../../components/ChartWrapper";
 import {INodeUptime} from "../../@types/ReduxStates";
+import {EmptyChartData} from "../../components/EmptyChartData/EmptyChartData";
 
 type UptimeChartProps = {
     data: INodeUptime[];
@@ -17,6 +17,10 @@ export class UptimeChart extends ChartWrapper<UptimeChartProps> {
             online: v.isWorking ? 1 : 0,
             offline: v.isWorking ? 0 : 1,
         }));
+
+        if (formattedData.length === 0) {
+            return <EmptyChartData />;
+        }
 
         return (
             <ResponsiveContainer width="100%" height={100}>

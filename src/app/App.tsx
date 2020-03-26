@@ -5,6 +5,12 @@ import {LoginContainer} from "../containers/Login/LoginContainer";
 import {RegisterContainer} from "../containers/Register/RegisterContainer";
 import {DashboardContainer} from "../containers/Dashboard/DashboardContainer";
 import {AuthenticatedRoute} from "./AuthenticatedRoute";
+import ReactGA from "react-ga";
+
+if (process.env.NODE_ENV !== "development") {
+    ReactGA.initialize("UA-111993876-2");
+    ReactGA.pageview(window.location.pathname + window.location.search);
+}
 
 const App: React.FC = () => {
     return (

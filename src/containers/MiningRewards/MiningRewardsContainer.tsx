@@ -7,11 +7,11 @@ import {formatTokens} from "../../app/utils";
 import {getMiningRewards} from "./MiningRewardsSlice";
 import AccountBalanceWallet from "@material-ui/icons/AccountBalanceWallet";
 import {Loading} from "../../components/Loading/Loading";
-import {AgeTooltip} from "../../components/Tooltip/Tooltip";
+import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
 
 export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
-    const [toolTip, setToolTip] = useState({rewardSum: "0", updatedAt: new Date().toString()});
+    const [toolTip, setToolTip] = useState({rewardSum: "0", timePeriod: new Date().toString()});
     const [selectedInterval, setSelectedInterval] = useState<string>("week");
     const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     const dispatch = useDispatch();
@@ -41,13 +41,13 @@ export const MiningRewardsContainer = (): ReactElement => {
         <div className="container flex-column vertical-margin">
             <div className="upper row-spaced">
                 <label>mining rewards history</label>
-                <AgeTooltip updatedAt={miningRewards.data[0] && miningRewards.data[0].createdAt} />
+                <AgeTooltip updatedAt={miningRewards.data[0] && miningRewards.data[0].timePeriod} />
             </div>
 
             <ChartHeader
                 selectedInterval={selectedInterval}
                 onIntervalClick={(e): void => setSelectedInterval(e)}
-                date={toolTip.updatedAt}
+                date={toolTip.timePeriod}
                 values={[
                     {
                         value: `${formatTokens(toolTip.rewardSum)} FIL`,
