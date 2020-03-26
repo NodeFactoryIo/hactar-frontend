@@ -26,9 +26,9 @@ const nodeListSlice = createSlice({
     reducers: {
         resetNodeList: (): IDataEntity => initialState,
         storeNodeListSuccess(state: IDataEntity, action: PayloadAction<Array<INodeDetails>>): void {
-            state.data = action.payload.map((node, index) => ({
+            state.data = action.payload.map((node) => ({
                 ...node,
-                name: node.name || `Node ${index + 1}`,
+                name: node.name || `Node ${node.id}`,
             }));
             state.isLoading = false;
             state.error = "";
@@ -43,7 +43,6 @@ export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<v
     try {
         const token = getState().user.token;
         const nodeListDetailsResponse = await getNodesDetails(token);
-        console.log(nodeListDetailsResponse);
         dispatch(storeNodeListSuccess(nodeListDetailsResponse.data));
 
         if (nodeListDetailsResponse.data.length > 0) {
