@@ -28,11 +28,11 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
         return (
             <div className={classNames("row", {alert: isUpdateAvailable()})}>
                 <p>{nodeVersion}</p>
-                {isUpdateAvailable() ?
+                {isUpdateAvailable() ? (
                     <Tooltip title="Update is available">
                         <Update />
                     </Tooltip>
-                : null}
+                ) : null}
             </div>
         );
     else

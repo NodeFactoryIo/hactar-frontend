@@ -18,7 +18,9 @@ export const AgeTooltip = (props: IAgeTooltip & Omit<TooltipProps, "children" | 
                         <div>This information was updated</div>
                         <Moment date={props.updatedAt || 0} fromNow />
                     </>
-                ) : <span>Unknown how old is information</span>
+                ) : (
+                    <span>Unknown how old is information</span>
+                )
             }
         >
             <Info />
