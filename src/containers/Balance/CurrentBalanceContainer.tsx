@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getBalanceInfo} from "./BalanceSlice";
 import {RootState} from "../../app/rootReducer";
 import {Loading} from "../../components/Loading/Loading";
-import {AgeTooltip} from "../../components/Tooltip/Tooltip";
+import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
 
 export const CurrentBalanceContainer: React.FC = (): ReactElement => {
     const dispatch = useDispatch();

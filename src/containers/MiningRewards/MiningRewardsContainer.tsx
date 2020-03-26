@@ -7,7 +7,7 @@ import {formatTokens} from "../../app/utils";
 import {getMiningRewards} from "./MiningRewardsSlice";
 import AccountBalanceWallet from "@material-ui/icons/AccountBalanceWallet";
 import {Loading} from "../../components/Loading/Loading";
-import {AgeTooltip} from "../../components/Tooltip/Tooltip";
+import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
 
 export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);

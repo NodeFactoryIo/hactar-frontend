@@ -1,7 +1,9 @@
 import React from "react";
 import classNames from "classnames";
 import Update from "@material-ui/icons/Update";
+
 import {Loading} from "../../../components/Loading/Loading";
+import {Tooltip} from "../../../components/Tooltip/Tooltip";
 
 export interface INodeVersion {
     nodeVersion: string | null;
@@ -26,7 +28,11 @@ export const NodeVersion: React.FunctionComponent<INodeVersion> = ({
         return (
             <div className={classNames("row", {alert: isUpdateAvailable()})}>
                 <p>{nodeVersion}</p>
-                {isUpdateAvailable() ? <Update /> : null}
+                {isUpdateAvailable() ?
+                    <Tooltip title="Update is available">
+                        <Update />
+                    </Tooltip>
+                : null}
             </div>
         );
     else

@@ -1,13 +1,8 @@
 import React, {ReactElement} from "react";
-import Tooltip, {TooltipProps} from "@material-ui/core/Tooltip";
+import MaterialTooltip, {TooltipProps} from "@material-ui/core/Tooltip";
 import {makeStyles} from "@material-ui/core/styles";
-import Info from "@material-ui/icons/Info";
 import Fade from "@material-ui/core/Fade";
-import Moment from "react-moment";
 
-interface IAgeTooltip {
-    updatedAt: string | null;
-}
 
 const ageTooltipStyle = makeStyles(() => ({
     arrow: {
@@ -19,27 +14,18 @@ const ageTooltipStyle = makeStyles(() => ({
     },
 }));
 
-export const AgeTooltip = (props: IAgeTooltip & Omit<TooltipProps, "children" | "title">): ReactElement => {
+export const Tooltip = (props: TooltipProps): ReactElement => {
     const classes = ageTooltipStyle();
     return (
-        <Tooltip
-            title={
-                props.updatedAt ? (
-                    <div className="tooltip-container">
-                        <div>This information was updated</div>
-                        <Moment date={props.updatedAt} fromNow />
-                    </div>
-                ) : (
-                    <div className="tooltip-container">Unknown how old is information</div>
-                )
-            }
+        <MaterialTooltip
+            title={<div className="tooltip-container">{props.title}</div>}
             placement="top"
             arrow
             classes={classes}
             TransitionComponent={Fade}
             TransitionProps={{timeout: 500}}
         >
-            <Info />
-        </Tooltip>
+            {props.children}
+        </MaterialTooltip>
     );
 };
