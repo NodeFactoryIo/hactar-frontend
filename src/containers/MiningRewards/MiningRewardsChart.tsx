@@ -1,9 +1,9 @@
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React, {ReactElement} from "react";
-
 import {ChartWrapper} from "../../components/ChartWrapper";
 import {IMiningReward} from "../../@types/ReduxStates";
 import {formatTokens} from "../../app/utils";
+import {EmptyChartData} from "../../components/EmptyChartData/EmptyChartData";
 
 type MiningRewardChartProps = {
     data: IMiningReward[];
@@ -14,6 +14,10 @@ export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
     public render(): ReactElement {
         const {data, onMouseMove} = this.props;
         const formattedData = data.map(v => ({date: v.updatedAt, amount: parseFloat(formatTokens(v.rewardSum))}));
+
+        if (formattedData.length === 0) {
+            return <EmptyChartData />;
+        }
 
         return (
             <ResponsiveContainer width="100%" height={360}>
