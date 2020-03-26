@@ -1,9 +1,9 @@
 import React from "react";
-import Alert, { AlertProps } from '@material-ui/lab/Alert';
-import Snackbar from '@material-ui/core/Snackbar';
+import Alert, {AlertProps} from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 interface INotificationProps extends AlertProps {
-    type: "success"|"error"|"warning"|"info";
+    type: "success" | "error" | "warning" | "info";
     message: string;
 }
 
@@ -23,14 +23,9 @@ export const Notification = (props: INotificationProps) => {
             open={open}
             autoHideDuration={3000}
             onClose={handleClose}
-            anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+            anchorOrigin={{vertical: "top", horizontal: "center"}}
         >
-            <Alert
-                {...props}
-                elevation={6}
-                variant="filled"
-                severity={props.type}
-            >
+            <Alert {...props} elevation={6} variant="filled" severity={props.type}>
                 {props.message}
             </Alert>
         </Snackbar>

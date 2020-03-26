@@ -1,4 +1,4 @@
-import React, {ReactElement, useState, useEffect} from "react";
+import React, {ReactElement, useEffect} from "react";
 import {Routes} from "../../constants/routes";
 import {RegisterForm, IRegisterFormData} from "./RegisterForm";
 import {submitUserRegistration} from "./UserSlice";
@@ -30,12 +30,8 @@ export const RegisterContainer = (): ReactElement => {
 
     return (
         <div className="onboarding-container">
-            {userState.registerSuccessValue ?
-                <Notification type="success" message="Registration successful"  />
-                : null}
-            {userState.registerErrorValue ?
-                <Notification type="error" message={userState.registerErrorValue} />
-                : null}
+            {userState.registerSuccessValue ? <Notification type="success" message="Registration successful" /> : null}
+            {userState.registerErrorValue ? <Notification type="error" message={userState.registerErrorValue} /> : null}
 
             <BackgroundImage />
 

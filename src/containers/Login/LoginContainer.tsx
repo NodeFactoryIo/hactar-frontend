@@ -1,4 +1,4 @@
-import React, {ReactElement, useState, useEffect} from "react";
+import React, {ReactElement, useEffect} from "react";
 import {LoginForm} from "./LoginForm";
 import {Routes} from "../../constants/routes";
 import {useHistory} from "react-router-dom";
@@ -30,11 +30,8 @@ export const LoginContainer = (): ReactElement => {
 
     return (
         <div className="onboarding-container">
-            {userState.loginSuccessValue ?
-                <Notification type="success" message="Login successful"  /> : null}
-            {userState.loginErrorValue ?
-                <Notification type="error" message={userState.loginErrorValue} />
-                : null}
+            {userState.loginSuccessValue ? <Notification type="success" message="Login successful" /> : null}
+            {userState.loginErrorValue ? <Notification type="error" message={userState.loginErrorValue} /> : null}
 
             <BackgroundImage />
 
