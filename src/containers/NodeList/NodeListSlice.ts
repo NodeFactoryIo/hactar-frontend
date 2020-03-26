@@ -43,12 +43,24 @@ export const nodeListReducer = nodeListSlice.reducer;
 export const getAllNodes = (): AppThunk => async (dispatch, getState): Promise<void> => {
     try {
         const token = getState().user.token;
-        const nodeDetailsResponse = await getNodesDetails(token);
-        console.log(nodeDetailsResponse);
-        dispatch(storeNodeListSuccess(nodeDetailsResponse.data));
+        const nodeListDetailsResponse = await getNodesDetails(token);
+        console.log(nodeListDetailsResponse);
+        dispatch(storeNodeListSuccess(nodeListDetailsResponse.data));
 
-        if (nodeDetailsResponse.data.length > 0) {
-            dispatch(storeSelectedNode(nodeDetailsResponse.data[0].id));
+        if (nodeListDetailsResponse.data.length > 0) {
+            let selectedNodeId = nodeListDetailsResponse.data[0].id;
+            const savedSelectedNodeId = localStorage.getItem("selectedNodeId");
+            if (!!savedSelectedNodeId) {
+                // Check if node still exists
+                for (let i = 0; i < nodeListDetailsResponse.data.length; i++) {
+                    const node: INodeDetails = nodeListDetailsResponse.data[i];
+                    if (node.id.toString() === localStorage.getItem("selectedNodeId")) {
+                        selectedNodeId = node.id;
+                        break;
+                    }
+                }
+            }
+            dispatch(storeSelectedNode(selectedNodeId));
         }
     } catch (err) {
         throw err;
@@ -86,6 +98,9 @@ export const submitDeleteNode = (nodeId: number): AppThunk => async (dispatch, g
         const token = getState().user.token;
         const response = await deleteNode(token, nodeId);
         if (response.status === 200) {
+            if (nodeId.toString() === localStorage.getItem("selectedNodeId")) {
+                localStorage.removeItem("selectedNodeId");
+            }
             dispatch(resetNodeList());
             dispatch(resetAppState());
             dispatch(getAllNodes());

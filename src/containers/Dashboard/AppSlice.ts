@@ -14,6 +14,7 @@ const appSlice = createSlice({
     reducers: {
         resetAppState: (): IState => initialState,
         storeSelectedNode(state: IState, action: PayloadAction<number>): void {
+            localStorage.setItem("selectedNodeId", action.payload.toString());
             state.selectedNodeId = action.payload;
         },
     },
