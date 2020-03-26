@@ -6,9 +6,9 @@ import {useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../app/rootReducer";
 import {BackgroundImage} from "../../components/BackgroundImage";
+import {Notification} from "../../components/Notification/Notification";
 
 export const RegisterContainer = (): ReactElement => {
-    const [notificationStatus, setNotificationStatus] = useState<boolean>(false);
     const history = useHistory();
     const dispatch = useDispatch();
     const userState = useSelector((state: RootState) => state.user);
@@ -24,21 +24,18 @@ export const RegisterContainer = (): ReactElement => {
 
     useEffect(() => {
         if (userState.registerSuccessValue) {
-            setNotificationStatus(true);
             setTimeout(history.push, 1000, Routes.LOGIN_ROUTE);
-        }
-        if (userState.registerErrorValue) {
-            setNotificationStatus(true);
-            setTimeout(setNotificationStatus, 4000, false);
         }
     }, [userState, history]);
 
     return (
         <div className="onboarding-container">
-            {/* temporary notification */}
-            <div className={`temporary-notification ${notificationStatus ? "" : "hidden"}`}>
-                {userState.registerSuccessValue ? "Registration successful" : userState.registerErrorValue}
-            </div>
+            {userState.registerSuccessValue ?
+                <Notification type="success" message="Registration successful"  />
+                : null}
+            {userState.registerErrorValue ?
+                <Notification type="error" message={userState.registerErrorValue} />
+                : null}
 
             <BackgroundImage />
 

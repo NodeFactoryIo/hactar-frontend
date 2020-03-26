@@ -7,9 +7,9 @@ import {RootState} from "../../app/rootReducer";
 import {ILoginFormData} from "./LoginForm";
 import {submitUserLogin} from "../Register/UserSlice";
 import {BackgroundImage} from "../../components/BackgroundImage";
+import {Notification} from "../../components/Notification/Notification";
 
 export const LoginContainer = (): ReactElement => {
-    const [notificationStatus, setNotificationStatus] = useState<boolean>(false);
     const history = useHistory();
     const dispatch = useDispatch();
     const userState = useSelector((state: RootState) => state.user);
@@ -24,21 +24,17 @@ export const LoginContainer = (): ReactElement => {
 
     useEffect(() => {
         if (userState.loginSuccessValue) {
-            setNotificationStatus(true);
             setTimeout(history.push, 1000, Routes.DASHBOARD_ROUTE);
-        }
-        if (userState.loginErrorValue) {
-            setNotificationStatus(true);
-            setTimeout(setNotificationStatus, 4000, false);
         }
     }, [userState, history]);
 
     return (
         <div className="onboarding-container">
-            {/* temporary notification */}
-            <div className={`temporary-notification ${notificationStatus ? "" : "hidden"}`}>
-                {userState.loginSuccessValue ? "Login successful" : userState.loginErrorValue}
-            </div>
+            {userState.loginSuccessValue ?
+                <Notification type="success" message="Login successful"  /> : null}
+            {userState.loginErrorValue ?
+                <Notification type="error" message={userState.loginErrorValue} />
+                : null}
 
             <BackgroundImage />
 
