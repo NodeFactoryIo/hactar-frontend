@@ -54,7 +54,8 @@ export const NodeListContainer = ({display, onNodeHeaderClick}: INodeListProps):
                     </div>
 
                     <p>
-                        {formatBytes(node.diskDetails.freeSpace)} / {formatBytes(node.diskDetails.takenSpace)}
+                        {formatBytes(node.latestDiskInformation.freeSpace)} /{" "}
+                        {formatBytes(node.latestDiskInformation.takenSpace)}
                     </p>
                     <p className="yellow">Online</p>
                 </div>
