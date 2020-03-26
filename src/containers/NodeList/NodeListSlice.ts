@@ -26,11 +26,10 @@ const nodeListSlice = createSlice({
     reducers: {
         resetNodeList: (): IDataEntity => initialState,
         storeNodeListSuccess(state: IDataEntity, action: PayloadAction<Array<INodeDetails>>): void {
-            const nodesWithCompleteInfo = action.payload.map((node, index) => ({
+            state.data = action.payload.map((node, index) => ({
                 ...node,
                 name: node.name || `Node ${index + 1}`,
             }));
-            state.data = nodesWithCompleteInfo;
             state.isLoading = false;
             state.error = "";
         },
