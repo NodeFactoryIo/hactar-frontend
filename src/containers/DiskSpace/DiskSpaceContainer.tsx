@@ -7,7 +7,7 @@ import {getDiskInfo} from "./DiskSpaceSlice";
 import {INodeDiskState} from "../../@types/ReduxStates";
 import {formatToGb} from "../../app/utils";
 import {Loading} from "../../components/Loading/Loading";
-import {AgeTooltip} from "../../components/Tooltip/Tooltip";
+import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
 
 export type DiskSpaceDataProps = {
     date: string;

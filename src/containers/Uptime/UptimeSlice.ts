@@ -1,4 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import _ from "lodash";
+
 import {AppThunk} from "../../app/store";
 import {fetchUptime} from "../../app/Api";
 import {INodeUptime} from "../../@types/ReduxStates";
@@ -24,7 +26,7 @@ const uptimeSlice = createSlice({
     initialState,
     reducers: {
         storeUptimeSuccess(state: IDataEntity, action: PayloadAction<Array<INodeUptime>>): void {
-            state.data = action.payload;
+            state.data = _.sortBy(action.payload, ["updatedAt"]);
             state.isLoading = false;
             state.error = "";
         },

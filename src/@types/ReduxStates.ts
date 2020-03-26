@@ -45,8 +45,7 @@ export interface IMiningReward {
     cid: string;
     id: number;
     rewardSum: string;
-    updatedAt: string;
-    createdAt: string;
+    timePeriod: string;
     nodeId: number;
 }
 

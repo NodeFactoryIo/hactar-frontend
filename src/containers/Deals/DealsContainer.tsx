@@ -8,7 +8,7 @@ import {getDeals} from "./DealsSlice";
 import {DealStatus} from "../../app/constants";
 import {Pagination} from "../../components/Pagination/Pagination";
 import {Loading} from "../../components/Loading/Loading";
-import {AgeTooltip} from "../../components/Tooltip/Tooltip";
+import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
 
 export const DealsContainer = (): ReactElement => {
     const dispatch = useDispatch();
