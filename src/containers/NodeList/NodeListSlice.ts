@@ -26,7 +26,7 @@ const nodeListSlice = createSlice({
     reducers: {
         resetNodeList: (): IDataEntity => initialState,
         storeNodeListSuccess(state: IDataEntity, action: PayloadAction<Array<INodeDetails>>): void {
-            state.data = action.payload.map((node) => ({
+            state.data = action.payload.map(node => ({
                 ...node,
                 name: node.name || `Node ${node.id}`,
             }));
