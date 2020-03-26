@@ -38,7 +38,6 @@ export const AgeTooltip = (props: IAgeTooltip & Omit<TooltipProps, "children" | 
             classes={classes}
             TransitionComponent={Fade}
             TransitionProps={{timeout: 500}}
-            {...props}
         >
             <Info />
         </Tooltip>

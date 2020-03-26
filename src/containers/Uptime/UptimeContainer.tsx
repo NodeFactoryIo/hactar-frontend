@@ -7,7 +7,7 @@ import {getUptime} from "./UptimeSlice";
 import {AgeTooltip} from "../../components/Tooltip/Tooltip";
 
 export const Uptime = (): ReactElement => {
-    const uptime = useSelector((state: RootState) => state.node.uptime);
+    const uptime = useSelector((state: RootState) => state.node.uptime.data);
     const [toolTip, setToolTip] = useState({isWorking: true, updatedAt: new Date().toString()});
     const [selectedInterval, setSelectedInterval] = useState<string>("week");
     const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
@@ -15,7 +15,7 @@ export const Uptime = (): ReactElement => {
 
     const updateTooltip = (e: any): void => {
         if (e.activePayload) {
-            setToolTip(uptime.data[e.activeTooltipIndex]);
+            setToolTip(uptime[e.activeTooltipIndex]);
         }
     };
 
@@ -29,7 +29,7 @@ export const Uptime = (): ReactElement => {
         <div className="container flex-column">
             <div className="upper row-spaced">
                 <label>uptime</label>
-                <AgeTooltip updatedAt={uptime.data[0] && uptime.data[0].updatedAt} />
+                <AgeTooltip updatedAt={uptime[0] && uptime[0].updatedAt} />
             </div>
 
             <ChartHeader
@@ -44,7 +44,7 @@ export const Uptime = (): ReactElement => {
                 ]}
             />
 
-            <UptimeChart data={uptime.data} onMouseMove={updateTooltip} />
+            <UptimeChart data={uptime} onMouseMove={updateTooltip} />
         </div>
     );
 };
