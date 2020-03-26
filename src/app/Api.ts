@@ -32,6 +32,11 @@ export async function getDiskDetails(auth: string | null, nodeId: number, filter
     return makeGetRequest(auth, url, {filter});
 }
 
+export async function getNodesDetails(auth: string | null) {
+    const url = `${config.apiURL}/user/nodes/details`;
+    return makeGetRequest(auth, url);
+}
+
 export async function getMinerInfo(auth: string | null, nodeId: number) {
     const url = `${config.apiURL}/user/node/generalminerinfo/${nodeId}`;
     return makeGetRequest(auth, url);

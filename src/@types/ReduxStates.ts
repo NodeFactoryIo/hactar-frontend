@@ -1,3 +1,8 @@
+export interface INodeDetails extends INodeState {
+    latestUptime: INodeUptime;
+    latestDiskInformation: INodeDiskState;
+}
+
 export interface INodeState {
     id: number;
     url: string;
@@ -9,7 +14,6 @@ export interface INodeState {
     createdAt: string;
     updatedAt: string;
     userId: number;
-    diskDetails: INodeDiskState;
 }
 export interface INodeInfoState {
     version: string;
