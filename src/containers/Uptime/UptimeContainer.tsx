@@ -28,10 +28,10 @@ export const Uptime = (): ReactElement => {
     }, [selectedInterval, selectedNodeId, dispatch]);
 
     return (
-        <div className={classNames("container flex-column", { stretch: uptime.length === 0 })}>
+        <div className={classNames("container flex-column", {stretch: uptime.length === 0})}>
             <div className="upper row-spaced">
                 <label>uptime</label>
-                <AgeTooltip updatedAt={uptime[uptime.length-1] && uptime[uptime.length-1].updatedAt} />
+                <AgeTooltip updatedAt={uptime[uptime.length - 1] && uptime[uptime.length - 1].updatedAt} />
             </div>
 
             <ChartHeader
@@ -46,11 +46,7 @@ export const Uptime = (): ReactElement => {
                 ]}
             />
 
-            <UptimeChart
-                data={uptime}
-                onMouseMove={updateTooltip}
-                interval={selectedInterval}
-            />
+            <UptimeChart data={uptime} onMouseMove={updateTooltip} interval={selectedInterval} />
         </div>
     );
 };

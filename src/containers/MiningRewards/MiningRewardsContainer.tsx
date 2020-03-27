@@ -40,10 +40,10 @@ export const MiningRewardsContainer = (): ReactElement => {
     }
 
     return (
-        <div className={classNames("container flex-column vertical-margin", { stretch: data.length === 0 })}>
+        <div className={classNames("container flex-column vertical-margin", {stretch: data.length === 0})}>
             <div className="upper row-spaced">
                 <label>mining rewards history</label>
-                <AgeTooltip updatedAt={data[data.length-1] && data[data.length-1].timePeriod} />
+                <AgeTooltip updatedAt={data[data.length - 1] && data[data.length - 1].timePeriod} />
             </div>
 
             <ChartHeader
@@ -58,11 +58,7 @@ export const MiningRewardsContainer = (): ReactElement => {
                 ]}
             />
 
-            <MiningRewardsChart
-                data={data}
-                onMouseMove={updateTooltip}
-                interval={selectedInterval}
-            />
+            <MiningRewardsChart data={data} onMouseMove={updateTooltip} interval={selectedInterval} />
         </div>
     );
 };

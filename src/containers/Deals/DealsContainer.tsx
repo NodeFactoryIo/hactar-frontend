@@ -53,7 +53,7 @@ export const DealsContainer = (): ReactElement => {
         <div className="container flex-column stretch">
             <div className="upper row-spaced">
                 <label>Deals</label>
-                <AgeTooltip updatedAt={data[data.length-1] && data[data.length-1].updatedAt} />
+                <AgeTooltip updatedAt={data[data.length - 1] && data[data.length - 1].updatedAt} />
             </div>
 
             <Table data={data} columns={columns} />
