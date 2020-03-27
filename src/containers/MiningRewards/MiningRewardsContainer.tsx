@@ -57,7 +57,11 @@ export const MiningRewardsContainer = (): ReactElement => {
                 ]}
             />
 
-            <MiningRewardsChart data={data} onMouseMove={updateTooltip} />
+            <MiningRewardsChart
+                data={data}
+                onMouseMove={updateTooltip}
+                interval={selectedInterval}
+            />
         </div>
     );
 };

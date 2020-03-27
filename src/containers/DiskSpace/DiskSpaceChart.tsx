@@ -7,11 +7,12 @@ import {EmptyChartData} from "../../components/EmptyChartData/EmptyChartData";
 type DiskSpaceChartProps = {
     data: DiskSpaceDataProps[];
     onMouseMove: (e: any) => void;
+    interval: string;
 };
 
 export class DiskSpaceChart extends ChartWrapper<DiskSpaceChartProps> {
     public render(): ReactElement {
-        const {data, onMouseMove} = this.props;
+        const {data, onMouseMove, interval} = this.props;
 
         if (data.length === 0) {
             return <EmptyChartData />;
@@ -20,7 +21,7 @@ export class DiskSpaceChart extends ChartWrapper<DiskSpaceChartProps> {
         return (
             <ResponsiveContainer width="100%" height={240}>
                 <BarChart data={data} margin={{top: 10, left: 30, bottom: 0}} onMouseMove={onMouseMove}>
-                    <XAxis dataKey="date" tickFormatter={(v): string => super.formatXAxis(v)} />
+                    <XAxis dataKey="date" tickFormatter={(v): string => super.formatAxisDateDisplay(v, interval)} />
                     <Tooltip content={(): null => null} cursor={false} />
                     <YAxis orientation="right" />
                     <CartesianGrid strokeDasharray="6 6" stroke="#363C4D" />

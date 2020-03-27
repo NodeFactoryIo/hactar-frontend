@@ -44,7 +44,11 @@ export const Uptime = (): ReactElement => {
                 ]}
             />
 
-            <UptimeChart data={uptime} onMouseMove={updateTooltip} />
+            <UptimeChart
+                data={uptime}
+                onMouseMove={updateTooltip}
+                interval={selectedInterval}
+            />
         </div>
     );
 };

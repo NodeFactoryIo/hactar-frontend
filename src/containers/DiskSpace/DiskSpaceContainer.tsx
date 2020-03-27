@@ -92,7 +92,11 @@ export const DiskSpace: React.FC = (): ReactElement => {
                     )}
                 />
             )}
-            <DiskSpaceChart data={formatDiskData(diskInformation)} onMouseMove={updateTooltip} />
+            <DiskSpaceChart
+                data={formatDiskData(diskInformation)}
+                onMouseMove={updateTooltip}
+                interval={selectedInterval}
+            />
         </div>
     );
 };
