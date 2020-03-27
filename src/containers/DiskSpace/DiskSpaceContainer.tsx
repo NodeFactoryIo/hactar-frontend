@@ -8,6 +8,7 @@ import {INodeDiskState} from "../../@types/ReduxStates";
 import {formatToGb} from "../../app/utils";
 import {Loading} from "../../components/Loading/Loading";
 import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
+import classNames from "classnames";
 
 export type DiskSpaceDataProps = {
     date: string;
@@ -67,7 +68,7 @@ export const DiskSpace: React.FC = (): ReactElement => {
     }
 
     return (
-        <div className="container flex-column vertical-margin">
+        <div className={classNames("container flex-column vertical-margin", { stretch: diskInformation.length === 0 })}>
             <div className="upper row-spaced">
                 <label>disk space</label>
                 <AgeTooltip
