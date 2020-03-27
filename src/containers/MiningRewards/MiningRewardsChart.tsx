@@ -8,11 +8,12 @@ import {EmptyChartData} from "../../components/EmptyChartData/EmptyChartData";
 type MiningRewardChartProps = {
     data: IMiningReward[];
     onMouseMove: (e: any) => void;
+    interval: string;
 };
 
 export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
     public render(): ReactElement {
-        const {data, onMouseMove} = this.props;
+        const {data, onMouseMove, interval} = this.props;
         const formattedData = data.map(v => ({date: v.timePeriod, amount: parseFloat(formatTokens(v.rewardSum))}));
 
         if (formattedData.length === 0) {
@@ -28,7 +29,7 @@ export class MiningRewardsChart extends ChartWrapper<MiningRewardChartProps> {
                             <stop offset="95%" stopColor="rgba(238, 202, 28)" stopOpacity={0} />
                         </linearGradient>
                     </defs>
-                    <XAxis dataKey="date" tickFormatter={(v): string => super.formatXAxis(v)} />
+                    <XAxis dataKey="date" tickFormatter={(v): string => super.formatAxisDateDisplay(v, interval)} />
                     <YAxis orientation="right" />
                     <CartesianGrid strokeDasharray="6 6" stroke="#363C4D" />
                     <Tooltip content={(): null => null} />

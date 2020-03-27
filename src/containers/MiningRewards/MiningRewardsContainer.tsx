@@ -8,6 +8,7 @@ import {getMiningRewards} from "./MiningRewardsSlice";
 import AccountBalanceWallet from "@material-ui/icons/AccountBalanceWallet";
 import {Loading} from "../../components/Loading/Loading";
 import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
+import classNames from "classnames";
 
 export const MiningRewardsContainer = (): ReactElement => {
     const miningRewards = useSelector((state: RootState) => state.node.miningRewards);
@@ -15,16 +16,17 @@ export const MiningRewardsContainer = (): ReactElement => {
     const [selectedInterval, setSelectedInterval] = useState<string>("week");
     const selectedNodeId = useSelector((state: RootState) => state.app.selectedNodeId);
     const dispatch = useDispatch();
+    const data = miningRewards.data;
 
     const updateTooltip = (e: any): void => {
         if (e.activePayload) {
-            setToolTip(miningRewards.data[e.activeTooltipIndex]);
+            setToolTip(data[e.activeTooltipIndex]);
         }
     };
 
     // Set tooltip for chart header to display latest value as initial
-    if (!miningRewards.isLoading && toolTip.rewardSum === "0" && miningRewards.data.length > 0) {
-        setToolTip(miningRewards.data[miningRewards.data.length - 1]);
+    if (!miningRewards.isLoading && toolTip.rewardSum === "0" && data.length > 0) {
+        setToolTip(data[data.length - 1]);
     }
 
     useEffect(() => {
@@ -38,10 +40,10 @@ export const MiningRewardsContainer = (): ReactElement => {
     }
 
     return (
-        <div className="container flex-column vertical-margin">
+        <div className={classNames("container flex-column vertical-margin", {stretch: data.length === 0})}>
             <div className="upper row-spaced">
                 <label>mining rewards history</label>
-                <AgeTooltip updatedAt={miningRewards.data[0] && miningRewards.data[0].timePeriod} />
+                <AgeTooltip updatedAt={data[data.length - 1] && data[data.length - 1].timePeriod} />
             </div>
 
             <ChartHeader
@@ -56,7 +58,7 @@ export const MiningRewardsContainer = (): ReactElement => {
                 ]}
             />
 
-            <MiningRewardsChart data={miningRewards.data} onMouseMove={updateTooltip} />
+            <MiningRewardsChart data={data} onMouseMove={updateTooltip} interval={selectedInterval} />
         </div>
     );
 };

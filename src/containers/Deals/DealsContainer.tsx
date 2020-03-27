@@ -17,6 +17,7 @@ export const DealsContainer = (): ReactElement => {
     const pageRecordsLimit = 6;
     const [fromRecords, setFromRecords] = useState(0);
     const [toRecords, setToRecords] = useState(pageRecordsLimit);
+    const data = deals.data;
 
     useEffect(() => {
         if (selectedNodeId) {
@@ -52,10 +53,10 @@ export const DealsContainer = (): ReactElement => {
         <div className="container flex-column stretch">
             <div className="upper row-spaced">
                 <label>Deals</label>
-                <AgeTooltip updatedAt={deals.data[0] && deals.data[0].updatedAt} />
+                <AgeTooltip updatedAt={data[data.length - 1] && data[data.length - 1].updatedAt} />
             </div>
 
-            <Table data={deals.data} columns={columns} />
+            <Table data={data} columns={columns} />
             <Pagination numberOfRecords={deals.count} pageRecordsLimit={pageRecordsLimit} onPageChange={onPageChange} />
         </div>
     );

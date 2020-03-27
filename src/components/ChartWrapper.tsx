@@ -16,7 +16,10 @@ export class ChartWrapper<P extends IChartWrapper> extends Component<P> {
         return this.props.children;
     }
 
-    protected formatXAxis(value: string): string {
-        return moment(value).format("DD MMM");
+    protected formatAxisDateDisplay(value: string, interval: string): string {
+        const format = interval === "day" ? "HH:mm" : "DD MMM";
+        return moment(value)
+            .utc()
+            .format(format);
     }
 }
