@@ -8,6 +8,7 @@ import {INodeDiskState} from "../../@types/ReduxStates";
 import {formatToGb} from "../../app/utils";
 import {Loading} from "../../components/Loading/Loading";
 import {AgeTooltip} from "../../components/Tooltip/AgeTooltip";
+import classNames from "classnames";
 
 export type DiskSpaceDataProps = {
     date: string;
@@ -67,10 +68,15 @@ export const DiskSpace: React.FC = (): ReactElement => {
     }
 
     return (
-        <div className="container flex-column vertical-margin">
+        <div className={classNames("container flex-column vertical-margin", {stretch: diskInformation.length === 0})}>
             <div className="upper row-spaced">
                 <label>disk space</label>
-                <AgeTooltip updatedAt={diskInformation[0] && diskInformation[0].updatedAt} />
+                <AgeTooltip
+                    updatedAt={
+                        diskInformation[diskInformation.length - 1] &&
+                        diskInformation[diskInformation.length - 1].updatedAt
+                    }
+                />
             </div>
             {toolTip ? (
                 <ChartHeader
@@ -90,7 +96,11 @@ export const DiskSpace: React.FC = (): ReactElement => {
                     )}
                 />
             )}
-            <DiskSpaceChart data={formatDiskData(diskInformation)} onMouseMove={updateTooltip} />
+            <DiskSpaceChart
+                data={formatDiskData(diskInformation)}
+                onMouseMove={updateTooltip}
+                interval={selectedInterval}
+            />
         </div>
     );
 };
