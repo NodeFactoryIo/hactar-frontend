@@ -1,5 +1,5 @@
-import React from "react";
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import React, {useEffect, useState} from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -24,11 +24,21 @@ const tabStyle = makeStyles(() => ({
 
 export const Instructions = () => {
     const classes = tabStyle();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0);
+    const [versionTag, setVersionTag] = useState("v1.0.1");
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
     };
+
+    useEffect(() => {
+        fetch("https://api.github.com/repos/nodefactoryio/hactar-daemon/releases")
+            .then((response) => response.json())
+            .then(response => {
+                const tagName = response[0]["tag_name"];
+                setVersionTag(tagName);
+            })
+    }, []);
 
     return (
         <div className="instructions">
@@ -37,20 +47,46 @@ export const Instructions = () => {
 
             <AppBar className="tabs" position="static">
                 <Tabs classes={classes} value={value} onChange={handleChange} aria-label="Installation instructions">
-                    <Tab classes={classes} label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
-                    <Tab label="Item Three" {...a11yProps(2)} />
+                    <Tab classes={classes} label="Linux (32bit)" {...a11yProps(0)} />
+                    <Tab label="Linux (64bit)" {...a11yProps(1)} />
+                    <Tab label="OS X older than 10.13.4" {...a11yProps(2)} />
+                    <Tab label="OS X High Sierra and later" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
 
             <TabPanel value={value} index={0}>
-                Item One
+                <p>Command line instructions:</p><br/><br />
+
+                <div className="code">wget
+                    https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}/hactar-linux-32bit</div>
+                <div className="code">chmod +x hactar-linux-32bit</div>
+                <div className="code">./hactar-linux-32bit start</div>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                <p>Command line instructions:</p><br/><br />
+
+                <div className="code">wget
+                    https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}/hactar-linux-64bit</div>
+                <div className="code">chmod +x hactar-linux-64bit</div>
+                <div className="code">./hactar-linux-64bit start</div>
             </TabPanel>
+
             <TabPanel value={value} index={2}>
-                Item Three
+                <p>Command line instructions:</p><br/><br />
+
+                <div className="code">wget
+                    https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}/hactar-mac-os-32bit</div>
+                <div className="code">chmod +x hactar-mac-os-32bit</div>
+                <div className="code">./hactar-mac-os-32bit start</div>
+            </TabPanel>
+
+            <TabPanel value={value} index={3}>
+                <p>Command line instructions:</p><br/><br />
+
+                <div className="code">wget
+                    https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}/hactar-mac-os-64bit</div>
+                <div className="code">chmod +x hactar-mac-os-64bit</div>
+                <div className="code">./hactar-mac-os-64bit start</div>
             </TabPanel>
         </div>
     );
