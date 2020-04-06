@@ -15,6 +15,7 @@ import {getAvailableNodeVersion} from "../GeneralInfo/GeneralInfoSlice";
 import {getAllNodes} from "../NodeList/NodeListSlice";
 import {EmptyList} from "../../components/EmptyList/EmptyList";
 import {Loading} from "../../components/Loading/Loading";
+import {Instructions} from "./Instructions/Instructions";
 
 export const DashboardContainer = (): ReactElement => {
     const [areElementsHidden, setElementsHidden] = useState<boolean>(true);
@@ -45,7 +46,10 @@ export const DashboardContainer = (): ReactElement => {
             <TopBar logOut={() => dispatch(logOutUser())} email={userEmail} />
 
             {!stateNodeList.isLoading && !selectedNodeId && stateNodeList.data.length === 0 ? (
-                <EmptyList message="No nodes are added" />
+                <>
+                    <EmptyList message="No nodes are added" />
+                    <Instructions />
+                </>
             ) : (
                 <>
                     <GeneralInfo setElementsHidden={setElementsHidden} areElementsHidden={areElementsHidden} />

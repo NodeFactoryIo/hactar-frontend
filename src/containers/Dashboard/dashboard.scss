@@ -50,7 +50,7 @@ body {
       margin-right: 0.67rem;
     }
   }
-  
+
   .column.right .container  {
     @media #{$mq-medium} {
       margin-left: 0.67rem;
@@ -100,3 +100,6 @@ body {
   margin-left: 0.75rem;
   font-size: 1.5rem;
 }
+
+@import "./NodeNameTitle/node-name-title.scss";
+@import "./Instructions/instructions.scss";
