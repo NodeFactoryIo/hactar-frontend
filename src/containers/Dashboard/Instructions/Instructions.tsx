@@ -1,25 +1,25 @@
 import React, {useEffect, useState} from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import {makeStyles} from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
 function a11yProps(index: any) {
     return {
         id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
+        "aria-controls": `simple-tabpanel-${index}`,
     };
 }
 
 const tabStyle = makeStyles(() => ({
     root: {
-        background: "#1D2333"
+        background: "#1D2333",
     },
-    indicator:{
-        backgroundColor: '#EECA1C'
-    }
+    indicator: {
+        backgroundColor: "#EECA1C",
+    },
 }));
 
 export const Instructions = () => {
@@ -33,16 +33,16 @@ export const Instructions = () => {
 
     useEffect(() => {
         fetch("https://api.github.com/repos/nodefactoryio/hactar-daemon/releases")
-            .then((response) => response.json())
+            .then(response => response.json())
             .then(response => {
                 const tagName = response[0]["tag_name"];
                 setVersionTag(tagName);
-            })
+            });
     }, []);
 
     return (
         <div className="instructions">
-            <p>Almost done!</p>
+            <p>Almost done! One more step.</p>
             <p>Setup Hactar daemon application on your server, alongside your Filecoin miner.</p>
 
             <AppBar className="tabs" position="static">
@@ -55,36 +55,52 @@ export const Instructions = () => {
             </AppBar>
 
             <TabPanel value={value} index={0}>
-                <p>Command line instructions:</p><br/><br />
+                <p>Command line instructions:</p>
+                <br />
+                <br />
 
-                <div className="code">wget
-                    https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}/hactar-linux-32bit</div>
+                <div className="code">
+                    wget https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}
+                    /hactar-linux-32bit
+                </div>
                 <div className="code">chmod +x hactar-linux-32bit</div>
                 <div className="code">./hactar-linux-32bit start</div>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <p>Command line instructions:</p><br/><br />
+                <p>Command line instructions:</p>
+                <br />
+                <br />
 
-                <div className="code">wget
-                    https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}/hactar-linux-64bit</div>
+                <div className="code">
+                    wget https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}
+                    /hactar-linux-64bit
+                </div>
                 <div className="code">chmod +x hactar-linux-64bit</div>
                 <div className="code">./hactar-linux-64bit start</div>
             </TabPanel>
 
             <TabPanel value={value} index={2}>
-                <p>Command line instructions:</p><br/><br />
+                <p>Command line instructions:</p>
+                <br />
+                <br />
 
-                <div className="code">wget
-                    https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}/hactar-mac-os-32bit</div>
+                <div className="code">
+                    wget https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}
+                    /hactar-mac-os-32bit
+                </div>
                 <div className="code">chmod +x hactar-mac-os-32bit</div>
                 <div className="code">./hactar-mac-os-32bit start</div>
             </TabPanel>
 
             <TabPanel value={value} index={3}>
-                <p>Command line instructions:</p><br/><br />
+                <p>Command line instructions:</p>
+                <br />
+                <br />
 
-                <div className="code">wget
-                    https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}/hactar-mac-os-64bit</div>
+                <div className="code">
+                    wget https://github.com/NodeFactoryIo/hactar-daemon/releases/download/{versionTag}
+                    /hactar-mac-os-64bit
+                </div>
                 <div className="code">chmod +x hactar-mac-os-64bit</div>
                 <div className="code">./hactar-mac-os-64bit start</div>
             </TabPanel>
@@ -92,14 +108,14 @@ export const Instructions = () => {
     );
 };
 
-interface TabPanelProps {
+interface ITabPanelProps {
     children?: React.ReactNode;
     index: any;
     value: any;
 }
 
-function TabPanel(props: TabPanelProps) {
-    const { children, value, index, ...other } = props;
+function TabPanel(props: ITabPanelProps) {
+    const {children, value, index, ...other} = props;
 
     return (
         <Typography
