@@ -1,0 +1,19 @@
+.instructions {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: $regular;
+  background-color: $container;
+  margin: 2rem 2rem 0;
+  border-radius: 8px;
+  padding: 1rem 0;
+
+  .tabs {
+    margin-top: 2rem;
+    width: 62%;
+  }
+
+  p {
+    margin: 0.2rem;
+  }
+}
