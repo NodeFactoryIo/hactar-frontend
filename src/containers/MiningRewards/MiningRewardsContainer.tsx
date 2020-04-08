@@ -24,16 +24,18 @@ export const MiningRewardsContainer = (): ReactElement => {
         }
     };
 
-    // Set tooltip for chart header to display latest value as initial
-    if (!miningRewards.isLoading && toolTip.rewardSum === "0" && data.length > 0) {
-        setToolTip(data[data.length - 1]);
-    }
-
     useEffect(() => {
         if (selectedNodeId) {
             dispatch(getMiningRewards(selectedNodeId, selectedInterval));
         }
     }, [selectedInterval, selectedNodeId, dispatch]);
+
+    // Set tooltip for chart header to display latest value as initial
+    useEffect(() => {
+        if (!miningRewards.isLoading && toolTip.rewardSum === "0" && data.length > 0) {
+            setToolTip(data[data.length - 1]);
+        }
+    }, [miningRewards.isLoading, toolTip, data]);
 
     if (miningRewards.isLoading) {
         return <Loading />;
