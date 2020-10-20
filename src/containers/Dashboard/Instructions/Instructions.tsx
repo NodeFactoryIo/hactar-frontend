@@ -25,7 +25,7 @@ const tabStyle = makeStyles(() => ({
 export const Instructions = () => {
     const classes = tabStyle();
     const [value, setValue] = useState(0);
-    const [versionTag, setVersionTag] = useState("v1.0.1");
+    const [versionTag, setVersionTag] = useState("v1.0.2");
 
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setValue(newValue);
