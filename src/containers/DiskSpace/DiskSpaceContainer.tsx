@@ -48,11 +48,11 @@ export const DiskSpace: React.FC = (): ReactElement => {
         return [
             {
                 value: `Free - ${free ? free + " GB" : ""}`,
-                icon: <img src={require("../../assets/icons/polygon.svg")} />,
+                icon: <img src={require("../../assets/icons/polygon.svg")} alt="Free space" />,
             },
             {
                 value: `Taken - ${taken ? taken + " GB" : ""}`,
-                icon: <img src={require("../../assets/icons/polygon-dark.svg")} />,
+                icon: <img src={require("../../assets/icons/polygon-dark.svg")} alt="Taken space" />,
             },
         ];
     };
